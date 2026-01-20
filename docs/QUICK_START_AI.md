@@ -1,0 +1,139 @@
+# Quick Start Guide for AI Agents
+
+## ⚠️ Rule #1: TypeScript First
+
+```bash
+# After ANY code change:
+npm run build  # Must pass!
+```
+
+**Never proceed with TS errors. Fix immediately.**
+
+### Common TS Errors:
+```typescript
+// ❌ Type imports without 'type' keyword
+import { User } from './types';
+
+// ✅ Use 'type' keyword
+import type { User } from './types';
+```
+
+---
+
+## 🚀 The #1 Rule: Mobile-First Always
+
+```typescript
+// ❌ WRONG - Desktop-first
+<div className="lg:text-sm text-xl">
+
+// ✅ CORRECT - Mobile-first
+<div className="text-xl lg:text-sm">
+```
+
+## 📦 shadcn/ui is NOT a Package
+
+```bash
+# This doesn't install a package - it copies code!
+npx shadcn@latest add button
+
+# Creates: src/components/ui/button.tsx
+```
+
+### ⚠️ CRITICAL: components.json Setup
+
+```json
+// ✅ CORRECT - Use relative paths
+"aliases": {
+  "components": "./src/components",
+  "utils": "./src/lib/utils"
+}
+
+// ❌ WRONG - Creates literal @ folder
+"aliases": {
+  "components": "@/components",
+  "utils": "@/lib/utils"
+}
+```
+
+## 🎨 The cn() Utility is Your Best Friend
+
+```typescript
+import { cn } from '@/lib/utils';
+
+<Button className={cn(
+  "px-4 py-2",              // defaults
+  isActive && "bg-blue-500", // conditional
+  className                  // user override (ALWAYS LAST)
+)} />
+```
+
+## 🌓 Never Forget Dark Mode
+
+```typescript
+// ❌ INCOMPLETE
+<div className="bg-white text-black">
+
+// ✅ COMPLETE
+<div className="bg-white dark:bg-dark-surface text-gray-900 dark:text-white">
+```
+
+## 📱 Responsive Breakpoints
+
+```
+       sm:640px   md:768px   lg:1024px   xl:1280px   2xl:1536px
+Mobile ─────┼─────────┼──────────┼───────────┼───────────┼────→
+            Tablet    Laptop     Desktop    Large      XL
+```
+
+## ⚡ Quick Patterns
+
+### Container
+```typescript
+<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+```
+
+### Grid
+```typescript
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+```
+
+### Stack
+```typescript
+<div className="space-y-4">
+```
+
+### Center
+```typescript
+<div className="flex items-center justify-center min-h-screen">
+```
+
+## 🎯 Component Template
+
+```typescript
+import { FC } from 'react';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  className?: string;
+}
+
+export const MyComponent: FC<Props> = ({ className }) => {
+  return (
+    <div className={cn(
+      "flex flex-col gap-4 p-6",                    // Layout
+      "bg-white dark:bg-dark-surface",              // Background
+      "border border-gray-200 dark:border-gray-800", // Border
+      "text-gray-900 dark:text-white",              // Text
+      "rounded-lg shadow-sm",                        // Effects
+      "sm:p-8 lg:p-10",                             // Responsive
+      className                                      // User override
+    )}>
+      {/* Content */}
+    </div>
+  );
+};
+```
+
+## 📚 Read Full Guide
+
+For complete details, see [AI_AGENT_GUIDE.md](./AI_AGENT_GUIDE.md)
