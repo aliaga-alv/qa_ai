@@ -81,6 +81,7 @@ export const Header = ({
     { label: "Home", href: ROUTES.HOME },
     { label: "Features", href: "/#features" },
     { label: "Pricing", href: ROUTES.PRICING },
+    { label: "Docs", href: ROUTES.DOCS },
     { label: "About", href: ROUTES.ABOUT },
   ];
 

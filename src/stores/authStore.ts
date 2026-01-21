@@ -26,6 +26,7 @@ interface AuthActions {
   login: (user: User, accessToken: string, refreshToken: string) => void;
   logout: () => void;
   clearError: () => void;
+  loginTestUser: () => void; // Development only
 }
 
 type AuthStore = AuthState & AuthActions;
@@ -78,6 +79,28 @@ export const useAuthStore = create<AuthStore>()(
         set({
           error: null,
         }),
+
+      // Development: Login test user without API
+      loginTestUser: () => {
+        const testUser: User = {
+          id: 'test-user-123',
+          email: 'test@qaai.com',
+          firstName: 'Test',
+          lastName: 'User',
+          role: 'admin',
+          emailVerified: true,
+          createdAt: new Date().toISOString(),
+        };
+        
+        // Mock tokens
+        tokenStorage.setTokens('test-access-token', 'test-refresh-token');
+        
+        set({
+          user: testUser,
+          isAuthenticated: true,
+          error: null,
+        });
+      },
     }),
     {
       name: 'auth-storage',

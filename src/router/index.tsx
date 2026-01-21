@@ -5,10 +5,10 @@ import { RootLayout } from "@/components/layout/RootLayout";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import { PublicRoute } from "@/components/layout/PublicRoute";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
+import DashboardLayout from "@/components/dashboard/layout/DashboardLayout";
 import { HomePage } from "@/pages/HomePage";
 import { LoginPage } from "@/pages/LoginPage";
 import { RegisterPage } from "@/pages/RegisterPage";
-import { DashboardPage } from "@/pages/DashboardPage";
 import { PricingPage } from "@/pages/PricingPage";
 import { AboutPage } from "@/pages/AboutPage";
 import { CareersPage } from "@/pages/CareersPage";
@@ -20,12 +20,31 @@ import { TermsPage } from "@/pages/TermsPage";
 import { PrivacyPage } from "@/pages/PrivacyPage";
 import { CookiePolicyPage } from "@/pages/CookiePolicyPage";
 import { SecurityPage } from "@/pages/SecurityPage";
+import { DocumentationPage } from "@/pages/DocumentationPage";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 import { ServerErrorPage } from "@/pages/ServerErrorPage";
 import { ForbiddenPage } from "@/pages/ForbiddenPage";
 import { UnauthorizedPage } from "@/pages/UnauthorizedPage";
 
+// Dashboard pages
+import DashboardPage from "@/pages/dashboard/DashboardPage";
+import TestsPage from "@/pages/dashboard/TestsPage";
+import CreateTestPage from "@/pages/dashboard/CreateTestPage";
+import TestDetailsPage from "@/pages/dashboard/TestDetailsPage";
+import EditTestPage from "@/pages/dashboard/EditTestPage";
+import RunTestsPage from "@/pages/dashboard/RunTestsPage";
+import HistoryPage from "@/pages/dashboard/HistoryPage";
+import IntegrationsPage from "@/pages/dashboard/IntegrationsPage";
+import TeamPage from "@/pages/dashboard/TeamPage";
+import AnalyticsPage from "@/pages/dashboard/AnalyticsPage";
+import SettingsPage from "@/pages/dashboard/SettingsPage";
+import ProfileSettingsPage from "@/pages/dashboard/ProfileSettingsPage";
+import SecuritySettingsPage from "@/pages/dashboard/SecuritySettingsPage";
+import TeamSettingsPage from "@/pages/dashboard/TeamSettingsPage";
+import BillingSettingsPage from "@/pages/dashboard/BillingSettingsPage";
+
 export const router = createBrowserRouter([
+  // Public routes with main site layout (Header + Footer)
   {
     path: "/",
     element: (
@@ -84,6 +103,10 @@ export const router = createBrowserRouter([
         path: "security",
         element: <SecurityPage />,
       },
+      {
+        path: "docs",
+        element: <DocumentationPage />,
+      },
 
       // Error pages
       {
@@ -114,22 +137,90 @@ export const router = createBrowserRouter([
         ],
       },
 
-      // Protected routes
-      {
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: "dashboard",
-            element: <DashboardPage />,
-          },
-          // Add more protected routes here
-        ],
-      },
-
-      // 404 catch-all
+      // 404 catch-all for public routes
       {
         path: "*",
         element: <NotFoundPage />,
+      },
+    ],
+  },
+
+  // Dashboard routes with separate layout (NO header/footer)
+  {
+    path: "/dashboard",
+    element: (
+      <>
+        <ScrollToTop />
+        <ProtectedRoute />
+      </>
+    ),
+    children: [
+      {
+        element: <DashboardLayout />,
+        children: [
+          {
+            index: true,
+            element: <DashboardPage />,
+          },
+          {
+            path: "tests",
+            element: <TestsPage />,
+          },
+          {
+            path: "tests/new",
+            element: <CreateTestPage />,
+          },
+          {
+            path: "tests/:id",
+            element: <TestDetailsPage />,
+          },
+          {
+            path: "tests/:id/edit",
+            element: <EditTestPage />,
+          },
+          {
+            path: "run",
+            element: <RunTestsPage />,
+          },
+          {
+            path: "history",
+            element: <HistoryPage />,
+          },
+          {
+            path: "integrations",
+            element: <IntegrationsPage />,
+          },
+          {
+            path: "team",
+            element: <TeamPage />,
+          },
+          {
+            path: "analytics",
+            element: <AnalyticsPage />,
+          },
+          {
+            path: "settings",
+            element: <SettingsPage />,
+          },
+          {
+            path: "settings/profile",
+            element: <ProfileSettingsPage />,
+          },
+          {
+            path: "settings/security",
+            element: <SecuritySettingsPage />,
+          },
+          {
+            path: "settings/team",
+            element: <TeamSettingsPage />,
+          },
+          {
+            path: "settings/billing",
+            element: <BillingSettingsPage />,
+          },
+          // TODO: Add more dashboard routes as we build them
+          // tests/new, run, history, integrations, team, etc.
+        ],
       },
     ],
   },

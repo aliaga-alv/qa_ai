@@ -5,11 +5,24 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
-import { loginSchema, type LoginFormData } from '@/schemas/auth';import { ROUTES } from "@/constants/routes";
+import { loginSchema, type LoginFormData } from '@/schemas/auth';
+import { ROUTES } from "@/constants/routes";
+import { useAuthStore } from '@/stores/authStore';
+
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
+  const { loginTestUser } = useAuthStore();
   const navigate = useNavigate();
+
+  // Development: Test user login
+  const handleTestLogin = () => {
+    loginTestUser();
+    toast.success('Logged in as test user!', {
+      description: 'Using test@qaai.com credentials',
+    });
+    navigate(ROUTES.DASHBOARD);
+  };
 
   const {
     register,
@@ -245,6 +258,24 @@ export const LoginPage = () => {
             Sign up for free
           </Link>
         </p>
+
+        {/* Development: Test Login Button */}
+        {import.meta.env.DEV && (
+          <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg">
+            <p className="text-xs text-yellow-800 dark:text-yellow-200 mb-2 font-medium">
+              🚀 Development Mode
+            </p>
+            <button
+              onClick={handleTestLogin}
+              className="w-full px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              Quick Login as Test User
+            </button>
+            <p className="text-xs text-yellow-700 dark:text-yellow-300 mt-2">
+              Credentials: test@qaai.com • Bypasses API
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

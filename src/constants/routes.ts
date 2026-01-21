@@ -11,6 +11,7 @@ export const ROUTES = {
   CONTACT: '/contact',
   BLOG: '/blog',
   CHANGELOG: '/changelog',
+  DOCS: '/docs',
   FEATURES: '/#features',
   
   // Auth routes
@@ -20,16 +21,18 @@ export const ROUTES = {
   RESET_PASSWORD: '/reset-password',
   VERIFY_EMAIL: '/verify-email',
   
-  // Protected routes
+  // Protected routes - Dashboard
   DASHBOARD: '/dashboard',
-  TESTS: '/tests',
-  TEST_DETAIL: (id: string) => `/tests/${id}`,
-  TEST_CREATE: '/tests/new',
-  PROJECTS: '/projects',
-  PROJECT_DETAIL: (id: string) => `/projects/${id}`,
-  PROJECT_CREATE: '/projects/new',
-  SETTINGS: '/settings',
-  PROFILE: '/profile',
+  DASHBOARD_TESTS: '/dashboard/tests',
+  DASHBOARD_TEST_NEW: '/dashboard/tests/new',
+  DASHBOARD_TEST_DETAIL: (id: string) => `/dashboard/tests/${id}`,
+  DASHBOARD_RUN: '/dashboard/run',
+  DASHBOARD_ANALYTICS: '/dashboard/analytics',
+  DASHBOARD_HISTORY: '/dashboard/history',
+  DASHBOARD_INTEGRATIONS: '/dashboard/integrations',
+  DASHBOARD_TEAM: '/dashboard/team',
+  DASHBOARD_SETTINGS: '/dashboard/settings',
+  DASHBOARD_PROFILE: '/dashboard/profile',
   
   // Legal
   TERMS: '/terms',
