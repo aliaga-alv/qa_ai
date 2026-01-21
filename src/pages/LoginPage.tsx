@@ -260,7 +260,7 @@ export const LoginPage = () => {
         </p>
 
         {/* Development: Test Login Button */}
-        {import.meta.env.DEV && (
+        {/* {import.meta.env.DEV && ( */}
           <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-lg">
             <p className="text-xs text-yellow-800 dark:text-yellow-200 mb-2 font-medium">
               🚀 Development Mode
@@ -275,7 +275,7 @@ export const LoginPage = () => {
               Credentials: test@qaai.com • Bypasses API
             </p>
           </div>
-        )}
+        {/* )} */}
       </div>
     </div>
   );
