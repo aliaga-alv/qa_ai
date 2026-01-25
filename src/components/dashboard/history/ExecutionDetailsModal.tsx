@@ -1,19 +1,13 @@
 import { X, Terminal, Image, Video, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import type { ExecutionDetail } from '../../../types/models';
+import { LOG_LEVEL_COLORS } from '@/constants/ui';
 
 interface ExecutionDetailsModalProps {
   execution: ExecutionDetail | null;
   isOpen: boolean;
   onClose: () => void;
 }
-
-const levelColors = {
-  info: 'text-gray-400',
-  success: 'text-green-400',
-  error: 'text-red-400',
-  warning: 'text-yellow-400',
-};
 
 export default function ExecutionDetailsModal({
   execution,
@@ -143,7 +137,7 @@ export default function ExecutionDetailsModal({
                     <span className="text-gray-500 flex-shrink-0">
                       {format(log.timestamp, 'HH:mm:ss.SSS')}
                     </span>
-                    <span className={`flex-shrink-0 ${levelColors[log.level]} uppercase`}>
+                    <span className={`flex-shrink-0 ${LOG_LEVEL_COLORS[log.level]} uppercase`}>
                       [{log.level}]
                     </span>
                     <span className="text-gray-300 break-all">{log.message}</span>

@@ -1,14 +1,7 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {
-  LayoutDashboard,
   TestTube2,
-  Play,
-  BarChart3,
-  History,
-  Settings,
-  Users,
-  Plug,
   Menu,
   X,
   Search,
@@ -17,21 +10,12 @@ import {
   HelpCircle,
   Moon,
   Sun,
+  Settings,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
 import NotificationsWidget from '../NotificationsWidget';
-
-const navigation = [
-  { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Tests', href: '/dashboard/tests', icon: TestTube2 },
-  { name: 'Run Tests', href: '/dashboard/run', icon: Play },
-  { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
-  { name: 'History', href: '/dashboard/history', icon: History },
-  { name: 'Integrations', href: '/dashboard/integrations', icon: Plug },
-  { name: 'Team', href: '/dashboard/team', icon: Users },
-  { name: 'Settings', href: '/dashboard/settings', icon: Settings },
-];
+import { DASHBOARD_NAVIGATION } from '@/constants';
 
 export default function DashboardLayout() {
   const location = useLocation();
@@ -83,7 +67,7 @@ export default function DashboardLayout() {
 
           {/* Navigation */}
           <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
-            {navigation.map((item) => {
+            {DASHBOARD_NAVIGATION.map((item) => {
               // For dashboard overview, only match exact path
               // For other items, match exact path or sub-paths
               const isActive = item.href === '/dashboard'

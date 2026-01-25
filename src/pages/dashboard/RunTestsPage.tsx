@@ -4,17 +4,10 @@ import { toast } from "sonner";
 import TestSelector from "../../components/dashboard/execution/TestSelector";
 import TestExecutionItem from '../../components/dashboard/execution/TestExecutionItem';
 import LiveLogsViewer from '../../components/dashboard/execution/LiveLogsViewer';
-import type { TestSimple, ExecutingTest, LogEntry, ExecutionStatus } from '../../types/models';
+import type { ExecutingTest, LogEntry, ExecutionStatus } from '../../types/models';
+import { mockTests } from '@/mocks';
 
 // TODO: Replace with real API data
-const mockTests: TestSimple[] = [
-  { id: "1", name: "User Login Flow", type: "ui", duration: 2.3 },
-  { id: "2", name: "API Health Check", type: "api", duration: 0.8 },
-  { id: "3", name: "Payment Processing", type: "integration", duration: 4.5 },
-  { id: "4", name: "User Registration", type: "ui", duration: 3.2 },
-  { id: "5", name: "Product Search", type: "ui", duration: 1.5 },
-  { id: "6", name: "Database Migration", type: "unit", duration: 0.5 },
-];
 
 export default function RunTestsPage() {
   const [selectedTests, setSelectedTests] = useState<string[]>([]);

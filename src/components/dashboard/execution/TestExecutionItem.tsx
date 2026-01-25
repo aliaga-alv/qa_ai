@@ -1,5 +1,6 @@
 import { Square, RotateCw } from 'lucide-react';
 import type { ExecutionStatus } from '../../../types/models';
+import { TEST_EXECUTION_STATUS_CONFIG } from '@/constants/ui';
 
 interface TestExecutionItemProps {
   id: string;
@@ -12,37 +13,6 @@ interface TestExecutionItemProps {
   onRetry: (id: string) => void;
 }
 
-const statusConfig = {
-  pending: {
-    color: 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700',
-    label: 'Pending',
-  },
-  queued: {
-    color: 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700',
-    label: 'Queued',
-  },
-  running: {
-    color: 'text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/20',
-    label: 'Running',
-  },
-  passed: {
-    color: 'text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/20',
-    label: 'Passed',
-  },
-  failed: {
-    color: 'text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/20',
-    label: 'Failed',
-  },
-  stopped: {
-    color: 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/20',
-    label: 'Stopped',
-  },
-  cancelled: {
-    color: 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700',
-    label: 'Cancelled',
-  },
-};
-
 export default function TestExecutionItem({
   id,
   name,
@@ -53,7 +23,7 @@ export default function TestExecutionItem({
   onStop,
   onRetry,
 }: TestExecutionItemProps) {
-  const config = statusConfig[status];
+  const config = TEST_EXECUTION_STATUS_CONFIG[status];
 
   return (
     <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">

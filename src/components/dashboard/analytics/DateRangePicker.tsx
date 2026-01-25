@@ -1,18 +1,12 @@
 import { Calendar } from 'lucide-react';
 import { useState } from 'react';
 import type { DateRange } from '../../../types/models';
+import { DATE_RANGE_PRESETS } from '@/constants';
 
 interface DateRangePickerProps {
   value: DateRange;
   onChange: (range: DateRange) => void;
 }
-
-const presets = [
-  { label: 'Last 7 days', days: 7 },
-  { label: 'Last 30 days', days: 30 },
-  { label: 'Last 90 days', days: 90 },
-  { label: 'Last 6 months', days: 180 },
-];
 
 export default function DateRangePicker({ onChange }: DateRangePickerProps) {
   const [selectedPreset, setSelectedPreset] = useState('Last 30 days');
@@ -29,7 +23,7 @@ export default function DateRangePicker({ onChange }: DateRangePickerProps) {
     <div className="flex items-center space-x-2">
       <Calendar className="h-5 w-5 text-gray-400" />
       <div className="flex space-x-2">
-        {presets.map((preset) => (
+        {DATE_RANGE_PRESETS.map((preset) => (
           <button
             key={preset.label}
             onClick={() => handlePresetClick(preset.label, preset.days)}

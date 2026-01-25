@@ -1,19 +1,13 @@
 import { Terminal, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import type { LogEntry } from '../../../types/models';
+import { LOG_LEVEL_COLORS } from '@/constants/ui';
 
 interface LiveLogsViewerProps {
   logs: LogEntry[];
   isOpen: boolean;
   onClose: () => void;
 }
-
-const levelColors = {
-  info: 'text-gray-400',
-  success: 'text-green-400',
-  error: 'text-red-400',
-  warning: 'text-yellow-400',
-};
 
 export default function LiveLogsViewer({ logs, isOpen, onClose }: LiveLogsViewerProps) {
   const logsEndRef = useRef<HTMLDivElement>(null);
@@ -51,7 +45,7 @@ export default function LiveLogsViewer({ logs, isOpen, onClose }: LiveLogsViewer
                 <span className="text-gray-500 flex-shrink-0">
                   {log.timestamp.toLocaleTimeString()}
                 </span>
-                <span className={`flex-shrink-0 ${levelColors[log.level]} uppercase`}>
+                <span className={`flex-shrink-0 ${LOG_LEVEL_COLORS[log.level]} uppercase`}>
                   [{log.level}]
                 </span>
                 <span className="text-gray-300 break-all">{log.message}</span>

@@ -1,45 +1,9 @@
 import { CheckCircle, XCircle, Plus, Clock, User } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import type { Activity } from '../../../types/models';
+import { mockActivities } from '@/mocks';
 
 // TODO: Replace with real API data
-const mockActivities: Activity[] = [
-  {
-    id: '1',
-    type: 'test_passed',
-    message: 'Login flow test completed successfully',
-    user: 'John Doe',
-    timestamp: new Date(Date.now() - 5 * 60 * 1000),
-  },
-  {
-    id: '2',
-    type: 'test_failed',
-    message: 'Payment integration test failed',
-    user: 'Jane Smith',
-    timestamp: new Date(Date.now() - 15 * 60 * 1000),
-  },
-  {
-    id: '3',
-    type: 'test_created',
-    message: 'Created new API endpoint test',
-    user: 'Mike Johnson',
-    timestamp: new Date(Date.now() - 30 * 60 * 1000),
-  },
-  {
-    id: '4',
-    type: 'test_running',
-    message: 'Running checkout flow test suite',
-    user: 'Sarah Williams',
-    timestamp: new Date(Date.now() - 2 * 60 * 1000),
-  },
-  {
-    id: '5',
-    type: 'test_passed',
-    message: 'User registration test completed',
-    user: 'Tom Brown',
-    timestamp: new Date(Date.now() - 45 * 60 * 1000),
-  },
-];
 
 const getActivityIcon = (type: Activity['type']) => {
   switch (type) {

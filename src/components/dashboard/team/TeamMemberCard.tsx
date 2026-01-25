@@ -1,6 +1,7 @@
 import { Crown, Shield, User as UserIcon, MoreVertical } from 'lucide-react';
 import { useState } from 'react';
 import type { UserRole, TeamMember } from '../../../types/models';
+import { TEAM_MEMBER_ROLE_CONFIG } from '@/constants/ui';
 
 interface TeamMemberCardProps {
   member: TeamMember;
@@ -9,31 +10,11 @@ interface TeamMemberCardProps {
   onRemove: (memberId: string) => void;
 }
 
-const roleConfig = {
-  owner: {
-    icon: Crown,
-    color: 'text-yellow-600 dark:text-yellow-400',
-    bg: 'bg-yellow-100 dark:bg-yellow-900/20',
-    label: 'Owner',
-  },
-  admin: {
-    icon: Shield,
-    color: 'text-purple-600 dark:text-purple-400',
-    bg: 'bg-purple-100 dark:bg-purple-900/20',
-    label: 'Admin',
-  },
-  member: {
-    icon: UserIcon,
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-100 dark:bg-blue-900/20',
-    label: 'Member',
-  },
-  viewer: {
-    icon: UserIcon,
-    color: 'text-gray-600 dark:text-gray-400',
-    bg: 'bg-gray-100 dark:bg-gray-700',
-    label: 'Viewer',
-  },
+const roleIcons = {
+  owner: Crown,
+  admin: Shield,
+  member: UserIcon,
+  viewer: UserIcon,
 };
 
 export default function TeamMemberCard({
@@ -43,8 +24,8 @@ export default function TeamMemberCard({
   onRemove,
 }: TeamMemberCardProps) {
   const [showMenu, setShowMenu] = useState(false);
-  const config = roleConfig[member.role];
-  const RoleIcon = config.icon;
+  const config = TEAM_MEMBER_ROLE_CONFIG[member.role];
+  const RoleIcon = roleIcons[member.role];
 
   const canManage = currentUserRole === 'owner' || currentUserRole === 'admin';
   const canChangeRole = canManage && member.role !== 'owner';

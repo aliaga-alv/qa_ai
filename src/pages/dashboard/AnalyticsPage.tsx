@@ -18,67 +18,22 @@ import {
 import DateRangePicker from '../../components/dashboard/analytics/DateRangePicker';
 import FlakyTestsList from '../../components/dashboard/analytics/FlakyTestsList';
 import AIInsights from '../../components/dashboard/analytics/AIInsights';
+import {
+  mockReliabilityChartData,
+  mockCoverageChartData,
+  mockFlakyTestsData,
+  mockAnalyticsInsights,
+  mockAnalyticsTrendData,
+  mockPerformanceData,
+} from '@/mocks';
+import { mockAnalyticsStats } from '@/mocks/stats';
 
 // TODO: Replace with real API data
-const mockTrendData = Array.from({ length: 30 }, (_, i) => ({
-  date: `Day ${i + 1}`,
-  passed: Math.floor(Math.random() * 50) + 150,
-  failed: Math.floor(Math.random() * 20) + 5,
-  duration: (Math.random() * 2 + 3).toFixed(1),
-}));
-
-const mockReliabilityData = [
-  { name: 'Login', reliability: 98.5, runs: 342 },
-  { name: 'Checkout', reliability: 94.2, runs: 256 },
-  { name: 'Search', reliability: 96.8, runs: 198 },
-  { name: 'Payment', reliability: 92.1, runs: 187 },
-  { name: 'Registration', reliability: 97.3, runs: 165 },
-];
-
-const mockPerformanceData = Array.from({ length: 30 }, (_, i) => ({
-  date: `Day ${i + 1}`,
-  avgDuration: (Math.random() * 1 + 2).toFixed(1),
-  p95Duration: (Math.random() * 2 + 4).toFixed(1),
-}));
-
-const mockCoverageData = [
-  { feature: 'Authentication', coverage: 95 },
-  { feature: 'Payment', coverage: 87 },
-  { feature: 'Search', coverage: 92 },
-  { feature: 'Profile', coverage: 78 },
-  { feature: 'Admin', coverage: 65 },
-  { feature: 'API', coverage: 88 },
-];
-
-const mockFlakyTests = [
-  { id: '1', name: 'Payment Processing', flakinessRate: 12.5, totalRuns: 80, failures: 10, trend: 'up' as const },
-  { id: '2', name: 'Search Filters', flakinessRate: 8.3, totalRuns: 120, failures: 10, trend: 'down' as const },
-  { id: '3', name: 'User Dropdown', flakinessRate: 15.2, totalRuns: 66, failures: 10, trend: 'up' as const },
-];
-
-const mockInsights = [
-  {
-    id: '1',
-    type: 'success' as const,
-    title: 'Test Reliability Improved',
-    description: 'Overall test success rate increased by 3.2% over the last 7 days.',
-    action: 'View details',
-  },
-  {
-    id: '2',
-    type: 'warning' as const,
-    title: 'Flaky Test Detected',
-    description: 'Payment Processing test has failed 12.5% of runs. Consider investigating.',
-    action: 'Fix test',
-  },
-  {
-    id: '3',
-    type: 'info' as const,
-    title: 'Performance Optimization',
-    description: 'Login tests could be 30% faster by reducing wait times.',
-    action: 'Optimize',
-  },
-];
+const mockTrendData = mockAnalyticsTrendData;
+const mockReliabilityData = mockReliabilityChartData;
+const mockCoverageData = mockCoverageChartData;
+const mockFlakyTests = mockFlakyTestsData;
+const mockInsights = mockAnalyticsInsights;
 
 const getInitialDateRange = () => ({
   start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
@@ -95,12 +50,6 @@ export default function AnalyticsPage() {
     });
   };
 
-  const stats = [
-    { label: 'Total Test Runs', value: '8,247', change: '+12.3%', positive: true },
-    { label: 'Avg Success Rate', value: '94.8%', change: '+2.1%', positive: true },
-    { label: 'Avg Duration', value: '3.2s', change: '-8.5%', positive: true },
-    { label: 'Flaky Tests', value: '3', change: '-2', positive: true },
-  ];
 
   return (
     <div className="space-y-6">
@@ -145,7 +94,7 @@ export default function AnalyticsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {stats.map((stat) => (
+        {mockAnalyticsStats.map((stat) => (
           <div
             key={stat.label}
             className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4"
@@ -246,10 +195,10 @@ export default function AnalyticsPage() {
         </h3>
         <div className="space-y-4">
           {mockCoverageData.map((item) => (
-            <div key={item.feature}>
+            <div key={item.name}>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {item.feature}
+                  {item.name}
                 </span>
                 <span className="text-sm font-bold text-gray-900 dark:text-white">
                   {item.coverage}%

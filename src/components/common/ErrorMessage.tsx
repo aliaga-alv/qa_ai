@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { type ReactNode } from 'react';
+import { ERROR_MESSAGE_VARIANT_STYLES } from '@/constants/ui';
 
 interface ErrorMessageProps {
   title?: string;
@@ -13,27 +14,6 @@ interface ErrorMessageProps {
   onDismiss?: () => void;
   className?: string;
 }
-
-const variantStyles = {
-  error: {
-    container: 'bg-error-50 dark:bg-error-900/20 border-error-200 dark:border-error-800',
-    icon: 'text-error-500',
-    title: 'text-error-900 dark:text-error-100',
-    message: 'text-error-700 dark:text-error-300',
-  },
-  warning: {
-    container: 'bg-warning-50 dark:bg-warning-900/20 border-warning-200 dark:border-warning-800',
-    icon: 'text-warning-500',
-    title: 'text-warning-900 dark:text-warning-100',
-    message: 'text-warning-700 dark:text-warning-300',
-  },
-  info: {
-    container: 'bg-info-50 dark:bg-info-900/20 border-info-200 dark:border-info-800',
-    icon: 'text-info-500',
-    title: 'text-info-900 dark:text-info-100',
-    message: 'text-info-700 dark:text-info-300',
-  },
-};
 
 const defaultIcons = {
   error: (
@@ -77,7 +57,7 @@ export const ErrorMessage = ({
   onDismiss,
   className,
 }: ErrorMessageProps) => {
-  const styles = variantStyles[variant];
+  const styles = ERROR_MESSAGE_VARIANT_STYLES[variant];
   const defaultIcon = defaultIcons[variant];
 
   return (

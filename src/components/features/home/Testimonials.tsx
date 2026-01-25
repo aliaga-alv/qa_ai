@@ -1,49 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-import type { Testimonial } from '@/types/models';
-
-const testimonials: Testimonial[] = [
-  {
-    name: 'Sarah Johnson',
-    role: 'QA Lead',
-    company: 'TechCorp',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
-    content: 'This platform revolutionized our testing workflow. We reduced our QA cycle from 2 weeks to 3 days. The AI-powered test generation is incredibly accurate and saves us countless hours.',
-    rating: 5,
-  },
-  {
-    name: 'Michael Chen',
-    role: 'Engineering Manager',
-    company: 'StartupHub',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael',
-    content: 'Best investment we made this year. The ROI was immediate - we caught critical bugs before production that would have cost us thousands. The team collaboration features are outstanding.',
-    rating: 5,
-  },
-  {
-    name: 'Emily Rodriguez',
-    role: 'DevOps Engineer',
-    company: 'CloudScale',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emily',
-    content: 'Integration with our CI/CD pipeline was seamless. The 24/7 monitoring gives us peace of mind. We have deployed to production with confidence ever since we started using this tool.',
-    rating: 5,
-  },
-  {
-    name: 'David Park',
-    role: 'CTO',
-    company: 'FinTech Solutions',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
-    content: 'Security and compliance were our top concerns. This platform exceeded all expectations with enterprise-grade security and comprehensive audit logs. Highly recommend for regulated industries.',
-    rating: 5,
-  },
-  {
-    name: 'Lisa Thompson',
-    role: 'Product Manager',
-    company: 'SaaS Innovators',
-    image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa',
-    content: 'The analytics dashboard provides insights we never had before. We can now make data-driven decisions about our testing strategy. The code-free automation is perfect for non-technical team members.',
-    rating: 5,
-  },
-];
+import { testimonials } from '@/mocks';
 
 export const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

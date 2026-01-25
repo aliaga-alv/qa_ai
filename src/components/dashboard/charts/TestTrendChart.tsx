@@ -1,17 +1,8 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-// TODO: Replace with real API data
-const mockData = [
-  { date: 'Jan 15', total: 45, passed: 40, failed: 5 },
-  { date: 'Jan 16', total: 52, passed: 48, failed: 4 },
-  { date: 'Jan 17', total: 48, passed: 42, failed: 6 },
-  { date: 'Jan 18', total: 61, passed: 58, failed: 3 },
-  { date: 'Jan 19', total: 58, passed: 54, failed: 4 },
-  { date: 'Jan 20', total: 67, passed: 63, failed: 4 },
-  { date: 'Jan 21', total: 72, passed: 68, failed: 4 },
-];
+import { mockTestTrendChartData } from '@/mocks';
 
 export default function TestTrendChart() {
+  const mockData = mockTestTrendChartData;
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex items-center justify-between mb-6">

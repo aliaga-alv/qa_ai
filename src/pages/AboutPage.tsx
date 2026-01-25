@@ -1,91 +1,11 @@
-import { Target, Zap, Users, Heart, Shield, Lightbulb } from 'lucide-react';
 import { TeamMember } from '@/components/features/about/TeamMember';
 import { ValueCard } from '@/components/features/about/ValueCard';
 import { StatCard } from '@/components/features/about/StatCard';
 import { ROUTES } from '@/constants/routes';
-import type { TeamMemberData, ValueData } from '@/types/models';
+import { companyValues, teamMembers } from '@/mocks';
 
-const values: ValueData[] = [
-  {
-    icon: Target,
-    title: 'Mission-Driven',
-    description: 'We\'re committed to making quality assurance accessible to every development team, regardless of size or resources.',
-  },
-  {
-    icon: Zap,
-    title: 'Innovation First',
-    description: 'We leverage cutting-edge AI technology to revolutionize how teams approach testing and quality assurance.',
-  },
-  {
-    icon: Users,
-    title: 'User-Centric',
-    description: 'Every feature we build starts with understanding and solving real problems faced by development teams.',
-  },
-  {
-    icon: Heart,
-    title: 'Quality Obsessed',
-    description: 'We practice what we preach - our own development process is built on rigorous testing and continuous improvement.',
-  },
-  {
-    icon: Shield,
-    title: 'Trust & Security',
-    description: 'Your code and data security is paramount. We maintain the highest standards of data protection and privacy.',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Continuous Learning',
-    description: 'We stay at the forefront of QA and AI technology, constantly evolving to serve you better.',
-  },
-];
-
-const team: TeamMemberData[] = [
-  {
-    name: 'Sarah Chen',
-    role: 'CEO & Co-Founder',
-    bio: 'Former QA lead at Google, passionate about making testing accessible to all developers.',
-    linkedin: 'https://linkedin.com',
-    twitter: 'https://twitter.com',
-    image: '',
-  },
-  {
-    name: 'Michael Rodriguez',
-    role: 'CTO & Co-Founder',
-    bio: 'AI researcher with 10+ years building intelligent systems for software development.',
-    linkedin: 'https://linkedin.com',
-    twitter: 'https://twitter.com',
-    image: '',
-  },
-  {
-    name: 'Emily Watson',
-    role: 'Head of Engineering',
-    bio: 'Previously at Amazon, specializing in scalable testing infrastructure and automation.',
-    linkedin: 'https://linkedin.com',
-    image: '',
-  },
-  {
-    name: 'David Kim',
-    role: 'Head of Product',
-    bio: 'Product leader with a track record of building developer tools that teams love.',
-    linkedin: 'https://linkedin.com',
-    twitter: 'https://twitter.com',
-    image: '',
-  },
-  {
-    name: 'Lisa Thompson',
-    role: 'Head of Customer Success',
-    bio: 'Dedicated to ensuring every team gets maximum value from our platform.',
-    linkedin: 'https://linkedin.com',
-    image: '',
-  },
-  {
-    name: 'James Park',
-    role: 'Lead AI Engineer',
-    bio: 'PhD in Machine Learning, building the AI that powers our intelligent test generation.',
-    linkedin: 'https://linkedin.com',
-    twitter: 'https://twitter.com',
-    image: '',
-  },
-];
+const values = companyValues;
+const team = teamMembers;
 
 export const AboutPage = () => {
   return (

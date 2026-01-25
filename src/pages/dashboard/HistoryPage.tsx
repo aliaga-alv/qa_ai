@@ -4,95 +4,7 @@ import { toast } from 'sonner';
 import HistoryDatePicker from '../../components/dashboard/history/HistoryDatePicker';
 import HistoryListItem from '../../components/dashboard/history/HistoryListItem';
 import ExecutionDetailsModal from '../../components/dashboard/history/ExecutionDetailsModal';
-import type { TestExecution, ExecutionStatus } from '../../types/models';
-
-// TODO: Replace with real API data
-const mockExecutions: TestExecution[] = [
-  {
-    id: '1',
-    testName: 'User Login Flow',
-    status: 'passed',
-    duration: 2.34,
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    environment: 'production',
-    triggeredBy: 'CI/CD',
-    hasScreenshots: true,
-    hasVideo: true,
-  },
-  {
-    id: '2',
-    testName: 'Payment Processing',
-    status: 'failed',
-    duration: 4.12,
-    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
-    environment: 'staging',
-    triggeredBy: 'John Doe',
-    hasScreenshots: true,
-    hasVideo: false,
-    errorCount: 2,
-  },
-  {
-    id: '3',
-    testName: 'API Health Check',
-    status: 'passed',
-    duration: 0.87,
-    timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000),
-    environment: 'production',
-    triggeredBy: 'Scheduler',
-    hasScreenshots: false,
-    hasVideo: false,
-  },
-  {
-    id: '4',
-    testName: 'User Registration',
-    status: 'passed',
-    duration: 3.21,
-    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000),
-    environment: 'staging',
-    triggeredBy: 'Jane Smith',
-    hasScreenshots: true,
-    hasVideo: true,
-  },
-  {
-    id: '5',
-    testName: 'Search Functionality',
-    status: 'stopped',
-    duration: 1.45,
-    timestamp: new Date(Date.now() - 18 * 60 * 60 * 1000),
-    environment: 'development',
-    triggeredBy: 'CI/CD',
-    hasScreenshots: false,
-    hasVideo: false,
-  },
-];
-
-const mockExecutionDetail = {
-  id: '1',
-  testName: 'User Login Flow',
-  status: 'passed' as ExecutionStatus,
-  duration: 2.34,
-  timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-  environment: 'production',
-  triggeredBy: 'CI/CD',
-  logs: [
-    { timestamp: new Date(), level: 'info' as const, message: 'Test execution started' },
-    { timestamp: new Date(), level: 'info' as const, message: 'Navigating to login page' },
-    { timestamp: new Date(), level: 'success' as const, message: 'Login form loaded successfully' },
-    { timestamp: new Date(), level: 'info' as const, message: 'Entering credentials' },
-    { timestamp: new Date(), level: 'success' as const, message: 'Login successful' },
-    { timestamp: new Date(), level: 'info' as const, message: 'Redirected to dashboard' },
-    { timestamp: new Date(), level: 'success' as const, message: 'Test completed successfully' },
-  ],
-  errors: [],
-  screenshots: ['screenshot1.png', 'screenshot2.png', 'screenshot3.png'],
-  videoUrl: 'video.mp4',
-  config: {
-    browser: 'chrome',
-    timeout: 30000,
-    retries: 2,
-    baseUrl: 'https://app.example.com',
-  },
-};
+import { mockHistoryExecutions, mockHistoryExecutionDetail } from '@/mocks';
 
 export default function HistoryPage() {
   const [dateRange, setDateRange] = useState(() => ({
@@ -101,18 +13,18 @@ export default function HistoryPage() {
   }));
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedExecution, setSelectedExecution] = useState<typeof mockExecutionDetail | null>(null);
+  const [selectedExecution, setSelectedExecution] = useState<typeof mockHistoryExecutionDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const filteredExecutions = mockExecutions.filter((execution) => {
+  const filteredExecutions = mockHistoryExecutions.filter((execution) => {
     const matchesStatus = selectedStatus === 'all' || execution.status === selectedStatus;
     const matchesSearch = execution.testName.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesStatus && matchesSearch;
   });
 
-  const handleSelectExecution = (_id: string) => {
+  const handleSelectExecution = () => {
     // In real app, fetch execution details by ID
-    setSelectedExecution(mockExecutionDetail);
+    setSelectedExecution(mockHistoryExecutionDetail);
     setIsModalOpen(true);
   };
 
@@ -123,19 +35,19 @@ export default function HistoryPage() {
   };
 
   const stats = [
-    { label: 'Total Executions', value: mockExecutions.length.toString() },
+    { label: 'Total Executions', value: mockHistoryExecutions.length.toString() },
     {
       label: 'Passed',
-      value: mockExecutions.filter((e) => e.status === 'passed').length.toString(),
+      value: mockHistoryExecutions.filter((e) => e.status === 'passed').length.toString(),
     },
     {
       label: 'Failed',
-      value: mockExecutions.filter((e) => e.status === 'failed').length.toString(),
+      value: mockHistoryExecutions.filter((e) => e.status === 'failed').length.toString(),
     },
     {
       label: 'Avg Duration',
       value: `${(
-        mockExecutions.reduce((sum, e) => sum + e.duration, 0) / mockExecutions.length
+        mockHistoryExecutions.reduce((sum, e) => sum + e.duration, 0) / mockHistoryExecutions.length
       ).toFixed(2)}s`,
     },
   ];

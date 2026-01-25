@@ -1,39 +1,10 @@
-import { Sparkles, Code, Upload, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
+import { CREATE_TEST_FEATURES } from '@/constants';
 
 export default function CreateTestPage() {
   const navigate = useNavigate();
-
-  const features = [
-    {
-      icon: Sparkles,
-      title: 'AI-Generated Tests',
-      description: 'Describe your test in natural language and let AI generate the code',
-      color: 'text-purple-600 dark:text-purple-400',
-      bgColor: 'bg-purple-100 dark:bg-purple-900/20',
-    },
-    {
-      icon: Code,
-      title: 'Manual Test Creation',
-      description: 'Write tests with our Monaco code editor with syntax highlighting',
-      color: 'text-blue-600 dark:text-blue-400',
-      bgColor: 'bg-blue-100 dark:bg-blue-900/20',
-    },
-    {
-      icon: Upload,
-      title: 'Import Tests',
-      description: 'Upload test files from Cypress, Playwright, or other frameworks',
-      color: 'text-green-600 dark:text-green-400',
-      bgColor: 'bg-green-100 dark:bg-green-900/20',
-    },
-    {
-      icon: Settings,
-      title: 'Test Configuration',
-      description: 'Configure test parameters, environment variables, and assertions',
-      color: 'text-orange-600 dark:text-orange-400',
-      bgColor: 'bg-orange-100 dark:bg-orange-900/20',
-    },
-  ];
+  const features = CREATE_TEST_FEATURES;
 
   return (
     <div className="space-y-6">

@@ -25,119 +25,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import type { TestRun } from "../../types/models";
+import { mockTestDetailTrendData } from "@/mocks/charts";
+import { mockTestDetail, mockTestRuns } from "@/mocks";
+import { TEST_STATUS_COLORS } from "@/constants/ui";
 
 // TODO: Replace with real API data
-const getMockTest = () => {
-  const now = Date.now();
-  return {
-    id: "1",
-    name: "User Login Flow",
-    description:
-      "Tests the complete user authentication process including login form validation, API calls, and redirect behavior.",
-    type: "ui",
-    status: "active",
-    createdAt: new Date(now - 30 * 24 * 60 * 60 * 1000),
-    updatedAt: new Date(now - 2 * 24 * 60 * 60 * 1000),
-    lastRun: new Date(now - 2 * 60 * 60 * 1000),
-    tags: ["auth", "critical", "smoke"],
-    successRate: 98,
-    totalRuns: 342,
-    avgDuration: 2.3,
-    code: `describe('User Login Flow', () => {
-  it('should display login form', () => {
-    cy.visit('/login');
-    cy.get('[data-testid="email-input"]').should('be.visible');
-    cy.get('[data-testid="password-input"]').should('be.visible');
-    cy.get('[data-testid="login-button"]').should('be.visible');
-  });
-
-  it('should show validation errors for invalid inputs', () => {
-    cy.visit('/login');
-    cy.get('[data-testid="login-button"]').click();
-    cy.contains('Email is required').should('be.visible');
-    cy.contains('Password is required').should('be.visible');
-  });
-
-  it('should login successfully with valid credentials', () => {
-    cy.visit('/login');
-    cy.get('[data-testid="email-input"]').type('test@example.com');
-    cy.get('[data-testid="password-input"]').type('password123');
-    cy.get('[data-testid="login-button"]').click();
-    
-    cy.url().should('include', '/dashboard');
-    cy.contains('Welcome back').should('be.visible');
-  });
-});`,
-    config: {
-      timeout: 30000,
-      retries: 2,
-      environment: "staging",
-      baseUrl: "https://staging.example.com",
-      browser: "chrome",
-    },
-  };
-};
-
-const getMockRuns = (): TestRun[] => {
-  const now = Date.now();
-  return [
-    {
-      id: "1",
-      status: "passed",
-      duration: 2.1,
-      timestamp: new Date(now - 2 * 60 * 60 * 1000),
-      environment: "staging",
-    },
-    {
-      id: "2",
-      status: "passed",
-      duration: 2.4,
-      timestamp: new Date(now - 5 * 60 * 60 * 1000),
-      environment: "staging",
-    },
-    {
-      id: "3",
-      status: "failed",
-      duration: 1.8,
-      timestamp: new Date(now - 8 * 60 * 60 * 1000),
-      environment: "production",
-      errors: 'Timeout: Element not found [data-testid="login-button"]',
-    },
-    {
-      id: "4",
-      status: "passed",
-      duration: 2.2,
-      timestamp: new Date(now - 12 * 60 * 60 * 1000),
-      environment: "staging",
-    },
-    {
-      id: "5",
-      status: "passed",
-      duration: 2.5,
-      timestamp: new Date(now - 24 * 60 * 60 * 1000),
-      environment: "staging",
-    },
-  ];
-};
-
-const mockTrendData = [
-  { date: "Jan 15", duration: 2.1, success: 100 },
-  { date: "Jan 16", duration: 2.4, success: 95 },
-  { date: "Jan 17", duration: 2.2, success: 98 },
-  { date: "Jan 18", duration: 2.5, success: 96 },
-  { date: "Jan 19", duration: 2.3, success: 100 },
-  { date: "Jan 20", duration: 2.1, success: 98 },
-  { date: "Jan 21", duration: 2.3, success: 98 },
-];
-
-const statusColors = {
-  passed:
-    "text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/20",
-  failed: "text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/20",
-  running:
-    "text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/20",
-};
 
 const statusIcons = {
   passed: CheckCircle,
@@ -151,8 +43,8 @@ export default function TestDetailsPage() {
   const [activeTab, setActiveTab] = useState<
     "overview" | "code" | "runs" | "config"
   >("overview");  
-  const mockTest = getMockTest();
-  const mockRuns = getMockRuns();
+  const mockTest = mockTestDetail;
+  const mockRuns = mockTestRuns;
   const handleRunTest = () => {
     toast.success("Test execution started", {
       description: `Running test: ${mockTest.name}`,
@@ -356,7 +248,7 @@ export default function TestDetailsPage() {
               Performance Trend (7 days)
             </h3>
             <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={mockTrendData}>
+              <LineChart data={mockTestDetailTrendData}>
                 <CartesianGrid
                   strokeDasharray="3 3"
                   stroke="currentColor"
@@ -445,7 +337,7 @@ export default function TestDetailsPage() {
                       <td className="px-6 py-4">
                         <div className="flex items-center space-x-2">
                           <span
-                            className={`flex items-center space-x-1 px-2.5 py-1 text-xs font-medium rounded-full ${statusColors[run.status]}`}
+                            className={`flex items-center space-x-1 px-2.5 py-1 text-xs font-medium rounded-full ${TEST_STATUS_COLORS[run.status]}`}
                           >
                             <StatusIcon className="h-3 w-3" />
                             <span className="capitalize">{run.status}</span>

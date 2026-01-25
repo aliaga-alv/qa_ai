@@ -2,6 +2,7 @@ import { Play, Edit, Copy, Trash2, MoreVertical } from 'lucide-react';
 import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import type { Test } from '../../../types/models';
+import { TEST_LIST_STATUS_COLORS, TEST_LIST_TYPE_COLORS } from '@/constants/ui';
 
 interface TestListItemProps {
   test: Test;
@@ -11,19 +12,6 @@ interface TestListItemProps {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 }
-
-const statusColors = {
-  active: 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400',
-  inactive: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
-  draft: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400',
-};
-
-const typeColors = {
-  api: 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400',
-  ui: 'bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400',
-  integration: 'bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400',
-  unit: 'bg-pink-100 text-pink-700 dark:bg-pink-900/20 dark:text-pink-400',
-};
 
 export default function TestListItem({
   test,
@@ -78,14 +66,14 @@ export default function TestListItem({
 
       {/* Type */}
       <td className="px-6 py-4">
-        <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${typeColors[test.type]}`}>
+        <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${TEST_LIST_TYPE_COLORS[test.type]}`}>
           {test.type.toUpperCase()}
         </span>
       </td>
 
       {/* Status */}
       <td className="px-6 py-4">
-        <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${statusColors[test.status]}`}>
+        <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${TEST_LIST_STATUS_COLORS[test.status]}`}>
           {test.status.charAt(0).toUpperCase() + test.status.slice(1)}
         </span>
       </td>

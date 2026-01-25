@@ -199,19 +199,42 @@ qa_ai/
 │   ├── lib/                      # Utility libraries
 │   │   ├── utils.ts              # Helper functions
 │   │   ├── cn.ts                 # Class name merger
-│   │   └── constants.ts
+│   │   ├── api-error-handler.ts
+│   │   └── token-storage.ts
+│   ├── constants/                # Application constants
+│   │   ├── index.ts              # Central export point
+│   │   ├── ui.ts                 # UI styling configs
+│   │   ├── routes.ts             # Route paths
+│   │   ├── date.ts               # Date formats
+│   │   ├── features.ts           # Feature definitions
+│   │   ├── documentation.ts      # Documentation sections
+│   │   └── blog.ts               # Blog categories
+│   ├── mocks/                    # Mock data (development)
+│   │   ├── index.ts              # Central export point
+│   │   ├── charts.ts             # Chart data
+│   │   ├── tests.ts              # Test data
+│   │   ├── stats.ts              # Statistics data
+│   │   ├── billing.ts            # Billing/payment data
+│   │   ├── security.ts           # Security logs
+│   │   ├── team.ts               # Team data
+│   │   ├── about.ts              # About page data
+│   │   ├── blog.ts               # Blog posts
+│   │   ├── activity.ts           # Activity feed
+│   │   └── actions.ts            # Quick actions
 │   ├── types/                    # TypeScript types
 │   │   ├── models/
-│   │   │   ├── User.ts
-│   │   │   ├── Blog.ts
-│   │   │   └── Pricing.ts
-│   │   └── api/
-│   │       └── responses.ts
+│   │   │   ├── index.ts          # Central export point
+│   │   │   ├── dashboard.ts      # Test, TeamMember, etc.
+│   │   │   ├── analytics.ts      # Insight, FlakyTest, etc.
+│   │   │   ├── billing.ts        # PaymentMethod, Invoice, etc.
+│   │   │   ├── security.ts       # ActiveSession, SecurityLog
+│   │   │   ├── notification.ts   # Notification, Activity
+│   │   │   └── content.ts        # Blog, Pricing, Careers
+│   │   └── api/                  # API-related types
 │   ├── styles/                   # Global styles
 │   │   ├── globals.css
 │   │   └── themes.css
 │   ├── config/                   # Configuration
-│   │   ├── routes.ts
 │   │   └── env.ts
 │   ├── App.tsx                   # Root component
 │   ├── main.tsx                  # Entry point

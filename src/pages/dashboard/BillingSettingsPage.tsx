@@ -2,93 +2,10 @@ import { useState } from 'react';
 import { CreditCard, Download, Check, Zap, TrendingUp, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
-import type { PaymentMethod, Invoice, Plan } from '../../types/models';
+import type { PaymentMethod, Invoice } from '../../types/models';
+import { mockPaymentMethod, mockInvoices, billingPlans } from '@/mocks';
 
 // TODO: Replace with real API data
-const mockPaymentMethod: PaymentMethod = {
-  id: '1',
-  type: 'card',
-  last4: '4242',
-  brand: 'Visa',
-  expiryMonth: 12,
-  expiryYear: 2026,
-  isDefault: true,
-};
-
-const mockInvoices: Invoice[] = [
-  {
-    id: '1',
-    date: new Date(2026, 0, 1),
-    amount: 99,
-    status: 'paid',
-    description: 'Pro Plan - January 2026',
-    downloadUrl: '#',
-  },
-  {
-    id: '2',
-    date: new Date(2025, 11, 1),
-    amount: 99,
-    status: 'paid',
-    description: 'Pro Plan - December 2025',
-    downloadUrl: '#',
-  },
-  {
-    id: '3',
-    date: new Date(2025, 10, 1),
-    amount: 99,
-    status: 'paid',
-    description: 'Pro Plan - November 2025',
-    downloadUrl: '#',
-  },
-];
-
-const plans: Plan[] = [
-  {
-    id: 'starter',
-    name: 'Starter',
-    price: 0,
-    interval: 'month',
-    features: [
-      '100 test runs per month',
-      '5 team members',
-      '30 days data retention',
-      'Email support',
-      'Basic analytics',
-    ],
-  },
-  {
-    id: 'pro',
-    name: 'Pro',
-    price: 99,
-    interval: 'month',
-    features: [
-      'Unlimited test runs',
-      '20 team members',
-      '90 days data retention',
-      'Priority support',
-      'Advanced analytics',
-      'CI/CD integrations',
-      'Custom webhooks',
-    ],
-    recommended: true,
-  },
-  {
-    id: 'enterprise',
-    name: 'Enterprise',
-    price: 299,
-    interval: 'month',
-    features: [
-      'Unlimited everything',
-      'Unlimited team members',
-      'Unlimited data retention',
-      '24/7 phone support',
-      'Custom analytics',
-      'All integrations',
-      'Dedicated account manager',
-      'SLA guarantee',
-    ],
-  },
-];
 
 export default function BillingSettingsPage() {
   const [currentPlan] = useState('pro');
@@ -97,7 +14,7 @@ export default function BillingSettingsPage() {
 
   const handleUpgradePlan = (planId: string) => {
     toast.success('Plan upgrade initiated', {
-      description: `Upgrading to ${plans.find((p) => p.id === planId)?.name} plan...`,
+      description: `Upgrading to ${billingPlans.find((p) => p.id === planId)?.name} plan...`,
     });
   };
 
@@ -113,7 +30,7 @@ export default function BillingSettingsPage() {
     });
   };
 
-  const currentPlanData = plans.find((p) => p.id === currentPlan);
+  const currentPlanData = billingPlans.find((p) => p.id === currentPlan);
   const yearlyDiscount = 0.2; // 20% discount for yearly
 
   return (
@@ -211,7 +128,7 @@ export default function BillingSettingsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {plans.map((plan) => {
+          {billingPlans.map((plan) => {
             const price = billingInterval === 'year' ? Math.round(plan.price * 12 * (1 - yearlyDiscount)) : plan.price;
             const isCurrent = plan.id === currentPlan;
 

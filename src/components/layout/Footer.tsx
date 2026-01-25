@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
 import { useState } from 'react';
+import { FOOTER_LINKS, SOCIAL_LINKS } from '@/constants';
 
 export const Footer = () => {
   const [email, setEmail] = useState('');
@@ -11,34 +11,6 @@ export const Footer = () => {
     console.log('Newsletter signup:', email);
     setEmail('');
   };
-
-  const footerLinks = {
-    product: [
-      { label: 'Features', href: '/#features' },
-      { label: 'Pricing', href: '/pricing' },
-      { label: 'Documentation', href: '/docs' },
-      { label: 'Changelog', href: '/changelog' },
-    ],
-    company: [
-      { label: 'About', href: '/about' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Contact', href: '/contact' },
-    ],
-    legal: [
-      { label: 'Privacy Policy', href: '/privacy' },
-      { label: 'Terms of Service', href: '/terms' },
-      { label: 'Cookie Policy', href: '/cookies' },
-      { label: 'Security', href: '/security' },
-    ],
-  };
-
-  const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Mail, href: 'mailto:hello@qaai.com', label: 'Email' },
-  ];
 
   return (
     <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
@@ -88,7 +60,7 @@ export const Footer = () => {
               Product
             </h3>
             <ul className="space-y-3">
-              {footerLinks.product.map((link) => (
+              {FOOTER_LINKS.product.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
@@ -107,7 +79,7 @@ export const Footer = () => {
               Company
             </h3>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {FOOTER_LINKS.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
@@ -126,7 +98,7 @@ export const Footer = () => {
               Legal
             </h3>
             <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
+              {FOOTER_LINKS.legal.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
@@ -150,7 +122,7 @@ export const Footer = () => {
 
             {/* Social Links */}
             <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
+              {SOCIAL_LINKS.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}

@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Camera, Save, User as UserIcon, Mail, Briefcase, MapPin, Phone, Globe } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuthStore } from '@/stores/authStore';
+import { TIMEZONES } from '@/constants';
 
 export default function ProfileSettingsPage() {
   const { user } = useAuthStore();
+  const timezones = TIMEZONES;
   
   const [formData, setFormData] = useState({
     firstName: user?.firstName || 'John',
@@ -47,18 +49,6 @@ export default function ProfileSettingsPage() {
       description: 'Your profile changes have been saved successfully.',
     });
   };
-
-  const timezones = [
-    'America/Los_Angeles',
-    'America/Denver',
-    'America/Chicago',
-    'America/New_York',
-    'Europe/London',
-    'Europe/Paris',
-    'Asia/Tokyo',
-    'Asia/Shanghai',
-    'Australia/Sydney',
-  ];
 
   return (
     <div className="max-w-4xl space-y-6">

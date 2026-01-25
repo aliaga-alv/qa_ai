@@ -1,33 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Upload, Cpu, CheckCircle2, BarChart3 } from 'lucide-react';
-import type { Step } from '@/types/models';
-
-const steps: Step[] = [
-  {
-    icon: Upload,
-    title: 'Upload Your Code',
-    description: 'Connect your repository or upload test files. We support all major languages and frameworks.',
-    number: 1,
-  },
-  {
-    icon: Cpu,
-    title: 'AI Generates Tests',
-    description: 'Our AI analyzes your code and automatically generates comprehensive test cases in seconds.',
-    number: 2,
-  },
-  {
-    icon: CheckCircle2,
-    title: 'Run & Validate',
-    description: 'Execute tests in parallel across multiple environments. Review results in real-time.',
-    number: 3,
-  },
-  {
-    icon: BarChart3,
-    title: 'Analyze & Improve',
-    description: 'Get actionable insights and recommendations to improve your code quality continuously.',
-    number: 4,
-  },
-];
+import { howItWorksSteps } from '@/mocks';
 
 export const HowItWorks = () => {
   const [visibleSteps, setVisibleSteps] = useState<Set<number>>(new Set());
@@ -83,7 +55,7 @@ export const HowItWorks = () => {
 
             {/* Connection Dots */}
             <div className="hidden md:flex absolute top-[62px] left-0 right-0 justify-between px-8">
-              {steps.map((_, index) => (
+              {howItWorksSteps.map((_, index) => (
                 <div key={index} className="relative">
                   <div className="w-4 h-4 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 border-2 border-white dark:border-gray-800 shadow-lg" />
                   <div className="absolute inset-0 w-4 h-4 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 opacity-50 blur-sm" />
@@ -93,7 +65,7 @@ export const HowItWorks = () => {
 
             {/* Steps Grid */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 pt-24">
-              {steps.map((step, index) => {
+              {howItWorksSteps.map((step, index) => {
                 const Icon = step.icon;
                 const isVisible = visibleSteps.has(index);
 
@@ -136,7 +108,7 @@ export const HowItWorks = () => {
                     </p>
 
                     {/* Mobile Connector Arrow */}
-                    {index < steps.length - 1 && (
+                    {index < howItWorksSteps.length - 1 && (
                       <div className="md:hidden mt-6 flex justify-center">
                         <div className="w-px h-12 bg-gradient-to-b from-primary-500 to-accent-500" />
                       </div>

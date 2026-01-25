@@ -1,51 +1,10 @@
-import { Settings, User, Users, Bell, Key, CreditCard, Shield } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { useNavigate } from 'react-router';
-
-const settingsFeatures = [
-  {
-    icon: User,
-    title: 'Profile Settings',
-    description: 'Update your personal information, avatar, and contact details',
-    color: 'from-blue-500 to-cyan-500',
-    link: '/dashboard/settings/profile',
-  },
-  {
-    icon: Users,
-    title: 'Team Settings',
-    description: 'Manage team name, workspace settings, and collaboration preferences',
-    color: 'from-purple-500 to-pink-500',
-    link: '/dashboard/settings/team',
-  },
-  {
-    icon: Bell,
-    title: 'Notifications',
-    description: 'Configure email, Slack, and in-app notification preferences',
-    color: 'from-orange-500 to-red-500',
-  },
-  {
-    icon: Key,
-    title: 'API Keys',
-    description: 'Generate and manage API keys for integrations and automation',
-    color: 'from-green-500 to-teal-500',
-  },
-  {
-    icon: CreditCard,
-    title: 'Billing & Plans',
-    description: 'Manage your subscription, billing information, and usage limits',
-    color: 'from-indigo-500 to-blue-500',
-    link: '/dashboard/settings/billing',
-  },
-  {
-    icon: Shield,
-    title: 'Security',
-    description: 'Two-factor authentication, session management, and security logs',
-    color: 'from-red-500 to-pink-500',
-    link: '/dashboard/settings/security',
-  },
-];
+import { SETTINGS_FEATURES } from '@/constants';
 
 export default function SettingsPage() {
   const navigate = useNavigate();
+  const settingsFeatures = SETTINGS_FEATURES;
 
   return (
     <div className="space-y-8">
@@ -102,10 +61,10 @@ export default function SettingsPage() {
               </div>
             );
 
-            return feature.link ? (
+            return feature.href ? (
               <button
                 key={feature.title}
-                onClick={() => navigate(feature.link!)}
+                onClick={() => navigate(feature.href!)}
                 className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg hover:border-primary-500 dark:hover:border-primary-500 transition-all text-left"
               >
                 {content}

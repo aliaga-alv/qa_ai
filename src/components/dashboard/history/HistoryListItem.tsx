@@ -1,42 +1,23 @@
 import { CheckCircle, XCircle, Clock, AlertTriangle, Image, Video } from 'lucide-react';
 import { format } from 'date-fns';
 import type { TestExecution } from '../../../types/models';
+import { HISTORY_STATUS_CONFIG } from '@/constants/ui';
 
 interface HistoryListItemProps {
   execution: TestExecution;
   onSelect: (id: string) => void;
 }
 
-const statusConfig = {
-  passed: {
-    icon: CheckCircle,
-    color: 'text-green-600 dark:text-green-400',
-    bg: 'bg-green-100 dark:bg-green-900/20',
-    label: 'Passed',
-  },
-  failed: {
-    icon: XCircle,
-    color: 'text-red-600 dark:text-red-400',
-    bg: 'bg-red-100 dark:bg-red-900/20',
-    label: 'Failed',
-  },
-  running: {
-    icon: Clock,
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-100 dark:bg-blue-900/20',
-    label: 'Running',
-  },
-  stopped: {
-    icon: AlertTriangle,
-    color: 'text-orange-600 dark:text-orange-400',
-    bg: 'bg-orange-100 dark:bg-orange-900/20',
-    label: 'Stopped',
-  },
+const statusIcons = {
+  passed: CheckCircle,
+  failed: XCircle,
+  running: Clock,
+  stopped: AlertTriangle,
 };
 
 export default function HistoryListItem({ execution, onSelect }: HistoryListItemProps) {
-  const config = statusConfig[execution.status];
-  const StatusIcon = config.icon;
+  const config = HISTORY_STATUS_CONFIG[execution.status];
+  const StatusIcon = statusIcons[execution.status];
 
   return (
     <tr

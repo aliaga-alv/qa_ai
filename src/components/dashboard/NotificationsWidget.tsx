@@ -3,77 +3,15 @@ import { useState, useRef, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate } from 'react-router';
 import type { Notification } from '@/types/models';
+import { mockNotifications } from '@/mocks';
+import { NOTIFICATION_TYPE_CONFIG } from '@/constants/ui';
 
-const notificationConfig = {
-  success: {
-    icon: CheckCircle,
-    color: 'text-green-600 dark:text-green-400',
-    bg: 'bg-green-100 dark:bg-green-900/20',
-  },
-  error: {
-    icon: XCircle,
-    color: 'text-red-600 dark:text-red-400',
-    bg: 'bg-red-100 dark:bg-red-900/20',
-  },
-  warning: {
-    icon: AlertTriangle,
-    color: 'text-orange-600 dark:text-orange-400',
-    bg: 'bg-orange-100 dark:bg-orange-900/20',
-  },
-  info: {
-    icon: Info,
-    color: 'text-blue-600 dark:text-blue-400',
-    bg: 'bg-blue-100 dark:bg-blue-900/20',
-  },
+const notificationIcons = {
+  success: CheckCircle,
+  error: XCircle,
+  warning: AlertTriangle,
+  info: Info,
 };
-
-// TODO: Replace with real API data
-const mockNotifications: Notification[] = [
-  {
-    id: '1',
-    type: 'success',
-    title: 'Test Completed',
-    message: 'User Login Flow test passed successfully',
-    timestamp: new Date(Date.now() - 5 * 60 * 1000),
-    isRead: false,
-    link: '/dashboard/history',
-  },
-  {
-    id: '2',
-    type: 'error',
-    title: 'Test Failed',
-    message: 'Payment Processing test failed with 2 errors',
-    timestamp: new Date(Date.now() - 30 * 60 * 1000),
-    isRead: false,
-    link: '/dashboard/history',
-  },
-  {
-    id: '3',
-    type: 'warning',
-    title: 'Flaky Test Detected',
-    message: 'Product Search test has failed 3 times in last 10 runs',
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    isRead: false,
-    link: '/dashboard/analytics',
-  },
-  {
-    id: '4',
-    type: 'info',
-    title: 'New Team Member',
-    message: 'Sarah Williams joined your team as a viewer',
-    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
-    isRead: true,
-    link: '/dashboard/team',
-  },
-  {
-    id: '5',
-    type: 'success',
-    title: 'All Tests Passed',
-    message: 'Nightly test suite completed: 42/42 tests passed',
-    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000),
-    isRead: true,
-  },
-];
 
 export default function NotificationsWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -171,9 +109,8 @@ export default function NotificationsWidget() {
             ) : (
               <div className="divide-y divide-gray-200 dark:divide-gray-700">
                 {notifications.map((notification) => {
-                  const config = notificationConfig[notification.type];
-                  const Icon = config.icon;
-
+                    const config = NOTIFICATION_TYPE_CONFIG[notification.type];
+                    const Icon = notificationIcons[notification.type];
                   return (
                     <div
                       key={notification.id}

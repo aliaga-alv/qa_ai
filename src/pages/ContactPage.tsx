@@ -1,32 +1,6 @@
-import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
 import { ContactForm } from '@/components/features/contact/ContactForm';
 import { ContactMethod } from '@/components/features/contact/ContactMethod';
-import type { ContactMethodData } from '@/types/models';
-
-const contactMethods: ContactMethodData[] = [
-  {
-    icon: Mail,
-    title: 'Email',
-    value: 'support@qaai.com',
-    link: 'mailto:support@qaai.com',
-  },
-  {
-    icon: Phone,
-    title: 'Phone',
-    value: '+1 (555) 123-4567',
-    link: 'tel:+15551234567',
-  },
-  {
-    icon: MapPin,
-    title: 'Office',
-    value: '123 Tech Street, San Francisco, CA 94105',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Live Chat',
-    value: 'Available 9am-5pm PST',
-  },
-];
+import { contactMethods } from '@/mocks';
 
 export const ContactPage = () => {
   return (

@@ -4,61 +4,12 @@ import { toast } from 'sonner';
 import TeamMemberCard from '../../components/dashboard/team/TeamMemberCard';
 import InviteMemberModal from '../../components/dashboard/team/InviteMemberModal';
 import type { TeamMember, UserRole } from '../../types/models';
+import { mockTeamMembers } from '@/mocks';
 
 // TODO: Replace with real API data
-const getMockTeamMembers = (): TeamMember[] => {
-  const now = Date.now();
-  return [
-    {
-      id: '1',
-      name: 'John Doe',
-      email: 'john@example.com',
-      role: 'owner',
-      lastActive: new Date(now),
-      testsRun: 342,
-      status: 'active',
-    },
-    {
-      id: '2',
-      name: 'Jane Smith',
-      email: 'jane@example.com',
-      role: 'admin',
-      lastActive: new Date(now - 2 * 60 * 60 * 1000),
-      testsRun: 256,
-      status: 'active',
-    },
-    {
-      id: '3',
-      name: 'Mike Johnson',
-      email: 'mike@example.com',
-      role: 'member',
-      lastActive: new Date(now - 24 * 60 * 60 * 1000),
-      testsRun: 187,
-      status: 'active',
-    },
-    {
-      id: '4',
-      name: 'Sarah Williams',
-      email: 'sarah@example.com',
-      role: 'viewer',
-      lastActive: new Date(now - 3 * 24 * 60 * 60 * 1000),
-      testsRun: 0,
-      status: 'active',
-    },
-    {
-      id: '5',
-      name: 'Tom Brown',
-      email: 'tom@example.com',
-      role: 'member',
-      lastActive: new Date(now - 7 * 24 * 60 * 60 * 1000),
-      testsRun: 0,
-      status: 'pending',
-    },
-  ];
-};
 
 export default function TeamPage() {
-  const [members, setMembers] = useState<TeamMember[]>(getMockTeamMembers);
+  const [members, setMembers] = useState<TeamMember[]>(mockTeamMembers);
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState<'all' | UserRole>('all');
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);

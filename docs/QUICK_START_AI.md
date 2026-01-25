@@ -61,7 +61,45 @@ interface TestListProps { tests: Test[]; }
 
 ---
 
-## 🚀 The #1 Rule: Mobile-First Always
+## � Rule #3: Centralized Constants & Mocks
+
+**NEVER embed constants or mock data in components!**
+
+### Constants Decision:
+```typescript
+// ❌ WRONG - In component
+const ROUTES = { dashboard: '/dashboard' };
+const STATUS_COLORS = { active: 'green' };
+
+// ✅ CORRECT - Import from constants
+import { ROUTES } from '@/constants/routes';
+import { TEST_STATUS_COLORS } from '@/constants/ui';
+```
+
+### Mock Data Decision:
+```typescript
+// ❌ WRONG - In component
+const mockData = [{ id: 1, name: 'Test' }];
+
+// ✅ CORRECT - Import from mocks
+import { mockTests } from '@/mocks';
+import { mockDashboardStats } from '@/mocks/stats';
+```
+
+### Quick Locations:
+| What? | Where? |
+|-------|--------|
+| UI colors/configs | `constants/ui.ts` |
+| Routes | `constants/routes.ts` |
+| Date formats | `constants/date.ts` |
+| Features | `constants/features.ts` |
+| Test data | `mocks/tests.ts` |
+| Chart data | `mocks/charts.ts` |
+| Dashboard stats | `mocks/stats.ts` |
+
+---
+
+## 🚀 Rule #4: Mobile-First Always
 
 ```typescript
 // ❌ WRONG - Desktop-first

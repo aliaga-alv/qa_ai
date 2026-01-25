@@ -1,40 +1,11 @@
-import { Code, Save, Settings, Sparkles } from 'lucide-react';
+import { Code } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { EDIT_TEST_FEATURES } from '@/constants';
 
 export default function EditTestPage() {
   const navigate = useNavigate();
   const { id } = useParams();
-
-  const features = [
-    {
-      icon: Code,
-      title: 'Code Editor',
-      description: 'Monaco editor with syntax highlighting and IntelliSense',
-      color: 'text-blue-600 dark:text-blue-400',
-      bgColor: 'bg-blue-100 dark:bg-blue-900/20',
-    },
-    {
-      icon: Sparkles,
-      title: 'AI Assistance',
-      description: 'Get AI suggestions to improve or fix your test code',
-      color: 'text-purple-600 dark:text-purple-400',
-      bgColor: 'bg-purple-100 dark:bg-purple-900/20',
-    },
-    {
-      icon: Settings,
-      title: 'Test Configuration',
-      description: 'Edit test settings, environment variables, and assertions',
-      color: 'text-orange-600 dark:text-orange-400',
-      bgColor: 'bg-orange-100 dark:bg-orange-900/20',
-    },
-    {
-      icon: Save,
-      title: 'Version History',
-      description: 'Track changes and rollback to previous versions',
-      color: 'text-green-600 dark:text-green-400',
-      bgColor: 'bg-green-100 dark:bg-green-900/20',
-    },
-  ];
+  const features = EDIT_TEST_FEATURES;
 
   return (
     <div className="space-y-6">

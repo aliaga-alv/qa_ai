@@ -1,13 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-
-// TODO: Replace with real API data
-const mockData = [
-  { name: 'Login Tests', duration: 2.3, status: 'fast' },
-  { name: 'API Tests', duration: 1.8, status: 'fast' },
-  { name: 'Payment Flow', duration: 4.5, status: 'medium' },
-  { name: 'Checkout', duration: 3.2, status: 'medium' },
-  { name: 'Integration', duration: 8.7, status: 'slow' },
-];
+import { mockDurationChartData } from '@/mocks';
 
 const getColor = (status: string) => {
   switch (status) {
@@ -35,7 +27,7 @@ export default function DurationChart() {
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={mockData} layout="vertical">
+        <BarChart data={mockDurationChartData} layout="vertical">
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
           <XAxis 
             type="number" 
@@ -69,7 +61,7 @@ export default function DurationChart() {
             formatter={(value: number | undefined) => [`${value ?? 0}s`, 'Duration']}
           />
           <Bar dataKey="duration" radius={[0, 8, 8, 0]}>
-            {mockData.map((entry, index) => (
+            {mockDurationChartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={getColor(entry.status)} />
             ))}
           </Bar>

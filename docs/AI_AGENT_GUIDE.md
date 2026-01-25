@@ -31,12 +31,13 @@ npm run build  # Must pass with 0 errors
 
 ## Table of Contents
 1. [TypeScript Type Management](#typescript-type-management)
-2. [Tailwind CSS Best Practices](#tailwind-css-best-practices)
-3. [shadcn/ui Integration](#shadcnui-integration)
-4. [Common Tailwind Mistakes](#common-tailwind-mistakes)
-5. [Component Creation Patterns](#component-creation-patterns)
-6. [State Management](#state-management)
-7. [Quick Decision Trees](#quick-decision-trees)
+2. [Constants & Mock Data Organization](#constants--mock-data-organization)
+3. [Tailwind CSS Best Practices](#tailwind-css-best-practices)
+4. [shadcn/ui Integration](#shadcnui-integration)
+5. [Common Tailwind Mistakes](#common-tailwind-mistakes)
+6. [Component Creation Patterns](#component-creation-patterns)
+7. [State Management](#state-management)
+8. [Quick Decision Trees](#quick-decision-trees)
 
 ---
 

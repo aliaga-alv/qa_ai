@@ -1,13 +1,8 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-
-// TODO: Replace with real API data
-const mockData = [
-  { name: 'Passed', value: 1172, color: '#10b981' },
-  { name: 'Failed', value: 51, color: '#ef4444' },
-  { name: 'Skipped', value: 24, color: '#f59e0b' },
-];
+import { mockTestDistributionChartData } from '@/mocks';
 
 export default function TestDistributionChart() {
+  const mockData = mockTestDistributionChartData;
   const total = mockData.reduce((sum, item) => sum + item.value, 0);
 
   return (

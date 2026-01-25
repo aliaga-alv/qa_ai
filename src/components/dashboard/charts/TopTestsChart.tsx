@@ -1,16 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
-// TODO: Replace with real API data
-const mockData = [
-  { name: 'User Login', runs: 342 },
-  { name: 'Product Search', runs: 287 },
-  { name: 'Add to Cart', runs: 256 },
-  { name: 'Checkout Flow', runs: 198 },
-  { name: 'Payment Process', runs: 176 },
-  { name: 'Profile Update', runs: 143 },
-  { name: 'Reset Password', runs: 121 },
-  { name: 'Email Verify', runs: 98 },
-];
+import { mockTopTestsChartData } from '@/mocks';
 
 export default function TopTestsChart() {
   return (
@@ -25,7 +14,7 @@ export default function TopTestsChart() {
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={mockData} layout="vertical">
+        <BarChart data={mockTopTestsChartData} layout="vertical">
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
           <XAxis 
             type="number"

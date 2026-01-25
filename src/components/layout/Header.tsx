@@ -4,7 +4,7 @@ import { Menu, X, Sun, Moon, User, LogOut, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme } from "@/hooks/useTheme";
-import { ROUTES } from "@/constants/routes";
+import { ROUTES, HEADER_NAV_LINKS } from "@/constants";
 
 interface HeaderProps {
   variant?: "default" | "transparent";
@@ -77,14 +77,6 @@ export const Header = ({
     }
   };
 
-  const navLinks = [
-    { label: "Home", href: ROUTES.HOME },
-    { label: "Features", href: "/#features" },
-    { label: "Pricing", href: ROUTES.PRICING },
-    { label: "Docs", href: ROUTES.DOCS },
-    { label: "About", href: ROUTES.ABOUT },
-  ];
-
   return (
     <header
       className={cn(
@@ -110,7 +102,7 @@ export const Header = ({
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {HEADER_NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
@@ -122,36 +114,36 @@ export const Header = ({
             ))}
           </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-4">
-            {/* Theme Toggle */}
-            <button
-              onClick={() => {
-                toggleTheme();
-              }}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <Sun className="w-5 h-5 text-gray-900 dark:text-gray-100" />
-              ) : (
-                <Moon className="w-5 h-5 text-gray-900 dark:text-gray-100" />
-              )}
-            </button>
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-4">
+          {/* Theme Toggle */}
+          <button
+            onClick={() => {
+              toggleTheme();
+            }}
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Toggle theme"
+          >
+            {isDark ? (
+              <Sun className="w-5 h-5 text-gray-900 dark:text-gray-100" />
+            ) : (
+              <Moon className="w-5 h-5 text-gray-900 dark:text-gray-100" />
+            )}
+          </button>
 
-            {/* Auth Buttons or User Menu */}
-            {isAuthenticated && user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-medium">
-                      {user.firstName.charAt(0)}
-                      {user.lastName.charAt(0)}
-                    </span>
-                  </div>
+          {/* Auth Buttons or User Menu */}
+          {isAuthenticated && user ? (
+            <div className="relative">
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+                <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-sm font-medium">
+                    {user.firstName.charAt(0)}
+                    {user.lastName.charAt(0)}
+                  </span>
+                </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
                     {user.firstName}
                   </span>
@@ -229,7 +221,7 @@ export const Header = ({
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800">
             <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {HEADER_NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}

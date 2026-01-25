@@ -1,36 +1,10 @@
 import { Sparkles } from 'lucide-react';
 import type { Insight } from '../../../types/models';
+import { AI_INSIGHTS_TYPE_CONFIG } from '@/constants/ui';
 
 interface AIInsightsProps {
   insights: Insight[];
 }
-
-const typeConfig = {
-  success: {
-    bgColor: 'bg-green-50 dark:bg-green-900/20',
-    borderColor: 'border-green-200 dark:border-green-800',
-    textColor: 'text-green-700 dark:text-green-400',
-    iconColor: 'text-green-600 dark:text-green-400',
-  },
-  error: {
-    bgColor: 'bg-red-50 dark:bg-red-900/20',
-    borderColor: 'border-red-200 dark:border-red-800',
-    textColor: 'text-red-700 dark:text-red-400',
-    iconColor: 'text-red-600 dark:text-red-400',
-  },
-  warning: {
-    bgColor: 'bg-orange-50 dark:bg-orange-900/20',
-    borderColor: 'border-orange-200 dark:border-orange-800',
-    textColor: 'text-orange-700 dark:text-orange-400',
-    iconColor: 'text-orange-600 dark:text-orange-400',
-  },
-  info: {
-    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
-    borderColor: 'border-blue-200 dark:border-blue-800',
-    textColor: 'text-blue-700 dark:text-blue-400',
-    iconColor: 'text-blue-600 dark:text-blue-400',
-  },
-};
 
 export default function AIInsights({ insights }: AIInsightsProps) {
   return (
@@ -42,7 +16,7 @@ export default function AIInsights({ insights }: AIInsightsProps) {
 
       <div className="space-y-3">
         {insights.map((insight) => {
-          const config = typeConfig[insight.type];
+          const config = AI_INSIGHTS_TYPE_CONFIG[insight.type];
           return (
             <div
               key={insight.id}
