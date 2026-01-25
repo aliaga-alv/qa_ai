@@ -2,34 +2,7 @@ import { useState } from 'react';
 import { CreditCard, Download, Check, Zap, TrendingUp, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
-
-interface PaymentMethod {
-  id: string;
-  type: 'card' | 'paypal';
-  last4?: string;
-  brand?: string;
-  expiryMonth?: number;
-  expiryYear?: number;
-  isDefault: boolean;
-}
-
-interface Invoice {
-  id: string;
-  date: Date;
-  amount: number;
-  status: 'paid' | 'pending' | 'failed';
-  description: string;
-  downloadUrl: string;
-}
-
-interface Plan {
-  id: string;
-  name: string;
-  price: number;
-  interval: 'month' | 'year';
-  features: string[];
-  recommended?: boolean;
-}
+import type { PaymentMethod, Invoice, Plan } from '../../types/models';
 
 // TODO: Replace with real API data
 const mockPaymentMethod: PaymentMethod = {

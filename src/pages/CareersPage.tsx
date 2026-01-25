@@ -1,6 +1,7 @@
 import { Heart, Umbrella, Plane, GraduationCap, Home, Zap } from 'lucide-react';
-import { JobCard, type JobData } from '@/components/features/careers/JobCard';
-import { BenefitCard, type BenefitData } from '@/components/features/careers/BenefitCard';
+import { JobCard } from '@/components/features/careers/JobCard';
+import { BenefitCard } from '@/components/features/careers/BenefitCard';
+import type { JobData, BenefitData } from '@/types/models';
 
 const jobs: JobData[] = [
   {

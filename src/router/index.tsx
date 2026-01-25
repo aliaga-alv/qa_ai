@@ -1,47 +1,58 @@
+import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-// Import components from separate files
+// Import layout components (always loaded)
 import { RootLayout } from "@/components/layout/RootLayout";
 import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import { PublicRoute } from "@/components/layout/PublicRoute";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import DashboardLayout from "@/components/dashboard/layout/DashboardLayout";
-import { HomePage } from "@/pages/HomePage";
-import { LoginPage } from "@/pages/LoginPage";
-import { RegisterPage } from "@/pages/RegisterPage";
-import { PricingPage } from "@/pages/PricingPage";
-import { AboutPage } from "@/pages/AboutPage";
-import { CareersPage } from "@/pages/CareersPage";
-import { ContactPage } from "@/pages/ContactPage";
-import { BlogPage } from "@/pages/BlogPage";
-import { BlogDetailPage } from "@/pages/BlogDetailPage";
-import { ChangelogPage } from "@/pages/ChangelogPage";
-import { TermsPage } from "@/pages/TermsPage";
-import { PrivacyPage } from "@/pages/PrivacyPage";
-import { CookiePolicyPage } from "@/pages/CookiePolicyPage";
-import { SecurityPage } from "@/pages/SecurityPage";
-import { DocumentationPage } from "@/pages/DocumentationPage";
-import { NotFoundPage } from "@/pages/NotFoundPage";
-import { ServerErrorPage } from "@/pages/ServerErrorPage";
-import { ForbiddenPage } from "@/pages/ForbiddenPage";
-import { UnauthorizedPage } from "@/pages/UnauthorizedPage";
+import { LoadingSpinner } from "@/components/common/LoadingSpinner";
 
-// Dashboard pages
-import DashboardPage from "@/pages/dashboard/DashboardPage";
-import TestsPage from "@/pages/dashboard/TestsPage";
-import CreateTestPage from "@/pages/dashboard/CreateTestPage";
-import TestDetailsPage from "@/pages/dashboard/TestDetailsPage";
-import EditTestPage from "@/pages/dashboard/EditTestPage";
-import RunTestsPage from "@/pages/dashboard/RunTestsPage";
-import HistoryPage from "@/pages/dashboard/HistoryPage";
-import IntegrationsPage from "@/pages/dashboard/IntegrationsPage";
-import TeamPage from "@/pages/dashboard/TeamPage";
-import AnalyticsPage from "@/pages/dashboard/AnalyticsPage";
-import SettingsPage from "@/pages/dashboard/SettingsPage";
-import ProfileSettingsPage from "@/pages/dashboard/ProfileSettingsPage";
-import SecuritySettingsPage from "@/pages/dashboard/SecuritySettingsPage";
-import TeamSettingsPage from "@/pages/dashboard/TeamSettingsPage";
-import BillingSettingsPage from "@/pages/dashboard/BillingSettingsPage";
+// Lazy load page components
+const HomePage = lazy(() => import("@/pages/HomePage").then(m => ({ default: m.HomePage })));
+const LoginPage = lazy(() => import("@/pages/LoginPage").then(m => ({ default: m.LoginPage })));
+const RegisterPage = lazy(() => import("@/pages/RegisterPage").then(m => ({ default: m.RegisterPage })));
+const PricingPage = lazy(() => import("@/pages/PricingPage").then(m => ({ default: m.PricingPage })));
+const AboutPage = lazy(() => import("@/pages/AboutPage").then(m => ({ default: m.AboutPage })));
+const CareersPage = lazy(() => import("@/pages/CareersPage").then(m => ({ default: m.CareersPage })));
+const ContactPage = lazy(() => import("@/pages/ContactPage").then(m => ({ default: m.ContactPage })));
+const BlogPage = lazy(() => import("@/pages/BlogPage").then(m => ({ default: m.BlogPage })));
+const BlogDetailPage = lazy(() => import("@/pages/BlogDetailPage").then(m => ({ default: m.BlogDetailPage })));
+const ChangelogPage = lazy(() => import("@/pages/ChangelogPage").then(m => ({ default: m.ChangelogPage })));
+const TermsPage = lazy(() => import("@/pages/TermsPage").then(m => ({ default: m.TermsPage })));
+const PrivacyPage = lazy(() => import("@/pages/PrivacyPage").then(m => ({ default: m.PrivacyPage })));
+const CookiePolicyPage = lazy(() => import("@/pages/CookiePolicyPage").then(m => ({ default: m.CookiePolicyPage })));
+const SecurityPage = lazy(() => import("@/pages/SecurityPage").then(m => ({ default: m.SecurityPage })));
+const DocumentationPage = lazy(() => import("@/pages/DocumentationPage").then(m => ({ default: m.DocumentationPage })));
+const NotFoundPage = lazy(() => import("@/pages/NotFoundPage").then(m => ({ default: m.NotFoundPage })));
+const ServerErrorPage = lazy(() => import("@/pages/ServerErrorPage").then(m => ({ default: m.ServerErrorPage })));
+const ForbiddenPage = lazy(() => import("@/pages/ForbiddenPage").then(m => ({ default: m.ForbiddenPage })));
+const UnauthorizedPage = lazy(() => import("@/pages/UnauthorizedPage").then(m => ({ default: m.UnauthorizedPage })));
+
+// Lazy load dashboard pages
+const DashboardPage = lazy(() => import("@/pages/dashboard/DashboardPage"));
+const TestsPage = lazy(() => import("@/pages/dashboard/TestsPage"));
+const CreateTestPage = lazy(() => import("@/pages/dashboard/CreateTestPage"));
+const TestDetailsPage = lazy(() => import("@/pages/dashboard/TestDetailsPage"));
+const EditTestPage = lazy(() => import("@/pages/dashboard/EditTestPage"));
+const RunTestsPage = lazy(() => import("@/pages/dashboard/RunTestsPage"));
+const HistoryPage = lazy(() => import("@/pages/dashboard/HistoryPage"));
+const IntegrationsPage = lazy(() => import("@/pages/dashboard/IntegrationsPage"));
+const TeamPage = lazy(() => import("@/pages/dashboard/TeamPage"));
+const AnalyticsPage = lazy(() => import("@/pages/dashboard/AnalyticsPage"));
+const SettingsPage = lazy(() => import("@/pages/dashboard/SettingsPage"));
+const ProfileSettingsPage = lazy(() => import("@/pages/dashboard/ProfileSettingsPage"));
+const SecuritySettingsPage = lazy(() => import("@/pages/dashboard/SecuritySettingsPage"));
+const TeamSettingsPage = lazy(() => import("@/pages/dashboard/TeamSettingsPage"));
+const BillingSettingsPage = lazy(() => import("@/pages/dashboard/BillingSettingsPage"));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <LoadingSpinner size="lg" />
+  </div>
+);
 
 export const router = createBrowserRouter([
   // Public routes with main site layout (Header + Footer)
@@ -57,69 +68,133 @@ export const router = createBrowserRouter([
       // Public routes
       {
         index: true,
-        element: <HomePage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <HomePage />
+          </Suspense>
+        ),
       },
       {
         path: "pricing",
-        element: <PricingPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PricingPage />
+          </Suspense>
+        ),
       },
       {
         path: "about",
-        element: <AboutPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AboutPage />
+          </Suspense>
+        ),
       },
       {
         path: "careers",
-        element: <CareersPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CareersPage />
+          </Suspense>
+        ),
       },
       {
         path: "contact",
-        element: <ContactPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ContactPage />
+          </Suspense>
+        ),
       },
       {
         path: "blog",
-        element: <BlogPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BlogPage />
+          </Suspense>
+        ),
       },
       {
         path: "blog/:id",
-        element: <BlogDetailPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BlogDetailPage />
+          </Suspense>
+        ),
       },
       {
         path: "changelog",
-        element: <ChangelogPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ChangelogPage />
+          </Suspense>
+        ),
       },
       {
         path: "terms",
-        element: <TermsPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <TermsPage />
+          </Suspense>
+        ),
       },
       {
         path: "privacy",
-        element: <PrivacyPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PrivacyPage />
+          </Suspense>
+        ),
       },
       {
         path: "cookies",
-        element: <CookiePolicyPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <CookiePolicyPage />
+          </Suspense>
+        ),
       },
       {
         path: "security",
-        element: <SecurityPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SecurityPage />
+          </Suspense>
+        ),
       },
       {
         path: "docs",
-        element: <DocumentationPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <DocumentationPage />
+          </Suspense>
+        ),
       },
 
       // Error pages
       {
         path: "500",
-        element: <ServerErrorPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ServerErrorPage />
+          </Suspense>
+        ),
       },
       {
         path: "403",
-        element: <ForbiddenPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ForbiddenPage />
+          </Suspense>
+        ),
       },
       {
         path: "401",
-        element: <UnauthorizedPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <UnauthorizedPage />
+          </Suspense>
+        ),
       },
 
       // Auth routes (redirect to dashboard if already authenticated)
@@ -128,11 +203,19 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "login",
-            element: <LoginPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <LoginPage />
+              </Suspense>
+            ),
           },
           {
             path: "register",
-            element: <RegisterPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <RegisterPage />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -140,7 +223,11 @@ export const router = createBrowserRouter([
       // 404 catch-all for public routes
       {
         path: "*",
-        element: <NotFoundPage />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <NotFoundPage />
+          </Suspense>
+        ),
       },
     ],
   },
@@ -160,63 +247,123 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <DashboardPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <DashboardPage />
+              </Suspense>
+            ),
           },
           {
             path: "tests",
-            element: <TestsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <TestsPage />
+              </Suspense>
+            ),
           },
           {
             path: "tests/new",
-            element: <CreateTestPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <CreateTestPage />
+              </Suspense>
+            ),
           },
           {
             path: "tests/:id",
-            element: <TestDetailsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <TestDetailsPage />
+              </Suspense>
+            ),
           },
           {
             path: "tests/:id/edit",
-            element: <EditTestPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <EditTestPage />
+              </Suspense>
+            ),
           },
           {
             path: "run",
-            element: <RunTestsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <RunTestsPage />
+              </Suspense>
+            ),
           },
           {
             path: "history",
-            element: <HistoryPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <HistoryPage />
+              </Suspense>
+            ),
           },
           {
             path: "integrations",
-            element: <IntegrationsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <IntegrationsPage />
+              </Suspense>
+            ),
           },
           {
             path: "team",
-            element: <TeamPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <TeamPage />
+              </Suspense>
+            ),
           },
           {
             path: "analytics",
-            element: <AnalyticsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <AnalyticsPage />
+              </Suspense>
+            ),
           },
           {
             path: "settings",
-            element: <SettingsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <SettingsPage />
+              </Suspense>
+            ),
           },
           {
             path: "settings/profile",
-            element: <ProfileSettingsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <ProfileSettingsPage />
+              </Suspense>
+            ),
           },
           {
             path: "settings/security",
-            element: <SecuritySettingsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <SecuritySettingsPage />
+              </Suspense>
+            ),
           },
           {
             path: "settings/team",
-            element: <TeamSettingsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <TeamSettingsPage />
+              </Suspense>
+            ),
           },
           {
             path: "settings/billing",
-            element: <BillingSettingsPage />,
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <BillingSettingsPage />
+              </Suspense>
+            ),
           },
           // TODO: Add more dashboard routes as we build them
           // tests/new, run, history, integrations, team, etc.

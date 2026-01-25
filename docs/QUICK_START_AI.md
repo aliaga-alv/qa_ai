@@ -20,6 +20,47 @@ import type { User } from './types';
 
 ---
 
+## 🎯 Rule #2: Check Types Before Creating
+
+**ALWAYS check `src/types/models/` first!**
+
+```typescript
+// ❌ WRONG - Don't recreate existing types!
+interface Test {
+  id: string;
+  name: string;
+}
+
+// ✅ CORRECT - Import from centralized types
+import type { Test } from '@/types/models';
+```
+
+### Type Decision Tree:
+
+```
+Need a type? 
+  ↓
+  Does it exist in src/types/models/?
+    Yes → Import it ✅
+    No → Is it a domain model?
+      Yes → Add to src/types/models/ ✅
+      No → Component-specific?
+        Yes → Keep in component file ✅
+```
+
+### Quick Type Examples:
+
+```typescript
+// Domain types → src/types/models/
+export interface Test { id: string; name: string; }
+
+// Component props → Stay in component
+import type { Test } from '@/types/models';
+interface TestListProps { tests: Test[]; }
+```
+
+---
+
 ## 🚀 The #1 Rule: Mobile-First Always
 
 ```typescript

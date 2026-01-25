@@ -1,14 +1,8 @@
 import { useState } from 'react';
-
-interface Test {
-  id: string;
-  name: string;
-  type: string;
-  duration: number;
-}
+import type { TestSimple } from '../../../types/models';
 
 interface TestSelectorProps {
-  tests: Test[];
+  tests: TestSimple[];
   selectedTests: string[];
   onSelectionChange: (selectedIds: string[]) => void;
 }

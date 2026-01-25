@@ -1,19 +1,7 @@
 import { Play, Edit, Copy, Trash2, MoreVertical } from 'lucide-react';
 import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
-
-export interface Test {
-  id: string;
-  name: string;
-  description: string;
-  type: 'api' | 'ui' | 'integration' | 'unit';
-  status: 'active' | 'inactive' | 'draft';
-  lastRun?: Date;
-  duration?: number;
-  successRate?: number;
-  tags: string[];
-  createdAt: Date;
-}
+import type { Test } from '../../../types/models';
 
 interface TestListItemProps {
   test: Test;

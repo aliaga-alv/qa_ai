@@ -1,11 +1,6 @@
 import { Terminal, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-
-interface LogEntry {
-  timestamp: Date;
-  level: 'info' | 'success' | 'error' | 'warning';
-  message: string;
-}
+import type { LogEntry } from '../../../types/models';
 
 interface LiveLogsViewerProps {
   logs: LogEntry[];

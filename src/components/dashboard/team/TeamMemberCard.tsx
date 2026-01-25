@@ -1,18 +1,6 @@
 import { Crown, Shield, User as UserIcon, MoreVertical } from 'lucide-react';
 import { useState } from 'react';
-
-export type UserRole = 'owner' | 'admin' | 'member' | 'viewer';
-
-interface TeamMember {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  avatar?: string;
-  lastActive: Date;
-  testsRun: number;
-  status: 'active' | 'pending';
-}
+import type { UserRole, TeamMember } from '../../../types/models';
 
 interface TeamMemberCardProps {
   member: TeamMember;

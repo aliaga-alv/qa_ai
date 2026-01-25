@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { PricingCard, type PricingTier } from '@/components/features/pricing/PricingCard';
+import { PricingCard } from '@/components/features/pricing/PricingCard';
+import type { PricingTier } from '@/types/models';
 import { PricingComparison } from '@/components/features/pricing/PricingComparison';
 import { PricingFAQ } from '@/components/features/pricing/PricingFAQ';
 import { ROUTES } from '@/constants/routes';

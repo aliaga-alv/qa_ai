@@ -2,21 +2,9 @@ import { useState } from 'react';
 import { Search, Filter, Download } from 'lucide-react';
 import { toast } from 'sonner';
 import HistoryDatePicker from '../../components/dashboard/history/HistoryDatePicker';
-import HistoryListItem, { type ExecutionStatus } from '../../components/dashboard/history/HistoryListItem';
+import HistoryListItem from '../../components/dashboard/history/HistoryListItem';
 import ExecutionDetailsModal from '../../components/dashboard/history/ExecutionDetailsModal';
-
-interface TestExecution {
-  id: string;
-  testName: string;
-  status: ExecutionStatus;
-  duration: number;
-  timestamp: Date;
-  environment: string;
-  triggeredBy: string;
-  hasScreenshots: boolean;
-  hasVideo: boolean;
-  errorCount?: number;
-}
+import type { TestExecution, ExecutionStatus } from '../../types/models';
 
 // TODO: Replace with real API data
 const mockExecutions: TestExecution[] = [

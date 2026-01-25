@@ -3,87 +3,91 @@ import { Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import TestFilters from '../../components/dashboard/tests/TestFilters';
-import TestListItem, { type Test } from '../../components/dashboard/tests/TestListItem';
+import TestListItem from '../../components/dashboard/tests/TestListItem';
 import BulkActions from '../../components/dashboard/tests/BulkActions';
+import type { Test } from '../../types/models';
 
 // TODO: Replace with real API data
-const mockTests: Test[] = [
-  {
-    id: '1',
-    name: 'User Login Flow',
-    description: 'Tests the complete user authentication process',
-    type: 'ui',
-    status: 'active',
-    lastRun: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    duration: 2.3,
-    successRate: 98,
-    tags: ['auth', 'critical', 'smoke'],
-    createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-  },
-  {
-    id: '2',
-    name: 'API Health Check',
-    description: 'Verifies all API endpoints are responding correctly',
-    type: 'api',
-    status: 'active',
-    lastRun: new Date(Date.now() - 15 * 60 * 1000),
-    duration: 0.8,
-    successRate: 100,
-    tags: ['api', 'health', 'monitoring'],
-    createdAt: new Date(Date.now() - 25 * 24 * 60 * 60 * 1000),
-  },
-  {
-    id: '3',
-    name: 'Payment Processing',
-    description: 'End-to-end payment flow with Stripe integration',
-    type: 'integration',
-    status: 'active',
-    lastRun: new Date(Date.now() - 5 * 60 * 60 * 1000),
-    duration: 4.5,
-    successRate: 94,
-    tags: ['payment', 'stripe', 'critical'],
-    createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000),
-  },
-  {
-    id: '4',
-    name: 'User Registration',
-    description: 'Tests new user signup and email verification',
-    type: 'ui',
-    status: 'active',
-    lastRun: new Date(Date.now() - 1 * 60 * 60 * 1000),
-    duration: 3.2,
-    successRate: 96,
-    tags: ['auth', 'email', 'signup'],
-    createdAt: new Date(Date.now() - 28 * 24 * 60 * 60 * 1000),
-  },
-  {
-    id: '5',
-    name: 'Product Search',
-    description: 'Validates search functionality and filters',
-    type: 'ui',
-    status: 'inactive',
-    lastRun: new Date(Date.now() - 48 * 60 * 60 * 1000),
-    duration: 1.5,
-    successRate: 88,
-    tags: ['search', 'ui'],
-    createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000),
-  },
-  {
-    id: '6',
-    name: 'Database Migration',
-    description: 'Tests database schema migrations',
-    type: 'unit',
-    status: 'draft',
-    tags: ['database', 'migration'],
-    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
-  },
-];
+const getMockTests = (): Test[] => {
+  const now = Date.now();
+  return [
+    {
+      id: '1',
+      name: 'User Login Flow',
+      description: 'Tests the complete user authentication process',
+      type: 'ui',
+      status: 'active',
+      lastRun: new Date(now - 2 * 60 * 60 * 1000),
+      duration: 2.3,
+      successRate: 98,
+      tags: ['auth', 'critical', 'smoke'],
+      createdAt: new Date(now - 30 * 24 * 60 * 60 * 1000),
+    },
+    {
+      id: '2',
+      name: 'API Health Check',
+      description: 'Verifies all API endpoints are responding correctly',
+      type: 'api',
+      status: 'active',
+      lastRun: new Date(now - 15 * 60 * 1000),
+      duration: 0.8,
+      successRate: 100,
+      tags: ['api', 'health', 'monitoring'],
+      createdAt: new Date(now - 25 * 24 * 60 * 60 * 1000),
+    },
+    {
+      id: '3',
+      name: 'Payment Processing',
+      description: 'End-to-end payment flow with Stripe integration',
+      type: 'integration',
+      status: 'active',
+      lastRun: new Date(now - 5 * 60 * 60 * 1000),
+      duration: 4.5,
+      successRate: 94,
+      tags: ['payment', 'stripe', 'critical'],
+      createdAt: new Date(now - 20 * 24 * 60 * 60 * 1000),
+    },
+    {
+      id: '4',
+      name: 'User Registration',
+      description: 'Tests new user signup and email verification',
+      type: 'ui',
+      status: 'active',
+      lastRun: new Date(now - 1 * 60 * 60 * 1000),
+      duration: 3.2,
+      successRate: 96,
+      tags: ['auth', 'email', 'signup'],
+      createdAt: new Date(now - 28 * 24 * 60 * 60 * 1000),
+    },
+    {
+      id: '5',
+      name: 'Product Search',
+      description: 'Validates search functionality and filters',
+      type: 'ui',
+      status: 'inactive',
+      lastRun: new Date(now - 48 * 60 * 60 * 1000),
+      duration: 1.5,
+      successRate: 88,
+      tags: ['search', 'ui'],
+      createdAt: new Date(now - 15 * 24 * 60 * 60 * 1000),
+    },
+    {
+      id: '6',
+      name: 'Database Migration',
+      description: 'Tests database schema migrations',
+      type: 'unit',
+      status: 'draft',
+      tags: ['database', 'migration'],
+      createdAt: new Date(now - 5 * 24 * 60 * 60 * 1000),
+    },
+  ];
+};
 
 export default function TestsPage() {
   const navigate = useNavigate();
-  const [tests, setTests] = useState<Test[]>(mockTests);
+  const [tests, setTests] = useState<Test[]>(getMockTests);
   const [selectedTests, setSelectedTests] = useState<string[]>([]);
-  const [filteredTests, setFilteredTests] = useState<Test[]>(mockTests);
+  const [filteredTests, setFilteredTests] = useState<Test[]>(getMockTests);
 
   const handleSearchChange = (search: string) => {
     const filtered = tests.filter(

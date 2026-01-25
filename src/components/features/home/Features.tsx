@@ -9,12 +9,7 @@ import {
   Brain,
   Clock
 } from 'lucide-react';
-
-interface Feature {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-}
+import type { Feature } from '@/types/models';
 
 const features: Feature[] = [
   {

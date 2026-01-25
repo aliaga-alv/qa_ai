@@ -1,6 +1,5 @@
 import { Square, RotateCw } from 'lucide-react';
-
-export type ExecutionStatus = 'queued' | 'running' | 'passed' | 'failed' | 'stopped';
+import type { ExecutionStatus } from '../../../types/models';
 
 interface TestExecutionItemProps {
   id: string;
@@ -14,6 +13,10 @@ interface TestExecutionItemProps {
 }
 
 const statusConfig = {
+  pending: {
+    color: 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700',
+    label: 'Pending',
+  },
   queued: {
     color: 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700',
     label: 'Queued',
@@ -33,6 +36,10 @@ const statusConfig = {
   stopped: {
     color: 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-900/20',
     label: 'Stopped',
+  },
+  cancelled: {
+    color: 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700',
+    label: 'Cancelled',
   },
 };
 

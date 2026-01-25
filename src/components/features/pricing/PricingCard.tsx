@@ -1,16 +1,6 @@
 import { Check } from "lucide-react";
 import { Link } from "react-router-dom";
-
-export interface PricingTier {
-  name: string;
-  description: string;
-  monthlyPrice: number;
-  annualPrice: number;
-  features: string[];
-  popular?: boolean;
-  cta: string;
-  ctaLink: string;
-}
+import type { PricingTier } from '@/types/models';
 
 interface PricingCardProps {
   tier: PricingTier;

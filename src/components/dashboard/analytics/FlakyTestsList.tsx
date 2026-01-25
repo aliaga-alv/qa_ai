@@ -1,13 +1,5 @@
 import { TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
-
-interface FlakyTest {
-  id: string;
-  name: string;
-  flakinessRate: number;
-  totalRuns: number;
-  failures: number;
-  trend: 'up' | 'down';
-}
+import type { FlakyTest } from '../../../types/models';
 
 interface FlakyTestsListProps {
   tests: FlakyTest[];

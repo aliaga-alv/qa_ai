@@ -1,14 +1,5 @@
 import { Calendar, Tag } from 'lucide-react';
-
-export interface ChangelogData {
-  version: string;
-  date: string;
-  type: 'major' | 'minor' | 'patch';
-  changes: {
-    category: 'New' | 'Improved' | 'Fixed' | 'Removed';
-    items: string[];
-  }[];
-}
+import type { ChangelogData } from '@/types/models';
 
 interface ChangelogEntryProps {
   entry: ChangelogData;

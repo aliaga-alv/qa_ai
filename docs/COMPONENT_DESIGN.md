@@ -1,5 +1,126 @@
 # Component Design System
 
+## 🎯 Component Creation Guide
+
+### Before Creating ANY Component
+
+**Checklist:**
+1. ✅ Check if similar component exists
+2. ✅ Review `src/types/models/` for existing types
+3. ✅ Decide: Is this a page or component?
+4. ✅ Determine component level (Atom/Molecule/Organism)
+5. ✅ Follow TypeScript type rules
+
+### Component Template with Types
+
+```typescript
+// 📁 src/components/dashboard/TestCard.tsx
+import { useState } from 'react';
+import type { Test } from '@/types/models';  // ✅ Import domain types
+
+// ✅ Component-specific props stay in component file
+interface TestCardProps {
+  test: Test;                    // ✅ Using imported domain type
+  onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
+  className?: string;
+}
+
+export default function TestCard({ 
+  test, 
+  onEdit, 
+  onDelete, 
+  className 
+}: TestCardProps) {
+  return (
+    <div className={className}>
+      <h3>{test.name}</h3>
+      {/* Component implementation */}
+    </div>
+  );
+}
+```
+
+### Page Template with Types
+
+```typescript
+// 📁 src/pages/dashboard/TestsPage.tsx
+import { useState } from 'react';
+import type { Test } from '@/types/models';  // ✅ Domain types
+import TestCard from '@/components/dashboard/TestCard';
+
+// ✅ Page-specific props (if needed)
+interface TestsPageProps {
+  initialView?: 'list' | 'grid';
+}
+
+export default function TestsPage({ 
+  initialView = 'list' 
+}: TestsPageProps) {
+  const [tests, setTests] = useState<Test[]>([]);  // ✅ Typed state
+  
+  return (
+    <div>
+      {tests.map(test => (
+        <TestCard key={test.id} test={test} />
+      ))}
+    </div>
+  );
+}
+```
+
+### Type Decision Flow
+
+```
+Creating a new component?
+  ↓
+  Need types?
+    ↓
+    Check src/types/models/
+      Found? → Import it ✅
+        import type { Test } from '@/types/models';
+      ↓
+      Not found? → Is it a domain model?
+        Yes → Add to src/types/models/ ✅
+          // In types/models/dashboard.ts
+          export interface MyType { /* ... */ }
+        ↓
+        No → Component-specific props?
+          Yes → Define in component file ✅
+            interface MyComponentProps { /* ... */ }
+```
+
+### Common Type Patterns
+
+```typescript
+// 📌 Pattern 1: Component with domain types
+import type { User, Team } from '@/types/models';
+
+interface UserTeamCardProps {
+  user: User;      // Domain type
+  team: Team;      // Domain type
+  onClick?: () => void;  // Component-specific
+}
+
+// 📌 Pattern 2: Component with extended types
+import type { Test } from '@/types/models';
+
+interface TestWithActions extends Test {
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+// 📌 Pattern 3: Component with optional domain data
+import type { TestExecution } from '@/types/models';
+
+interface ExecutionViewProps {
+  execution?: TestExecution;  // May be loading
+  isLoading?: boolean;
+}
+```
+
+---
+
 ## Design Tokens
 
 ### Color Palette (Futuristic Theme)

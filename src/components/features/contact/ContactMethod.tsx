@@ -1,11 +1,4 @@
-import type { LucideIcon } from 'lucide-react';
-
-export interface ContactMethodData {
-  icon: LucideIcon;
-  title: string;
-  value: string;
-  link?: string;
-}
+import type { ContactMethodData } from '@/types/models';
 
 interface ContactMethodProps {
   method: ContactMethodData;

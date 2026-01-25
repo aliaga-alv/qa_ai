@@ -1,12 +1,5 @@
 import { Sparkles } from 'lucide-react';
-
-interface Insight {
-  id: string;
-  type: 'success' | 'warning' | 'info';
-  title: string;
-  description: string;
-  action?: string;
-}
+import type { Insight } from '../../../types/models';
 
 interface AIInsightsProps {
   insights: Insight[];
@@ -18,6 +11,12 @@ const typeConfig = {
     borderColor: 'border-green-200 dark:border-green-800',
     textColor: 'text-green-700 dark:text-green-400',
     iconColor: 'text-green-600 dark:text-green-400',
+  },
+  error: {
+    bgColor: 'bg-red-50 dark:bg-red-900/20',
+    borderColor: 'border-red-200 dark:border-red-800',
+    textColor: 'text-red-700 dark:text-red-400',
+    iconColor: 'text-red-600 dark:text-red-400',
   },
   warning: {
     bgColor: 'bg-orange-50 dark:bg-orange-900/20',

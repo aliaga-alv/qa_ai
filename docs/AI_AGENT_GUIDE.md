@@ -30,12 +30,245 @@ npm run build  # Must pass with 0 errors
 ---
 
 ## Table of Contents
-1. [Tailwind CSS Best Practices](#tailwind-css-best-practices)
-2. [shadcn/ui Integration](#shadcnui-integration)
-3. [Common Tailwind Mistakes](#common-tailwind-mistakes)
-4. [Component Creation Patterns](#component-creation-patterns)
-5. [State Management](#state-management)
-6. [Quick Decision Trees](#quick-decision-trees)
+1. [TypeScript Type Management](#typescript-type-management)
+2. [Tailwind CSS Best Practices](#tailwind-css-best-practices)
+3. [shadcn/ui Integration](#shadcnui-integration)
+4. [Common Tailwind Mistakes](#common-tailwind-mistakes)
+5. [Component Creation Patterns](#component-creation-patterns)
+6. [State Management](#state-management)
+7. [Quick Decision Trees](#quick-decision-trees)
+
+---
+
+## TypeScript Type Management
+
+### 🎯 Type Organization Rules
+
+#### **Rule 1: Use Centralized Types for Domain Models**
+
+**ALWAYS check `src/types/models/` before creating new types:**
+
+```typescript
+// ❌ WRONG - Creating duplicate types
+import { useState } from 'react';
+
+interface Test {  // Already exists in types/models!
+  id: string;
+  name: string;
+  // ...
+}
+
+// ✅ CORRECT - Import from centralized types
+import type { Test } from '@/types/models';
+```
+
+#### **Rule 2: Know What Goes Where**
+
+```typescript
+// 📁 src/types/models/ - Domain types (REUSABLE across app)
+// ✅ Use for: Test, User, TeamMember, Invoice, etc.
+export interface Test {
+  id: string;
+  name: string;
+  type: TestType;
+  status: TestStatus;
+}
+
+// 📁 Component files - Component-specific props (NOT reusable)
+// ✅ Use for: Props interfaces, local state types
+import type { Test } from '@/types/models';
+
+interface TestListProps {  // ✅ Stays in component
+  tests: Test[];           // ✅ Imported from types/models
+  onSelect: (id: string) => void;
+  className?: string;
+}
+```
+
+#### **Rule 3: Type Import Syntax**
+
+```typescript
+// ❌ WRONG - Will cause verbatimModuleSyntax errors
+import { Test, User } from '@/types/models';
+
+// ✅ CORRECT - Always use 'type' keyword
+import type { Test, User } from '@/types/models';
+
+// ✅ ALSO CORRECT - Inline type imports
+import { type Test, type User } from '@/types/models';
+```
+
+### 📋 Type Creation Checklist
+
+**Before creating ANY new type:**
+
+1. ✅ Check if it exists in `src/types/models/`
+2. ✅ Determine: Is this domain model or component-specific?
+3. ✅ If domain model → Add to appropriate file in `types/models/`
+4. ✅ If component-specific → Keep in component file
+5. ✅ Use `type` keyword for imports
+6. ✅ Export types that other components need
+
+### 🗂️ Type File Organization
+
+```
+src/types/models/
+├── index.ts           # Central export (import from here!)
+├── dashboard.ts       # Test, TeamMember, UserRole, etc.
+├── analytics.ts       # Insight, FlakyTest, DateRange
+├── billing.ts         # PaymentMethod, Invoice, Plan
+├── security.ts        # ActiveSession, SecurityLog
+├── notification.ts    # Notification, Activity
+└── content.ts         # Blog, Pricing, Careers, etc.
+```
+
+### 📝 Creating New Types - Examples
+
+#### Example 1: New Page Component
+
+```typescript
+// ✅ CORRECT Pattern
+import { useState } from 'react';
+import type { Test, TeamMember } from '@/types/models';  // Domain types
+
+// Component-specific props stay here
+interface TestPageProps {
+  initialView?: 'list' | 'grid';
+}
+
+export default function TestPage({ initialView = 'list' }: TestPageProps) {
+  const [tests, setTests] = useState<Test[]>([]);  // ✅ Using imported type
+  // ...
+}
+```
+
+#### Example 2: New Domain Type
+
+```typescript
+// 📁 src/types/models/dashboard.ts
+
+/**
+ * Represents a test suite containing multiple tests
+ */
+export interface TestSuite {
+  id: string;
+  name: string;
+  description: string;
+  tests: Test[];        // ✅ Reuses existing type
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// 📁 Component using the new type
+import type { TestSuite } from '@/types/models';
+```
+
+#### Example 3: Extending Existing Types
+
+```typescript
+// 📁 src/types/models/dashboard.ts
+
+export interface Test {
+  id: string;
+  name: string;
+}
+
+// ✅ Extend when adding related data
+export interface TestWithStats extends Test {
+  totalRuns: number;
+  successRate: number;
+  lastRun: Date;
+}
+```
+
+### ⚠️ Common Type Mistakes
+
+```typescript
+// ❌ MISTAKE 1: Duplicating existing types
+interface User {  // Already in types/models!
+  id: string;
+  email: string;
+}
+
+// ❌ MISTAKE 2: Domain types in component files
+// This belongs in types/models/, not here!
+export interface Invoice {
+  id: string;
+  amount: number;
+}
+
+// ❌ MISTAKE 3: Missing type imports
+import { Test } from '@/types/models';  // Missing 'type'
+
+// ❌ MISTAKE 4: Re-exporting types from components
+export type { UserRole };  // Import from types/models instead!
+
+// ❌ MISTAKE 5: Using 'any'
+const data: any = fetchData();  // Never use 'any'!
+
+// ✅ CORRECT alternatives:
+const data: unknown = fetchData();  // Use unknown
+const data = fetchData() as Test;   // Or cast if known
+import type { UserRole } from '@/types/models';  // Import directly
+```
+
+###  Quick Reference
+
+| Type Category | Location | Examples |
+|--------------|----------|----------|
+| **Dashboard** | `types/models/dashboard.ts` | Test, TeamMember, TestRun, UserRole |
+| **Analytics** | `types/models/analytics.ts` | Insight, FlakyTest, DateRange |
+| **Billing** | `types/models/billing.ts` | PaymentMethod, Invoice, Plan |
+| **Security** | `types/models/security.ts` | ActiveSession, SecurityLog |
+| **Notifications** | `types/models/notification.ts` | Notification, Activity |
+| **Content** | `types/models/content.ts` | BlogPost, JobPosting, Feature |
+| **Component Props** | Same file as component | ButtonProps, CardProps |
+| **Local State** | Same file as component | FormData, LocalState |
+
+### 🎓 Type Best Practices
+
+1. **Be Specific with Union Types**
+   ```typescript
+   // ✅ GOOD - Clear, finite options
+   type Status = 'active' | 'inactive' | 'pending';
+   
+   // ❌ BAD - Too generic
+   type Status = string;
+   ```
+
+2. **Use Optional Fields Wisely**
+   ```typescript
+   interface Test {
+     id: string;        // Always required
+     name: string;      // Always required
+     lastRun?: Date;    // May not exist yet
+   }
+   ```
+
+3. **Prefer Interfaces for Objects**
+   ```typescript
+   // ✅ PREFER - Interfaces for object shapes
+   interface User {
+     id: string;
+     name: string;
+   }
+   
+   // ✅ USE - Types for unions, primitives
+   type Status = 'active' | 'inactive';
+   type ID = string | number;
+   ```
+
+4. **Document Complex Types**
+   ```typescript
+   /**
+    * Represents a test execution with full details including
+    * logs, screenshots, and execution metadata.
+    */
+   export interface ExecutionDetail {
+     id: string;
+     // ...
+   }
+   ```
 
 ---
 
@@ -378,9 +611,8 @@ export const CustomButton = ({ className, ...props }: ButtonProps) => {
 ### ❌ Mistake 1: Conflicting Classes
 ```typescript
 // ❌ WRONG - Last one wins, but confusing
-<div className="p-4 p-6 p-8">
-  // Which padding? (p-8 wins but unclear)
-</div>
+// Don't use multiple conflicting classes like: p-4 p-6 p-8
+// Which padding? (p-8 wins but unclear)
 
 // ✅ CORRECT - Be explicit
 <div className="p-8">

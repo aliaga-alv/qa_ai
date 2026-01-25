@@ -1,4 +1,5 @@
-import { ChangelogEntry, type ChangelogData } from '@/components/features/changelog/ChangelogEntry';
+import { ChangelogEntry } from '@/components/features/changelog/ChangelogEntry';
+import type { ChangelogData } from '@/types/models';
 
 const changelog: ChangelogData[] = [
   {

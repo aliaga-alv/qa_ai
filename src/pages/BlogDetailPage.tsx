@@ -1,16 +1,9 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Calendar, Clock, ArrowLeft, Linkedin, Twitter, Facebook } from 'lucide-react';
 import { BlogContent } from '@/components/features/blog/BlogContent';
-import { BlogAuthor, type AuthorData } from '@/components/features/blog/BlogAuthor';
+import { BlogAuthor } from '@/components/features/blog/BlogAuthor';
 import { RelatedPosts } from '@/components/features/blog/RelatedPosts';
-import type { BlogPostData } from '@/components/features/blog/BlogCard';
-
-// Extended blog post data with full content
-interface FullBlogPost extends BlogPostData {
-  content: string;
-  authorInfo: AuthorData;
-  tags: string[];
-}
+import type { FullBlogPost } from '@/types/models';
 
 // Mock blog posts data with full content
 const blogPosts: FullBlogPost[] = [
@@ -616,11 +609,11 @@ export const BlogDetailPage = () => {
 
             {/* Content */}
             <div className="mb-12">
-              <BlogContent content={post.content} />
+              <BlogContent content={post.content || ''} />
             </div>
 
             {/* Tags */}
-            {post.tags.length > 0 && (
+            {post.tags && post.tags.length > 0 && (
               <div className="mb-12 pb-8 border-b border-gray-200 dark:border-gray-700">
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (

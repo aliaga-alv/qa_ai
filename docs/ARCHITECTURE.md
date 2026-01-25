@@ -37,6 +37,87 @@ Radix UI (Accessibility & Primitives)
 - **React Helmet Async**: SEO meta tags
 - **React Hot Toast**: Notifications
 
+## TypeScript Type System
+
+### Centralized Type Management
+
+All domain types are centralized in `src/types/models/` to ensure:
+- **Single source of truth** - Each type defined once
+- **Reusability** - Types shared across components
+- **Maintainability** - Changes in one place
+- **Type safety** - No duplicates or conflicts
+
+### Type Organization
+
+```
+src/types/models/
+├── index.ts           # Central export - import from here
+├── dashboard.ts       # Dashboard domain types
+├── analytics.ts       # Analytics and metrics
+├── billing.ts         # Payment and subscriptions
+├── security.ts        # Security and sessions
+├── notification.ts    # Notifications and activity
+└── content.ts         # Public content (blog, etc.)
+```
+
+### Type Usage Rules
+
+**DO:**
+```typescript
+// ✅ Import domain types from centralized location
+import type { Test, TeamMember, UserRole } from '@/types/models';
+
+// ✅ Keep component-specific props in component
+interface TestListProps {
+  tests: Test[];
+  onSelect: (id: string) => void;
+}
+```
+
+**DON'T:**
+```typescript
+// ❌ Don't recreate existing domain types
+interface Test {
+  id: string;
+  name: string;
+}
+
+// ❌ Don't put component props in types/models/
+export interface TestListProps { /* ... */ }
+
+// ❌ Don't import without 'type' keyword
+import { Test } from '@/types/models';
+```
+
+### When Creating New Types
+
+1. **Check if it exists** in `src/types/models/` first
+2. **Determine category:**
+   - Domain model (User, Test, Invoice) → `types/models/`
+   - Component props → Stay in component file
+3. **Choose the right file:**
+   - Dashboard-related → `dashboard.ts`
+   - Analytics → `analytics.ts`
+   - Billing → `billing.ts`
+   - etc.
+4. **Use proper import syntax:**
+   ```typescript
+   import type { TypeName } from '@/types/models';
+   ```
+
+### Type Categories
+
+| File | Contains | Examples |
+|------|----------|----------|
+| `dashboard.ts` | Test management, team, execution | Test, TeamMember, UserRole, TestRun |
+| `analytics.ts` | Analytics and metrics | Insight, FlakyTest, DateRange |
+| `billing.ts` | Payment and subscriptions | PaymentMethod, Invoice, Plan |
+| `security.ts` | Security and sessions | ActiveSession, SecurityLog |
+| `notification.ts` | Notifications and activity | Notification, Activity |
+| `content.ts` | Public-facing content | BlogPost, JobPosting, Feature |
+
+See `src/types/README.md` for detailed documentation.
+
 ## Project Structure
 
 ```
@@ -81,6 +162,16 @@ qa_ai/
 │   │       ├── LoadingSpinner.tsx
 │   │       ├── ErrorBoundary.tsx
 │   │       └── SEO.tsx
+│   ├── types/                    # TypeScript type definitions
+│   │   ├── models/               # Domain model types
+│   │   │   ├── index.ts          # Central export point
+│   │   │   ├── dashboard.ts      # Test, TeamMember, etc.
+│   │   │   ├── analytics.ts      # Insight, FlakyTest, etc.
+│   │   │   ├── billing.ts        # PaymentMethod, Invoice, etc.
+│   │   │   ├── security.ts       # ActiveSession, SecurityLog
+│   │   │   ├── notification.ts   # Notification, Activity
+│   │   │   └── content.ts        # Blog, Pricing, Careers
+│   │   └── api/                  # API-related types
 │   ├── pages/                    # Page components
 │   │   ├── HomePage.tsx
 │   │   ├── LoginPage.tsx

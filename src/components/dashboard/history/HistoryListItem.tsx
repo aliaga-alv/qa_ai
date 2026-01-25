@@ -1,20 +1,6 @@
 import { CheckCircle, XCircle, Clock, AlertTriangle, Image, Video } from 'lucide-react';
 import { format } from 'date-fns';
-
-export type ExecutionStatus = 'passed' | 'failed' | 'running' | 'stopped';
-
-interface TestExecution {
-  id: string;
-  testName: string;
-  status: ExecutionStatus;
-  duration: number;
-  timestamp: Date;
-  environment: string;
-  triggeredBy: string;
-  hasScreenshots: boolean;
-  hasVideo: boolean;
-  errorCount?: number;
-}
+import type { TestExecution } from '../../../types/models';
 
 interface HistoryListItemProps {
   execution: TestExecution;

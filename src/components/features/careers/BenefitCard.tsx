@@ -1,10 +1,4 @@
-import type { LucideIcon } from 'lucide-react';
-
-export interface BenefitData {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}
+import type { BenefitData } from '@/types/models';
 
 interface BenefitCardProps {
   benefit: BenefitData;

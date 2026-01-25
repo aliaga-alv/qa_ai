@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { BlogCard, type BlogPostData } from '@/components/features/blog/BlogCard';
+import { BlogCard } from '@/components/features/blog/BlogCard';
+import type { BlogPostData } from '@/types/models';
 
 const blogPosts: BlogPostData[] = [
   {

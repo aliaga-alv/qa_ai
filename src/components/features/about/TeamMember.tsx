@@ -1,13 +1,5 @@
 import { Linkedin, Twitter } from 'lucide-react';
-
-export interface TeamMemberData {
-  name: string;
-  role: string;
-  image: string;
-  bio: string;
-  linkedin?: string;
-  twitter?: string;
-}
+import type { TeamMemberData } from '@/types/models';
 
 interface TeamMemberProps {
   member: TeamMemberData;

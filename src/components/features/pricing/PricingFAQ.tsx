@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-
-interface FAQItem {
-  question: string;
-  answer: string;
-}
+import type { FAQItem } from '@/types/models';
 
 const faqs: FAQItem[] = [
   {

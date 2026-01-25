@@ -1,12 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Upload, Cpu, CheckCircle2, BarChart3 } from 'lucide-react';
-
-interface Step {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-  number: number;
-}
+import type { Step } from '@/types/models';
 
 const steps: Step[] = [
   {

@@ -1,71 +1,64 @@
 import { useState } from 'react';
 import { UserPlus, Users, Search } from 'lucide-react';
 import { toast } from 'sonner';
-import TeamMemberCard, { type UserRole } from '../../components/dashboard/team/TeamMemberCard';
+import TeamMemberCard from '../../components/dashboard/team/TeamMemberCard';
 import InviteMemberModal from '../../components/dashboard/team/InviteMemberModal';
-
-interface TeamMember {
-  id: string;
-  name: string;
-  email: string;
-  role: UserRole;
-  avatar?: string;
-  lastActive: Date;
-  testsRun: number;
-  status: 'active' | 'pending';
-}
+import type { TeamMember, UserRole } from '../../types/models';
 
 // TODO: Replace with real API data
-const mockTeamMembers: TeamMember[] = [
-  {
-    id: '1',
-    name: 'John Doe',
-    email: 'john@example.com',
-    role: 'owner',
-    lastActive: new Date(),
-    testsRun: 342,
-    status: 'active',
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    email: 'jane@example.com',
-    role: 'admin',
-    lastActive: new Date(Date.now() - 2 * 60 * 60 * 1000),
-    testsRun: 256,
-    status: 'active',
-  },
-  {
-    id: '3',
-    name: 'Mike Johnson',
-    email: 'mike@example.com',
-    role: 'member',
-    lastActive: new Date(Date.now() - 24 * 60 * 60 * 1000),
-    testsRun: 187,
-    status: 'active',
-  },
-  {
-    id: '4',
-    name: 'Sarah Williams',
-    email: 'sarah@example.com',
-    role: 'viewer',
-    lastActive: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-    testsRun: 0,
-    status: 'active',
-  },
-  {
-    id: '5',
-    name: 'Tom Brown',
-    email: 'tom@example.com',
-    role: 'member',
-    lastActive: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-    testsRun: 0,
-    status: 'pending',
-  },
-];
+const getMockTeamMembers = (): TeamMember[] => {
+  const now = Date.now();
+  return [
+    {
+      id: '1',
+      name: 'John Doe',
+      email: 'john@example.com',
+      role: 'owner',
+      lastActive: new Date(now),
+      testsRun: 342,
+      status: 'active',
+    },
+    {
+      id: '2',
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      role: 'admin',
+      lastActive: new Date(now - 2 * 60 * 60 * 1000),
+      testsRun: 256,
+      status: 'active',
+    },
+    {
+      id: '3',
+      name: 'Mike Johnson',
+      email: 'mike@example.com',
+      role: 'member',
+      lastActive: new Date(now - 24 * 60 * 60 * 1000),
+      testsRun: 187,
+      status: 'active',
+    },
+    {
+      id: '4',
+      name: 'Sarah Williams',
+      email: 'sarah@example.com',
+      role: 'viewer',
+      lastActive: new Date(now - 3 * 24 * 60 * 60 * 1000),
+      testsRun: 0,
+      status: 'active',
+    },
+    {
+      id: '5',
+      name: 'Tom Brown',
+      email: 'tom@example.com',
+      role: 'member',
+      lastActive: new Date(now - 7 * 24 * 60 * 60 * 1000),
+      testsRun: 0,
+      status: 'pending',
+    },
+  ];
+};
 
 export default function TeamPage() {
-  const [members, setMembers] = useState<TeamMember[]>(mockTeamMembers);
+  const [members, setMembers] = useState<TeamMember[]>(getMockTeamMembers);
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState<'all' | UserRole>('all');
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
@@ -96,12 +89,13 @@ export default function TeamPage() {
   };
 
   const handleInvite = (email: string, role: UserRole) => {
+    const now = Date.now();
     const newMember: TeamMember = {
-      id: Date.now().toString(),
+      id: now.toString(),
       name: email.split('@')[0],
       email,
       role,
-      lastActive: new Date(),
+      lastActive: new Date(now),
       testsRun: 0,
       status: 'pending',
     };

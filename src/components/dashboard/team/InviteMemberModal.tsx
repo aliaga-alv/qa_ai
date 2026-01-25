@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import { useState } from 'react';
-import { type UserRole } from './TeamMemberCard';
+import type { UserRole } from '../../../types/models';
 
 interface InviteMemberModalProps {
   isOpen: boolean;

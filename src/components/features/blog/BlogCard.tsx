@@ -1,16 +1,6 @@
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-export interface BlogPostData {
-  id: string;
-  title: string;
-  excerpt: string;
-  author: string;
-  date: string;
-  readTime: string;
-  category: string;
-  image?: string;
-}
+import type { BlogPostData } from '@/types/models';
 
 interface BlogCardProps {
   post: BlogPostData;

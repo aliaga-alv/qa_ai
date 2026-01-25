@@ -1,14 +1,6 @@
 import { MapPin, Briefcase, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-export interface JobData {
-  id: string;
-  title: string;
-  department: string;
-  location: string;
-  type: string;
-  description: string;
-}
+import type { JobData } from '@/types/models';
 
 interface JobCardProps {
   job: JobData;

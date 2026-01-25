@@ -1,11 +1,4 @@
-export interface AuthorData {
-  name: string;
-  role: string;
-  bio: string;
-  avatar?: string;
-  linkedin?: string;
-  twitter?: string;
-}
+import type { AuthorData } from '../../../types/models';
 
 interface BlogAuthorProps {
   author: AuthorData;

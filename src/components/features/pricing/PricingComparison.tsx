@@ -1,12 +1,5 @@
 import { Check, X } from 'lucide-react';
-
-interface ComparisonFeature {
-  name: string;
-  free: boolean | string;
-  starter: boolean | string;
-  professional: boolean | string;
-  enterprise: boolean | string;
-}
+import type { ComparisonFeature } from '@/types/models';
 
 const features: ComparisonFeature[] = [
   {
@@ -102,7 +95,8 @@ const features: ComparisonFeature[] = [
   },
 ];
 
-const renderValue = (value: boolean | string) => {
+  const renderValue = (value: boolean | string | undefined) => {
+    if (value === undefined) return <X className="h-4 w-4 text-gray-400" />;
   if (typeof value === 'boolean') {
     return value ? (
       <Check className="w-5 h-5 text-green-600 dark:text-green-400 mx-auto" />

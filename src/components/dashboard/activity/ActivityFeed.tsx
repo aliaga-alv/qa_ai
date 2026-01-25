@@ -1,13 +1,6 @@
 import { CheckCircle, XCircle, Plus, Clock, User } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
-
-interface Activity {
-  id: string;
-  type: 'test_passed' | 'test_failed' | 'test_created' | 'test_running';
-  message: string;
-  user: string;
-  timestamp: Date;
-}
+import type { Activity } from '../../../types/models';
 
 // TODO: Replace with real API data
 const mockActivities: Activity[] = [

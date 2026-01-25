@@ -19,6 +19,7 @@ export default defineConfig({
           'vendor-motion': ['framer-motion'],
           'vendor-state': ['zustand', '@tanstack/react-query', 'axios'],
           'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          'vendor-charts': ['recharts'],
         },
       },
     },

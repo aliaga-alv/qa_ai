@@ -1,27 +1,6 @@
 import { X, Terminal, Image, Video, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
-import { type ExecutionStatus } from './HistoryListItem';
-
-interface LogEntry {
-  timestamp: Date;
-  level: 'info' | 'success' | 'error' | 'warning';
-  message: string;
-}
-
-interface ExecutionDetail {
-  id: string;
-  testName: string;
-  status: ExecutionStatus;
-  duration: number;
-  timestamp: Date;
-  environment: string;
-  triggeredBy: string;
-  logs: LogEntry[];
-  errors: string[];
-  screenshots: string[];
-  videoUrl?: string;
-  config: Record<string, string | number>;
-}
+import type { ExecutionDetail } from '../../../types/models';
 
 interface ExecutionDetailsModalProps {
   execution: ExecutionDetail | null;

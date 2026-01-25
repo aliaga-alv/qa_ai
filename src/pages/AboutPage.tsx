@@ -1,8 +1,9 @@
 import { Target, Zap, Users, Heart, Shield, Lightbulb } from 'lucide-react';
-import { TeamMember, type TeamMemberData } from '@/components/features/about/TeamMember';
-import { ValueCard, type ValueData } from '@/components/features/about/ValueCard';
+import { TeamMember } from '@/components/features/about/TeamMember';
+import { ValueCard } from '@/components/features/about/ValueCard';
 import { StatCard } from '@/components/features/about/StatCard';
 import { ROUTES } from '@/constants/routes';
+import type { TeamMemberData, ValueData } from '@/types/models';
 
 const values: ValueData[] = [
   {

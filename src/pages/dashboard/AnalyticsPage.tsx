@@ -80,11 +80,13 @@ const mockInsights = [
   },
 ];
 
+const getInitialDateRange = () => ({
+  start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+  end: new Date(),
+});
+
 export default function AnalyticsPage() {
-  const [dateRange, setDateRange] = useState({
-    start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
-    end: new Date(),
-  });
+  const [dateRange, setDateRange] = useState(getInitialDateRange);
   const [selectedType, setSelectedType] = useState('all');
 
   const handleExport = () => {

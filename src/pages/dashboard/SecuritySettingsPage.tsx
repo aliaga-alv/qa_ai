@@ -2,25 +2,7 @@ import { useState } from 'react';
 import { Shield, Lock, Smartphone, Eye, EyeOff, Save, Trash2, Monitor, AlertTriangle, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
-
-interface ActiveSession {
-  id: string;
-  device: string;
-  browser: string;
-  location: string;
-  ipAddress: string;
-  lastActive: Date;
-  isCurrent: boolean;
-}
-
-interface SecurityLog {
-  id: string;
-  action: string;
-  timestamp: Date;
-  ipAddress: string;
-  location: string;
-  status: 'success' | 'failed';
-}
+import type { ActiveSession, SecurityLog } from '../../types/models';
 
 // TODO: Replace with real API data
 const mockSessions: ActiveSession[] = [

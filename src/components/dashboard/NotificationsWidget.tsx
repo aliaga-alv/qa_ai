@@ -2,18 +2,7 @@ import { Bell, X, CheckCircle, XCircle, AlertTriangle, Info, ExternalLink } from
 import { useState, useRef, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { useNavigate } from 'react-router';
-
-export type NotificationType = 'success' | 'error' | 'warning' | 'info';
-
-interface Notification {
-  id: string;
-  type: NotificationType;
-  title: string;
-  message: string;
-  timestamp: Date;
-  isRead: boolean;
-  link?: string;
-}
+import type { Notification } from '@/types/models';
 
 const notificationConfig = {
   success: {

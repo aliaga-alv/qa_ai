@@ -1,14 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
-
-interface Testimonial {
-  name: string;
-  role: string;
-  company: string;
-  image: string;
-  content: string;
-  rating: number;
-}
+import type { Testimonial } from '@/types/models';
 
 const testimonials: Testimonial[] = [
   {

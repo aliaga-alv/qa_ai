@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
 import { ContactForm } from '@/components/features/contact/ContactForm';
-import { ContactMethod, type ContactMethodData } from '@/components/features/contact/ContactMethod';
+import { ContactMethod } from '@/components/features/contact/ContactMethod';
+import type { ContactMethodData } from '@/types/models';
 
 const contactMethods: ContactMethodData[] = [
   {

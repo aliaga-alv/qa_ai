@@ -1,14 +1,6 @@
 import { Plus, Play, BarChart3, Calendar, Upload, FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-interface QuickAction {
-  id: string;
-  label: string;
-  icon: React.ElementType;
-  color: string;
-  bgColor: string;
-  onClick: () => void;
-}
+import type { QuickAction } from '@/types/models';
 
 export default function QuickActions() {
   const navigate = useNavigate();
