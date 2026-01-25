@@ -22,7 +22,7 @@ export const BlogAuthor = ({ author }: BlogAuthorProps) => {
         <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
           {author.bio}
         </p>
-        {(author.linkedin || author.twitter) && (
+        {(author.linkedin || author.x) && (
           <div className="flex gap-3 mt-3">
             {author.linkedin && (
               <a
@@ -34,14 +34,14 @@ export const BlogAuthor = ({ author }: BlogAuthorProps) => {
                 LinkedIn
               </a>
             )}
-            {author.twitter && (
+            {author.x && (
               <a
-                href={author.twitter}
+                href={author.x}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium"
               >
-                Twitter
+                X
               </a>
             )}
           </div>

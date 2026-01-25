@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { Calendar, Clock, ArrowLeft, Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Linkedin, X, Facebook } from 'lucide-react';
 import { BlogContent } from '@/components/features/blog/BlogContent';
 import { BlogAuthor } from '@/components/features/blog/BlogAuthor';
 import { RelatedPosts } from '@/components/features/blog/RelatedPosts';
@@ -8,7 +8,7 @@ import { fullBlogPosts } from '@/mocks';
 // Mock blog posts data with full content
 const blogPosts = fullBlogPosts;
 
-export const BlogDetailPage = () => {
+export default function BlogDetailPage() {
   const { id } = useParams<{ id: string }>();
   
   const post = blogPosts.find(p => p.id === id);
@@ -22,12 +22,12 @@ export const BlogDetailPage = () => {
     .filter(p => p.category === post.category && p.id !== post.id)
     .slice(0, 3);
 
-  const handleShare = (platform: 'twitter' | 'linkedin' | 'facebook') => {
+  const handleShare = (platform: 'x' | 'linkedin' | 'facebook') => {
     const url = window.location.href;
     const text = post.title;
 
     const shareUrls = {
-      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`,
+      x: `https://x.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`,
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
     };
@@ -79,11 +79,11 @@ export const BlogDetailPage = () => {
               <div className="flex items-center gap-3 ml-auto">
                 <span className="text-sm font-medium">Share:</span>
                 <button
-                  onClick={() => handleShare('twitter')}
+                  onClick={() => handleShare('x')}
                   className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                  aria-label="Share on Twitter"
+                  aria-label="Share on X"
                 >
-                  <Twitter className="w-5 h-5" />
+                  <X className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleShare('linkedin')}
@@ -169,4 +169,4 @@ export const BlogDetailPage = () => {
       </section>
     </div>
   );
-};
+}

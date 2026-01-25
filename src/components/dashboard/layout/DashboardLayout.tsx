@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   TestTube2,
   Menu,
@@ -11,10 +11,13 @@ import {
   Moon,
   Sun,
   Settings,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
 import NotificationsWidget from '../NotificationsWidget';
+import Tooltip from '@/components/common/Tooltip';
 import { DASHBOARD_NAVIGATION } from '@/constants';
 
 export default function DashboardLayout() {
@@ -24,6 +27,18 @@ export default function DashboardLayout() {
   const { theme, toggleTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
+    const saved = localStorage.getItem('sidebar-collapsed');
+    return saved === 'true';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('sidebar-collapsed', String(sidebarCollapsed));
+  }, [sidebarCollapsed]);
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
+  };
 
   const handleLogout = () => {
     logout();
@@ -42,20 +57,22 @@ export default function DashboardLayout() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 transform bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 transform bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        } ${sidebarCollapsed ? 'lg:w-20' : 'lg:w-64'} w-64`}
       >
         <div className="flex h-full flex-col">
           {/* Logo */}
           <div className="flex h-16 items-center justify-between px-6 border-b border-gray-200 dark:border-gray-700">
             <Link to="/dashboard" className="flex items-center space-x-2">
-              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center flex-shrink-0">
                 <TestTube2 className="h-5 w-5 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent">
-                QA AI
-              </span>
+              {!sidebarCollapsed && (
+                <span className="text-xl font-bold bg-gradient-to-r from-primary-500 to-accent-500 bg-clip-text text-transparent whitespace-nowrap">
+                  QA AI
+                </span>
+              )}
             </Link>
             <button
               onClick={() => setSidebarOpen(false)}
@@ -73,38 +90,78 @@ export default function DashboardLayout() {
               const isActive = item.href === '/dashboard'
                 ? location.pathname === item.href
                 : location.pathname === item.href || location.pathname.startsWith(item.href + '/');
-              return (
+              
+              const navLink = (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center ${sidebarCollapsed ? 'justify-center' : 'space-x-3'} px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
                   }`}
                 >
                   <item.icon className="h-5 w-5 flex-shrink-0" />
-                  <span>{item.name}</span>
+                  {!sidebarCollapsed && <span>{item.name}</span>}
                 </Link>
               );
+
+              return sidebarCollapsed ? (
+                <Tooltip key={item.name} content={item.name} side="right">
+                  {navLink}
+                </Tooltip>
+              ) : navLink;
             })}
           </nav>
 
           {/* Help & Support */}
           <div className="border-t border-gray-200 dark:border-gray-700 p-4">
-            <Link
-              to="/docs"
-              className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            {sidebarCollapsed ? (
+              <Tooltip content="Help & Docs" side="right">
+                <Link
+                  to="/docs"
+                  className="flex items-center justify-center px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                >
+                  <HelpCircle className="h-5 w-5" />
+                </Link>
+              </Tooltip>
+            ) : (
+              <Link
+                to="/docs"
+                className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <HelpCircle className="h-5 w-5" />
+                <span>Help & Docs</span>
+              </Link>
+            )}
+          </div>
+
+          {/* Collapse toggle button for desktop */}
+          <div className="hidden lg:flex justify-center border-t border-gray-200 dark:border-gray-700 p-3">
+            <Tooltip 
+              content={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              side="right"
             >
-              <HelpCircle className="h-5 w-5" />
-              <span>Help & Docs</span>
-            </Link>
+              <button
+                onClick={toggleSidebar}
+                className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                aria-label={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              >
+                {sidebarCollapsed ? (
+                  <ChevronRight className="h-5 w-5" />
+                ) : (
+                  <ChevronLeft className="h-5 w-5" />
+                )}
+              </button>
+            </Tooltip>
           </div>
         </div>
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-h-screen lg:ml-64">
+      <div className={`flex-1 flex flex-col min-h-screen transition-all duration-300 ${
+        sidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'
+      }`}>
         {/* Top header */}
         <header className="sticky top-0 z-30 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
           <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">

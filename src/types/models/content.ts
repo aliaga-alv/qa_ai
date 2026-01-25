@@ -10,7 +10,7 @@ export interface AuthorData {
   role: string;
   bio: string;
   avatar?: string;
-  twitter?: string;
+  x?: string;
   linkedin?: string;
 }
 
@@ -135,7 +135,7 @@ export interface TeamMemberData {
   image: string;
   bio: string;
   linkedin?: string;
-  twitter?: string;
+  x?: string;
 }
 
 export interface TeamMemberInfo {
@@ -144,7 +144,7 @@ export interface TeamMemberInfo {
   bio: string;
   image: string;
   social: {
-    twitter?: string;
+    x?: string;
     linkedin?: string;
     github?: string;
   };

@@ -1,4 +1,4 @@
-import { Linkedin, Twitter } from 'lucide-react';
+import { Linkedin, X } from 'lucide-react';
 import type { TeamMemberData } from '@/types/models';
 
 interface TeamMemberProps {
@@ -37,15 +37,15 @@ export const TeamMember = ({ member }: TeamMemberProps) => {
             <Linkedin className="w-5 h-5" />
           </a>
         )}
-        {member.twitter && (
+        {member.x && (
           <a
-            href={member.twitter}
+            href={member.x}
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-            aria-label={`${member.name} on Twitter`}
+            aria-label={`${member.name} on X`}
           >
-            <Twitter className="w-5 h-5" />
+            <X className="w-5 h-5" />
           </a>
         )}
       </div>

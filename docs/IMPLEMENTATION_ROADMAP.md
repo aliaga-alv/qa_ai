@@ -512,7 +512,7 @@ Create folder structure as defined in ARCHITECTURE.md:
 **components/common/SEO.tsx**
 - Dynamic meta tags
 - Open Graph tags
-- Twitter cards
+- X cards
 - Structured data (JSON-LD)
 
 **Add to all pages:**

@@ -3,7 +3,7 @@ import { BlogCard } from '@/components/features/blog/BlogCard';
 import { blogPosts } from '@/mocks';
 import { BLOG_CATEGORIES } from '@/constants';
 
-export const BlogPage = () => {
+export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const filteredPosts = selectedCategory === 'All'
@@ -95,4 +95,4 @@ export const BlogPage = () => {
       </section>
     </div>
   );
-};
+}

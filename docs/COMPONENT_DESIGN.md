@@ -582,7 +582,7 @@ Located in `src/components/common/`
  * SEO meta tags wrapper
  * - Title, description
  * - Open Graph tags
- * - Twitter cards
+ * - X cards
  * - Canonical URL
  */
 interface SEOProps {

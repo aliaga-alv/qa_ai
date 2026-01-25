@@ -91,7 +91,35 @@ export const blogPosts: BlogPostData[] = [
  * Full blog posts with content (used in BlogDetailPage)
  * Note: In production, this would be fetched from an API
  */
-export const fullBlogPosts: FullBlogPost[] = [
-  // This would be populated with full content in a real application
-  // For now, keeping the structure but noting it should come from an API
-];
+export const fullBlogPosts: FullBlogPost[] = blogPosts.map(post => ({
+  ...post,
+  content: `
+    <p>This is a comprehensive article about ${post.title.toLowerCase()}. The content would include detailed insights, examples, and best practices.</p>
+    
+    <h2>Introduction</h2>
+    <p>In this article, we'll explore the key concepts and practical applications related to ${post.category}. Whether you're just getting started or looking to deepen your expertise, this guide will provide valuable insights.</p>
+    
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Understanding the fundamentals and core principles</li>
+      <li>Practical implementation strategies and best practices</li>
+      <li>Common pitfalls to avoid and how to overcome challenges</li>
+      <li>Real-world examples and case studies</li>
+    </ul>
+    
+    <h2>Deep Dive</h2>
+    <p>Let's examine the technical details and explore how you can apply these concepts in your own projects. The landscape is constantly evolving, and staying up to date with the latest trends is crucial for success.</p>
+    
+    <h2>Conclusion</h2>
+    <p>By implementing these strategies and following best practices, you can significantly improve your workflow and achieve better results. Remember that continuous learning and adaptation are key to long-term success.</p>
+  `,
+  tags: ['testing', 'automation', 'best-practices'],
+  authorInfo: {
+    name: post.author,
+    role: 'Senior QA Engineer',
+    bio: `${post.author} is a testing expert with years of experience in software quality and automation. Passionate about sharing knowledge and helping teams build better software.`,
+    avatar: undefined,
+    x: undefined,
+    linkedin: undefined,
+  },
+}));

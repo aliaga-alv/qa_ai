@@ -45,6 +45,11 @@ export const Header = ({
     }
   };
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
   // Handle scrolling to hash on location change
   useEffect(() => {
     if (location.hash) {
@@ -219,8 +224,16 @@ export const Header = ({
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800">
-            <nav className="flex flex-col gap-4">
+          <>
+            {/* Backdrop */}
+            <div 
+              className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            {/* Menu Content */}
+            <div className="absolute top-full left-0 right-0 md:hidden py-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-lg z-50">
+              <div className="container mx-auto px-4">
+              <nav className="flex flex-col gap-4">
               {HEADER_NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
@@ -307,6 +320,8 @@ export const Header = ({
               )}
             </nav>
           </div>
+            </div>
+          </>
         )}
       </div>
     </header>
