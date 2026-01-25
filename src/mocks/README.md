@@ -44,7 +44,9 @@ const mockData = [
 ## Files
 
 ### charts.ts
+
 Visualization data for all charts:
+
 - `mockTopTestsChartData` - Top tests performance
 - `mockTestTrendChartData` - Test execution trends
 - `mockTestDistributionChartData` - Test results distribution
@@ -58,7 +60,9 @@ Visualization data for all charts:
 - `mockPerformanceData` - Performance metrics
 
 ### tests.ts
+
 Test-related mock data:
+
 - `mockTests` - Test list data
 - `mockTestDetail` - Detailed test information
 - `mockTestRuns` - Test run history
@@ -67,54 +71,75 @@ Test-related mock data:
 - `mockHistoryExecutionDetail` - Detailed execution info
 
 ### stats.ts
+
 Statistical data:
+
 - `mockDashboardStats` - Dashboard overview statistics
 - `mockAnalyticsStats` - Analytics page statistics
 
 ### billing.ts
+
 Billing and payment data:
+
 - `mockPaymentMethod` - Payment method information
 - `mockInvoices` - Invoice records
 - `billingPlans` - Subscription plan options
 
 ### security.ts
+
 Security-related data:
+
 - `mockSessions` - Active user sessions
 - `mockSecurityLogs` - Security audit logs
 
 ### team.ts
+
 Team management data:
+
 - `mockTeamMembers` - Team member information
 
 ### integrations.ts
+
 Integration data:
+
 - `integrations` - Available integrations
 - `integrationCategories` - Integration categories
 
 ### about.ts
+
 About page content:
+
 - `companyValues` - Company values
 - `teamMembers` - Team member profiles
 
 ### blog.ts
+
 Blog content:
+
 - `fullBlogPosts` - Complete blog post content with full text
 
 ### activity.ts
+
 Activity feed data:
+
 - `mockActivities` - Recent activity items
 
 ### actions.ts
+
 Quick actions:
+
 - `quickActions` - Quick action items
 
 ### notifications.ts
+
 Notification data:
+
 - `mockNotifications` - User notifications
 
 ## Best Practices
 
 ### DO:
+
 ✅ Import all mock data from `@/mocks`
 ✅ Use proper TypeScript types from `@/types/models`
 ✅ Keep mock data realistic and consistent
@@ -122,6 +147,7 @@ Notification data:
 ✅ Organize by feature/domain
 
 ### DON'T:
+
 ❌ Embed mock arrays in components
 ❌ Create duplicate mock data
 ❌ Mix mock data with component logic
@@ -131,6 +157,7 @@ Notification data:
 ## Examples
 
 ### Using Chart Data
+
 ```typescript
 import { mockTestTrendChartData } from '@/mocks/charts';
 
@@ -144,6 +171,7 @@ export default function TestTrendChart() {
 ```
 
 ### Using Test Data
+
 ```typescript
 import { mockTests, mockTestDetail } from '@/mocks';
 import type { Test } from '@/types/models';
@@ -155,6 +183,7 @@ export default function TestsPage() {
 ```
 
 ### Using Statistics
+
 ```typescript
 import { mockDashboardStats } from '@/mocks/stats';
 
@@ -172,6 +201,7 @@ export default function DashboardStats() {
 ## When to Add Mock Data
 
 Add mock data when:
+
 - Building new features
 - Testing components
 - Demonstrating functionality
@@ -180,6 +210,7 @@ Add mock data when:
 ## Replacing with Real Data
 
 When connecting to a real API:
+
 1. Keep the mock imports but commented
 2. Replace with API calls in the same data structure
 3. Ensure types match what API returns
@@ -194,7 +225,9 @@ const [tests, setTests] = useState(mockTests);
 // import { mockTests } from '@/mocks'; // Keep as reference
 const [tests, setTests] = useState<Test[]>([]);
 useEffect(() => {
-  fetchTests().then(setTests).catch(() => setTests(mockTests)); // Fallback
+  fetchTests()
+    .then(setTests)
+    .catch(() => setTests(mockTests)); // Fallback
 }, []);
 ```
 
@@ -206,12 +239,8 @@ All mock data should match the TypeScript interfaces in `@/types/models`:
 import type { Test, TeamMember, Invoice } from '@/types/models';
 
 // ✅ CORRECT - Properly typed
-export const mockTests: Test[] = [
-  { id: '1', name: 'Test 1', /* ... */ },
-];
+export const mockTests: Test[] = [{ id: '1', name: 'Test 1' /* ... */ }];
 
 // ❌ WRONG - Untyped
-export const mockTests = [
-  { id: '1', name: 'Test 1' },
-];
+export const mockTests = [{ id: '1', name: 'Test 1' }];
 ```

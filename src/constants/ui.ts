@@ -399,4 +399,3 @@ export const TEST_LIST_TYPE_COLORS = {
   integration: 'bg-orange-100 text-orange-700 dark:bg-orange-900/20 dark:text-orange-400',
   unit: 'bg-pink-100 text-pink-700 dark:bg-pink-900/20 dark:text-pink-400',
 } as const;
-

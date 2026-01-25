@@ -19,33 +19,30 @@ export default function ExecutionDetailsModal({
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex min-h-screen items-center justify-center p-4">
-        <div
-          className="fixed inset-0 bg-black/50 transition-opacity"
-          onClick={onClose}
-        />
-        
-        <div className="relative w-full max-w-5xl bg-white dark:bg-gray-800 rounded-xl shadow-xl">
+        <div className="fixed inset-0 bg-black/50 transition-opacity" onClick={onClose} />
+
+        <div className="relative w-full max-w-5xl rounded-xl bg-white shadow-xl dark:bg-gray-800">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4 dark:border-gray-700">
             <div>
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {execution.testName}
               </h2>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Executed on {format(execution.timestamp, 'MMM d, yyyy HH:mm:ss')}
               </p>
             </div>
             <button
               onClick={onClose}
-              className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
 
           {/* Content */}
-          <div className="p-6 max-h-[70vh] overflow-y-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div className="max-h-[70vh] overflow-y-auto p-6">
+            <div className="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
               {/* Execution Info */}
               <div className="space-y-3">
                 <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -54,7 +51,7 @@ export default function ExecutionDetailsModal({
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-sm text-gray-600 dark:text-gray-400">Status</span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white capitalize">
+                    <span className="text-sm font-medium capitalize text-gray-900 dark:text-white">
                       {execution.status}
                     </span>
                   </div>
@@ -87,10 +84,10 @@ export default function ExecutionDetailsModal({
                 <div className="space-y-2">
                   {Object.entries(execution.config).map(([key, value]) => (
                     <div key={key} className="flex justify-between">
-                      <span className="text-sm text-gray-600 dark:text-gray-400 capitalize">
+                      <span className="text-sm capitalize text-gray-600 dark:text-gray-400">
                         {key}
                       </span>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white font-mono">
+                      <span className="font-mono text-sm font-medium text-gray-900 dark:text-white">
                         {typeof value === 'number' ? value : `"${value}"`}
                       </span>
                     </div>
@@ -102,7 +99,7 @@ export default function ExecutionDetailsModal({
             {/* Errors */}
             {execution.errors.length > 0 && (
               <div className="mb-6">
-                <div className="flex items-center space-x-2 mb-3">
+                <div className="mb-3 flex items-center space-x-2">
                   <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
                   <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                     Errors ({execution.errors.length})
@@ -112,11 +109,9 @@ export default function ExecutionDetailsModal({
                   {execution.errors.map((error, index) => (
                     <div
                       key={index}
-                      className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                      className="rounded-lg border border-red-200 bg-red-50 p-3 dark:border-red-800 dark:bg-red-900/20"
                     >
-                      <p className="text-sm text-red-800 dark:text-red-300 font-mono">
-                        {error}
-                      </p>
+                      <p className="font-mono text-sm text-red-800 dark:text-red-300">{error}</p>
                     </div>
                   ))}
                 </div>
@@ -125,22 +120,22 @@ export default function ExecutionDetailsModal({
 
             {/* Logs */}
             <div className="mb-6">
-              <div className="flex items-center space-x-2 mb-3">
+              <div className="mb-3 flex items-center space-x-2">
                 <Terminal className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                 <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                   Execution Logs
                 </h3>
               </div>
-              <div className="bg-gray-900 p-4 rounded-lg max-h-64 overflow-y-auto font-mono text-xs">
+              <div className="max-h-64 overflow-y-auto rounded-lg bg-gray-900 p-4 font-mono text-xs">
                 {execution.logs.map((log, index) => (
-                  <div key={index} className="flex space-x-3 mb-1">
-                    <span className="text-gray-500 flex-shrink-0">
+                  <div key={index} className="mb-1 flex space-x-3">
+                    <span className="flex-shrink-0 text-gray-500">
                       {format(log.timestamp, 'HH:mm:ss.SSS')}
                     </span>
                     <span className={`flex-shrink-0 ${LOG_LEVEL_COLORS[log.level]} uppercase`}>
                       [{log.level}]
                     </span>
-                    <span className="text-gray-300 break-all">{log.message}</span>
+                    <span className="break-all text-gray-300">{log.message}</span>
                   </div>
                 ))}
               </div>
@@ -149,7 +144,7 @@ export default function ExecutionDetailsModal({
             {/* Screenshots */}
             {execution.screenshots.length > 0 && (
               <div className="mb-6">
-                <div className="flex items-center space-x-2 mb-3">
+                <div className="mb-3 flex items-center space-x-2">
                   <Image className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                   <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                     Screenshots ({execution.screenshots.length})
@@ -159,7 +154,7 @@ export default function ExecutionDetailsModal({
                   {execution.screenshots.map((_, index) => (
                     <div
                       key={index}
-                      className="aspect-video bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-sm text-gray-500 dark:text-gray-400"
+                      className="flex aspect-video items-center justify-center rounded-lg bg-gray-100 text-sm text-gray-500 dark:bg-gray-700 dark:text-gray-400"
                     >
                       Screenshot {index + 1}
                     </div>
@@ -171,15 +166,15 @@ export default function ExecutionDetailsModal({
             {/* Video */}
             {execution.videoUrl && (
               <div>
-                <div className="flex items-center space-x-2 mb-3">
+                <div className="mb-3 flex items-center space-x-2">
                   <Video className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                   <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
                     Test Recording
                   </h3>
                 </div>
-                <div className="aspect-video bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                <div className="flex aspect-video items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700">
                   <div className="text-center">
-                    <Video className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+                    <Video className="mx-auto mb-2 h-12 w-12 text-gray-400" />
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       Video player coming soon
                     </p>

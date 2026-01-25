@@ -6,7 +6,7 @@ import { mockDashboardStats } from '@/mocks';
 
 export default function DashboardStats() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       <MetricCard
         title="Total Tests"
         value={mockDashboardStats.totalTests.value.toLocaleString()}

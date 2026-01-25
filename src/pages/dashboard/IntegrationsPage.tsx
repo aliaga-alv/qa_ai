@@ -17,53 +17,53 @@ export default function IntegrationsPage() {
       </div>
 
       {/* Coming Soon Banner */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="bg-gradient-to-r from-primary-500 to-accent-500 px-8 py-12 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
+          <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-white/20">
             <Puzzle className="h-8 w-8 text-white" />
           </div>
-          <h2 className="text-3xl font-bold text-white mb-2">Coming Soon</h2>
-          <p className="text-white/90 text-lg">
-            Integrations are under development
-          </p>
+          <h2 className="mb-2 text-3xl font-bold text-white">Coming Soon</h2>
+          <p className="text-lg text-white/90">Integrations are under development</p>
         </div>
 
         <div className="p-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex justify-center space-x-2 mb-8">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-8 flex justify-center space-x-2">
               {categories.map((category) => (
                 <button
                   key={category}
-                  className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                  className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                 >
                   {category}
                 </button>
               ))}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {integrations.map((integration) => (
                 <div
                   key={integration.name}
-                  className="p-6 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-700 transition-colors"
+                  className="rounded-lg border-2 border-gray-200 p-6 transition-colors hover:border-primary-300 dark:border-gray-700 dark:hover:border-primary-700"
                 >
-                  <div className={`w-12 h-12 rounded-lg ${integration.bgColor} flex items-center justify-center mb-4`}>
+                  <div
+                    className={`h-12 w-12 rounded-lg ${integration.bgColor} mb-4 flex items-center justify-center`}
+                  >
                     <integration.icon className={`h-6 w-6 ${integration.color}`} />
                   </div>
                   <div className="mb-3">
-                    <span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">
+                    <span className="text-xs font-medium uppercase text-gray-500 dark:text-gray-400">
                       {integration.category}
                     </span>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
                     {integration.name}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <p className="mb-4 text-sm text-gray-600 dark:text-gray-400">
                     {integration.description}
                   </p>
                   <button
                     disabled
-                    className="w-full px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 rounded-lg text-sm font-medium cursor-not-allowed"
+                    className="w-full cursor-not-allowed rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:bg-gray-700 dark:text-gray-500"
                   >
                     Coming Soon
                   </button>
@@ -74,7 +74,7 @@ export default function IntegrationsPage() {
             <div className="mt-8 text-center">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="px-6 py-3 bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white rounded-lg font-medium transition-all"
+                className="rounded-lg bg-gradient-to-r from-primary-500 to-accent-500 px-6 py-3 font-medium text-white transition-all hover:from-primary-600 hover:to-accent-600"
               >
                 Back to Dashboard
               </button>

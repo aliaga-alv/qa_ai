@@ -32,11 +32,11 @@ export const HowItWorks = () => {
   }, []);
 
   return (
-    <section id="how-it-works" className="py-24 bg-gray-50 dark:bg-gray-800/50">
+    <section id="how-it-works" className="bg-gray-50 py-24 dark:bg-gray-800/50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="mx-auto mb-20 max-w-3xl text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
             How it works
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -45,26 +45,26 @@ export const HowItWorks = () => {
         </div>
 
         {/* Steps */}
-        <div className="max-w-5xl mx-auto">
+        <div className="mx-auto max-w-5xl">
           <div className="relative">
             {/* Connection Line - Desktop */}
-            <div className="hidden md:block absolute top-16 left-0 right-0 h-1 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-300 via-primary-600 to-accent-600 dark:from-primary-800 dark:via-primary-500 dark:to-accent-500 rounded-full" />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-400 via-primary-500 to-accent-500 opacity-50 blur-sm rounded-full" />
+            <div className="absolute left-0 right-0 top-16 hidden h-1 overflow-hidden md:block">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-300 via-primary-600 to-accent-600 dark:from-primary-800 dark:via-primary-500 dark:to-accent-500" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary-400 via-primary-500 to-accent-500 opacity-50 blur-sm" />
             </div>
 
             {/* Connection Dots */}
-            <div className="hidden md:flex absolute top-[62px] left-0 right-0 justify-between px-8">
+            <div className="absolute left-0 right-0 top-[62px] hidden justify-between px-8 md:flex">
               {howItWorksSteps.map((_, index) => (
                 <div key={index} className="relative">
-                  <div className="w-4 h-4 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 border-2 border-white dark:border-gray-800 shadow-lg" />
-                  <div className="absolute inset-0 w-4 h-4 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 opacity-50 blur-sm" />
+                  <div className="h-4 w-4 rounded-full border-2 border-white bg-gradient-to-br from-primary-500 to-accent-500 shadow-lg dark:border-gray-800" />
+                  <div className="absolute inset-0 h-4 w-4 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 opacity-50 blur-sm" />
                 </div>
               ))}
             </div>
 
             {/* Steps Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4 pt-24">
+            <div className="grid grid-cols-1 gap-8 pt-24 md:grid-cols-4 md:gap-4">
               {howItWorksSteps.map((step, index) => {
                 const Icon = step.icon;
                 const isVisible = visibleSteps.has(index);
@@ -75,11 +75,7 @@ export const HowItWorks = () => {
                     ref={(el) => {
                       stepRefs.current[index] = el;
                     }}
-                    className={`
-                      relative flex flex-col items-center text-center
-                      transition-all duration-700
-                      ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}
-                    `}
+                    className={`relative flex flex-col items-center text-center transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'} `}
                     style={{
                       transitionDelay: `${index * 150}ms`,
                     }}
@@ -87,30 +83,30 @@ export const HowItWorks = () => {
                     {/* Number Badge */}
                     <div className="relative mb-6">
                       {/* Circle with Number */}
-                      <div className="relative z-10 w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-lg">
+                      <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-accent-500 shadow-lg">
                         <span className="text-2xl font-bold text-white">{step.number}</span>
                       </div>
 
                       {/* Icon Container */}
-                      <div className="absolute -bottom-2 -right-2 z-20 w-10 h-10 rounded-full bg-white dark:bg-gray-900 flex items-center justify-center border-2 border-primary-500 shadow-md">
-                        <Icon className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+                      <div className="absolute -bottom-2 -right-2 z-20 flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary-500 bg-white shadow-md dark:bg-gray-900">
+                        <Icon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
                       </div>
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                    <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">
                       {step.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <p className="leading-relaxed text-gray-600 dark:text-gray-400">
                       {step.description}
                     </p>
 
                     {/* Mobile Connector Arrow */}
                     {index < howItWorksSteps.length - 1 && (
-                      <div className="md:hidden mt-6 flex justify-center">
-                        <div className="w-px h-12 bg-gradient-to-b from-primary-500 to-accent-500" />
+                      <div className="mt-6 flex justify-center md:hidden">
+                        <div className="h-12 w-px bg-gradient-to-b from-primary-500 to-accent-500" />
                       </div>
                     )}
                   </div>
@@ -121,7 +117,7 @@ export const HowItWorks = () => {
 
           {/* CTA */}
           <div className="mt-16 text-center">
-            <button className="px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-semibold rounded-lg hover:from-primary-700 hover:to-accent-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl">
+            <button className="transform rounded-lg bg-gradient-to-r from-primary-600 to-accent-600 px-8 py-4 font-semibold text-white shadow-lg transition-all hover:scale-105 hover:from-primary-700 hover:to-accent-700 hover:shadow-xl">
               Start Testing Now
             </button>
           </div>

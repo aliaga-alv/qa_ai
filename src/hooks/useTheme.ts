@@ -17,16 +17,16 @@ export const useTheme = () => {
   return {
     // Current theme setting ('light' | 'dark' | 'system')
     theme,
-    
+
     // Resolved theme ('light' | 'dark')
     resolvedTheme,
-    
+
     // Set theme explicitly
     setTheme,
-    
+
     // Toggle between light and dark
     toggleTheme,
-    
+
     // Convenience flags
     isDark: resolvedTheme === 'dark',
     isLight: resolvedTheme === 'light',

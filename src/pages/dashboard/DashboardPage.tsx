@@ -11,9 +11,7 @@ export default function DashboardPage() {
     <div className="space-y-6">
       {/* Page header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Dashboard
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
         <p className="mt-2 text-gray-600 dark:text-gray-400">
           Welcome back! Here's an overview of your testing activity.
         </p>
@@ -23,7 +21,7 @@ export default function DashboardPage() {
       <DashboardStats />
 
       {/* Two column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Activity Feed - Takes 2 columns */}
         <div className="lg:col-span-2">
           <ActivityFeed />
@@ -41,7 +39,7 @@ export default function DashboardPage() {
         <TestTrendChart />
 
         {/* Two column charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           <TestDistributionChart />
           <DurationChart />
         </div>

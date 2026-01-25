@@ -28,12 +28,12 @@ export const ContactForm = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    
+
     // Simulate API call
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log('Contact form data:', data);
-      toast.success('Message sent successfully! We\'ll get back to you soon.');
+      toast.success("Message sent successfully! We'll get back to you soon.");
       reset();
     } catch {
       toast.error('Failed to send message. Please try again.');
@@ -46,77 +46,81 @@ export const ContactForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+        <label
+          htmlFor="name"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
           Name *
         </label>
         <input
           id="name"
           type="text"
           {...register('name')}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
+          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
           placeholder="Your name"
         />
         {errors.name && (
-          <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-            {errors.name.message}
-          </p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name.message}</p>
         )}
       </div>
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+        <label
+          htmlFor="email"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
           Email *
         </label>
         <input
           id="email"
           type="email"
           {...register('email')}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
+          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
           placeholder="your@email.com"
         />
         {errors.email && (
-          <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-            {errors.email.message}
-          </p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email.message}</p>
         )}
       </div>
 
       {/* Subject */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+        <label
+          htmlFor="subject"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
           Subject *
         </label>
         <input
           id="subject"
           type="text"
           {...register('subject')}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
+          className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
           placeholder="How can we help?"
         />
         {errors.subject && (
-          <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-            {errors.subject.message}
-          </p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.subject.message}</p>
         )}
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+        <label
+          htmlFor="message"
+          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+        >
           Message *
         </label>
         <textarea
           id="message"
           {...register('message')}
           rows={6}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors resize-none"
+          className="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
           placeholder="Tell us more about your inquiry..."
         />
         {errors.message && (
-          <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-            {errors.message.message}
-          </p>
+          <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message.message}</p>
         )}
       </div>
 
@@ -124,11 +128,11 @@ export const ContactForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full px-6 py-4 bg-gradient-to-r from-primary-600 to-accent-600 text-white font-semibold rounded-lg hover:from-primary-700 hover:to-accent-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2"
+        className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary-600 to-accent-600 px-6 py-4 font-semibold text-white transition-all hover:from-primary-700 hover:to-accent-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isSubmitting ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="h-5 w-5 animate-spin" />
             Sending...
           </>
         ) : (

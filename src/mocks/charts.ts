@@ -114,11 +114,46 @@ export const mockCoverageChartData = [
 ];
 
 export const mockFlakyTestsData = [
-  { id: '1', name: 'Product Search', flakinessRate: 23, totalRuns: 150, failures: 35, trend: 'up' as const },
-  { id: '2', name: 'Checkout Flow', flakinessRate: 18, totalRuns: 200, failures: 36, trend: 'stable' as const },
-  { id: '3', name: 'User Profile', flakinessRate: 15, totalRuns: 180, failures: 27, trend: 'down' as const },
-  { id: '4', name: 'Password Reset', flakinessRate: 12, totalRuns: 120, failures: 14, trend: 'down' as const },
-  { id: '5', name: 'Email Verification', flakinessRate: 9, totalRuns: 90, failures: 8, trend: 'stable' as const },
+  {
+    id: '1',
+    name: 'Product Search',
+    flakinessRate: 23,
+    totalRuns: 150,
+    failures: 35,
+    trend: 'up' as const,
+  },
+  {
+    id: '2',
+    name: 'Checkout Flow',
+    flakinessRate: 18,
+    totalRuns: 200,
+    failures: 36,
+    trend: 'stable' as const,
+  },
+  {
+    id: '3',
+    name: 'User Profile',
+    flakinessRate: 15,
+    totalRuns: 180,
+    failures: 27,
+    trend: 'down' as const,
+  },
+  {
+    id: '4',
+    name: 'Password Reset',
+    flakinessRate: 12,
+    totalRuns: 120,
+    failures: 14,
+    trend: 'down' as const,
+  },
+  {
+    id: '5',
+    name: 'Email Verification',
+    flakinessRate: 9,
+    totalRuns: 90,
+    failures: 8,
+    trend: 'stable' as const,
+  },
 ];
 
 export const mockAnalyticsInsights = [

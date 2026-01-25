@@ -21,16 +21,16 @@ export default function DateRangePicker({ onChange }: DateRangePickerProps) {
 
   return (
     <div className="flex items-center space-x-2 overflow-x-auto">
-      <Calendar className="h-5 w-5 text-gray-400 flex-shrink-0" />
+      <Calendar className="h-5 w-5 flex-shrink-0 text-gray-400" />
       <div className="flex space-x-2">
         {DATE_RANGE_PRESETS.map((preset) => (
           <button
             key={preset.label}
             onClick={() => handlePresetClick(preset.label, preset.days)}
-            className={`px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-colors whitespace-nowrap ${
+            className={`whitespace-nowrap rounded-lg px-2.5 py-1.5 text-xs font-medium transition-colors sm:px-3 sm:text-sm ${
               selectedPreset === preset.label
                 ? 'bg-primary-600 text-white'
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
             }`}
           >
             {preset.label}

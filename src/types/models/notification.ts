@@ -16,7 +16,15 @@ export interface Notification {
 
 export interface Activity {
   id: string;
-  type: 'test_passed' | 'test_failed' | 'test_created' | 'test_running' | 'test_run' | 'test_updated' | 'member_joined' | 'settings_changed';
+  type:
+    | 'test_passed'
+    | 'test_failed'
+    | 'test_created'
+    | 'test_running'
+    | 'test_run'
+    | 'test_updated'
+    | 'member_joined'
+    | 'settings_changed';
   message?: string;
   title?: string;
   description?: string;

@@ -6,14 +6,12 @@ export default function TestDistributionChart() {
   const total = mockData.reduce((sum, item) => sum + item.value, 0);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+    <div className="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
           Test Results Distribution
         </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          Last 30 days breakdown
-        </p>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Last 30 days breakdown</p>
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
@@ -56,18 +54,13 @@ export default function TestDistributionChart() {
       <div className="mt-6 grid grid-cols-3 gap-4">
         {mockData.map((item) => (
           <div key={item.name} className="text-center">
-            <div className="flex items-center justify-center mb-1">
-              <div
-                className="w-3 h-3 rounded-full mr-2"
-                style={{ backgroundColor: item.color }}
-              />
-              <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
+            <div className="mb-1 flex items-center justify-center">
+              <div className="mr-2 h-3 w-3 rounded-full" style={{ backgroundColor: item.color }} />
+              <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                 {item.name}
               </span>
             </div>
-            <p className="text-lg font-semibold text-gray-900 dark:text-white">
-              {item.value}
-            </p>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white">{item.value}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               {((item.value / total) * 100).toFixed(1)}%
             </p>

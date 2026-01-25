@@ -58,11 +58,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
       // Default fallback UI
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-bg px-4">
-          <div className="max-w-md w-full bg-white dark:bg-dark-surface rounded-lg shadow-lg p-8 text-center">
+        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-dark-bg">
+          <div className="w-full max-w-md rounded-lg bg-white p-8 text-center shadow-lg dark:bg-dark-surface">
             <div className="mb-4">
               <svg
-                className="w-16 h-16 mx-auto text-error-500"
+                className="text-error-500 mx-auto h-16 w-16"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -76,32 +76,32 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               </svg>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">
               Something went wrong
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className="mb-6 text-gray-600 dark:text-gray-400">
               We're sorry for the inconvenience. An unexpected error occurred.
             </p>
 
             {import.meta.env.DEV && this.state.error && (
-              <div className="mb-6 p-4 bg-error-50 dark:bg-error-900/20 rounded-lg text-left">
-                <p className="text-sm font-mono text-error-800 dark:text-error-200 break-all">
+              <div className="bg-error-50 dark:bg-error-900/20 mb-6 rounded-lg p-4 text-left">
+                <p className="text-error-800 dark:text-error-200 break-all font-mono text-sm">
                   {this.state.error.message}
                 </p>
               </div>
             )}
 
-            <div className="flex gap-3 justify-center">
+            <div className="flex justify-center gap-3">
               <button
                 onClick={this.handleReset}
-                className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
+                className="rounded-lg bg-primary-500 px-4 py-2 text-white transition-colors hover:bg-primary-600"
               >
                 Try again
               </button>
               <button
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 bg-gray-200 dark:bg-dark-elevated text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+                className="rounded-lg bg-gray-200 px-4 py-2 text-gray-900 transition-colors hover:bg-gray-300 dark:bg-dark-elevated dark:text-white dark:hover:bg-gray-700"
               >
                 Reload page
               </button>

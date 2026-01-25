@@ -57,9 +57,18 @@ export default function TeamPage() {
   };
 
   const stats = [
-    { label: 'Total Members', value: members.filter((m) => m.status === 'active').length.toString() },
-    { label: 'Pending Invites', value: members.filter((m) => m.status === 'pending').length.toString() },
-    { label: 'Admins', value: members.filter((m) => m.role === 'admin' || m.role === 'owner').length.toString() },
+    {
+      label: 'Total Members',
+      value: members.filter((m) => m.status === 'active').length.toString(),
+    },
+    {
+      label: 'Pending Invites',
+      value: members.filter((m) => m.status === 'pending').length.toString(),
+    },
+    {
+      label: 'Admins',
+      value: members.filter((m) => m.role === 'admin' || m.role === 'owner').length.toString(),
+    },
     { label: 'Total Tests Run', value: members.reduce((sum, m) => sum + m.testsRun, 0).toString() },
   ];
 
@@ -75,7 +84,7 @@ export default function TeamPage() {
         </div>
         <button
           onClick={() => setIsInviteModalOpen(true)}
-          className="flex items-center space-x-2 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white rounded-lg font-medium transition-all"
+          className="flex items-center space-x-2 rounded-lg bg-gradient-to-r from-primary-500 to-accent-500 px-4 py-2.5 font-medium text-white transition-all hover:from-primary-600 hover:to-accent-600"
         >
           <UserPlus className="h-5 w-5" />
           <span>Invite Member</span>
@@ -83,28 +92,28 @@ export default function TeamPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4"
+            className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
           >
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">{stat.label}</p>
+            <p className="mb-1 text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
             <p className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
           </div>
         ))}
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0 sm:space-x-4">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
         <div className="relative flex-1 sm:flex-initial">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search members..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full sm:w-80 pl-9 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-9 pr-4 text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 sm:w-80"
           />
         </div>
 
@@ -113,7 +122,7 @@ export default function TeamPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value as typeof roleFilter)}
-            className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           >
             <option value="all">All Roles</option>
             <option value="owner">Owner</option>
@@ -138,11 +147,11 @@ export default function TeamPage() {
       </div>
 
       {filteredMembers.length === 0 && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-12">
+        <div className="rounded-xl border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800">
           <div className="text-center">
-            <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+            <Users className="mx-auto mb-4 h-12 w-12 text-gray-400" />
             <p className="text-gray-500 dark:text-gray-400">No team members found</p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+            <p className="mt-1 text-sm text-gray-400 dark:text-gray-500">
               Try adjusting your filters or invite new members
             </p>
           </div>

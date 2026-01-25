@@ -24,14 +24,14 @@ export default function HistoryDatePicker({ value, onChange }: HistoryDatePicker
           type="date"
           value={format(value.start, 'yyyy-MM-dd')}
           onChange={handleStartChange}
-          className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
         />
         <span className="text-gray-500 dark:text-gray-400">to</span>
         <input
           type="date"
           value={format(value.end, 'yyyy-MM-dd')}
           onChange={handleEndChange}
-          className="px-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
         />
       </div>
     </div>

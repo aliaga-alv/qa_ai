@@ -35,7 +35,9 @@ const ROUTES = { dashboard: '/dashboard' };
 ## Files
 
 ### ui.ts
+
 UI styling configurations including:
+
 - `STATUS_COLORS` - General status color mappings
 - `TEST_STATUS_COLORS` - Test status colors
 - `TEST_TYPE_COLORS` - Test type colors
@@ -53,32 +55,43 @@ UI styling configurations including:
 - `SPINNER_VARIANT_CLASSES` - Loading spinner variants
 
 ### routes.ts
+
 Application route paths:
+
 - `ROUTES` - All application routes organized by section
 
 ### date.ts
+
 Date-related constants:
+
 - `DATE_FORMAT_PATTERNS` - Common date format strings
 - `DATE_RANGE_PRESETS` - Predefined date range options
 - `TIMEZONES` - Timezone configurations
 
 ### features.ts
+
 Feature definitions:
+
 - `SETTINGS_FEATURES` - Settings page features
 - `CREATE_TEST_FEATURES` - Create test page features
 - `EDIT_TEST_FEATURES` - Edit test page features
 
 ### documentation.ts
+
 Documentation organization:
+
 - `DOCUMENTATION_SECTIONS` - Documentation section structure
 
 ### blog.ts
+
 Blog configuration:
+
 - `BLOG_CATEGORIES` - Available blog categories
 
 ## Best Practices
 
 ### DO:
+
 ✅ Import constants from centralized files
 ✅ Use TypeScript `as const` for type safety
 ✅ Export from index.ts for convenience
@@ -86,6 +99,7 @@ Blog configuration:
 ✅ Use descriptive constant names in UPPER_CASE
 
 ### DON'T:
+
 ❌ Embed constants in components
 ❌ Duplicate constant definitions
 ❌ Use magic strings/numbers
@@ -95,6 +109,7 @@ Blog configuration:
 ## Examples
 
 ### UI Configuration
+
 ```typescript
 import { TEST_STATUS_COLORS, HISTORY_STATUS_CONFIG } from '@/constants/ui';
 
@@ -107,6 +122,7 @@ const config = HISTORY_STATUS_CONFIG[execution.status];
 ```
 
 ### Routes
+
 ```typescript
 import { ROUTES } from '@/constants/routes';
 
@@ -114,6 +130,7 @@ navigate(ROUTES.dashboard.tests);
 ```
 
 ### Date Formatting
+
 ```typescript
 import { DATE_FORMAT_PATTERNS } from '@/constants/date';
 import { format } from 'date-fns';
@@ -124,6 +141,7 @@ format(new Date(), DATE_FORMAT_PATTERNS.FULL_DATE);
 ## When to Add New Constants
 
 Add constants when you have:
+
 - Values used in multiple places
 - Configuration that might change
 - Magic strings/numbers

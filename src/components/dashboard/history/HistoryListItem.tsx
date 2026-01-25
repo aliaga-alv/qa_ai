@@ -22,11 +22,13 @@ export default function HistoryListItem({ execution, onSelect }: HistoryListItem
   return (
     <tr
       onClick={() => onSelect(execution.id)}
-      className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors"
+      className="cursor-pointer border-b border-gray-200 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800"
     >
       <td className="px-6 py-4">
         <div className="flex items-center space-x-2">
-          <span className={`flex items-center space-x-1.5 px-2.5 py-1 text-xs font-medium rounded-full ${config.bg}`}>
+          <span
+            className={`flex items-center space-x-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${config.bg}`}
+          >
             <StatusIcon className={`h-3.5 w-3.5 ${config.color}`} />
             <span className={config.color}>{config.label}</span>
           </span>
@@ -35,9 +37,7 @@ export default function HistoryListItem({ execution, onSelect }: HistoryListItem
       <td className="px-6 py-4">
         <div>
           <p className="text-sm font-medium text-gray-900 dark:text-white">{execution.testName}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-            {execution.environment}
-          </p>
+          <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{execution.environment}</p>
         </div>
       </td>
       <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">
@@ -69,7 +69,7 @@ export default function HistoryListItem({ execution, onSelect }: HistoryListItem
             </div>
           )}
           {execution.errorCount !== undefined && execution.errorCount > 0 && (
-            <span className="px-2 py-0.5 text-xs bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded">
+            <span className="rounded bg-red-100 px-2 py-0.5 text-xs text-red-600 dark:bg-red-900/20 dark:text-red-400">
               {execution.errorCount} error{execution.errorCount > 1 ? 's' : ''}
             </span>
           )}

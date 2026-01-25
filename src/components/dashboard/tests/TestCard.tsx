@@ -24,38 +24,38 @@ export default function TestCard({
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <div className="p-4 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+    <div className="border-b border-gray-200 p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
       {/* Header with checkbox and actions */}
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="flex items-start gap-3 flex-1 min-w-0">
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-1 items-start gap-3">
           <input
             type="checkbox"
             checked={isSelected}
             onChange={() => onSelect(test.id)}
-            className="mt-0.5 w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            className="mt-0.5 h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
           />
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-medium text-gray-900 dark:text-white truncate">
+          <div className="min-w-0 flex-1">
+            <h3 className="truncate text-sm font-medium text-gray-900 dark:text-white">
               {test.name}
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mt-0.5">
+            <p className="mt-0.5 line-clamp-2 text-xs text-gray-500 dark:text-gray-400">
               {test.description}
             </p>
           </div>
         </div>
-        
+
         {/* Action buttons */}
-        <div className="flex items-center gap-1 flex-shrink-0">
+        <div className="flex flex-shrink-0 items-center gap-1">
           <button
             onClick={() => onRun(test.id)}
-            className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
             title="Run test"
           >
             <Play className="h-4 w-4" />
           </button>
           <button
             onClick={() => onEdit(test.id)}
-            className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
             title="Edit test"
           >
             <Edit className="h-4 w-4" />
@@ -63,18 +63,18 @@ export default function TestCard({
           <div className="relative">
             <button
               onClick={() => setShowMenu(!showMenu)}
-              className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
             >
               <MoreVertical className="h-4 w-4" />
             </button>
             {showMenu && (
-              <div className="absolute right-0 mt-2 w-44 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-10">
+              <div className="absolute right-0 z-10 mt-2 w-44 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-800">
                 <button
                   onClick={() => {
                     onEdit(test.id);
                     setShowMenu(false);
                   }}
-                  className="flex items-center space-x-2 px-3 py-2 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                  className="flex w-full items-center space-x-2 px-3 py-2 text-left text-xs text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                 >
                   <Copy className="h-3.5 w-3.5" />
                   <span>Duplicate</span>
@@ -84,7 +84,7 @@ export default function TestCard({
                     onDelete(test.id);
                     setShowMenu(false);
                   }}
-                  className="flex items-center space-x-2 px-3 py-2 text-xs text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 w-full text-left"
+                  className="flex w-full items-center space-x-2 px-3 py-2 text-left text-xs text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-gray-700"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                   <span>Delete</span>
@@ -96,25 +96,27 @@ export default function TestCard({
       </div>
 
       {/* Tags */}
-      <div className="flex items-center flex-wrap gap-1.5 mb-3">
-        <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${TEST_LIST_TYPE_COLORS[test.type]}`}>
+      <div className="mb-3 flex flex-wrap items-center gap-1.5">
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs font-medium ${TEST_LIST_TYPE_COLORS[test.type]}`}
+        >
           {test.type.toUpperCase()}
         </span>
-        <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${TEST_LIST_STATUS_COLORS[test.status]}`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs font-medium ${TEST_LIST_STATUS_COLORS[test.status]}`}
+        >
           {test.status.charAt(0).toUpperCase() + test.status.slice(1)}
         </span>
         {test.tags.slice(0, 2).map((tag) => (
           <span
             key={tag}
-            className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
+            className="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-700 dark:bg-gray-700 dark:text-gray-300"
           >
             {tag}
           </span>
         ))}
         {test.tags.length > 2 && (
-          <span className="text-xs text-gray-500 dark:text-gray-400">
-            +{test.tags.length - 2}
-          </span>
+          <span className="text-xs text-gray-500 dark:text-gray-400">+{test.tags.length - 2}</span>
         )}
       </div>
 
@@ -122,16 +124,16 @@ export default function TestCard({
       <div className="grid grid-cols-2 gap-3">
         {test.successRate !== undefined && (
           <div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Success Rate</div>
+            <div className="mb-1 text-xs text-gray-500 dark:text-gray-400">Success Rate</div>
             <div className="flex items-center gap-2">
-              <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+              <div className="h-1.5 flex-1 rounded-full bg-gray-200 dark:bg-gray-700">
                 <div
                   className={`h-1.5 rounded-full ${
                     test.successRate >= 90
                       ? 'bg-green-500'
                       : test.successRate >= 70
-                      ? 'bg-yellow-500'
-                      : 'bg-red-500'
+                        ? 'bg-yellow-500'
+                        : 'bg-red-500'
                   }`}
                   style={{ width: `${test.successRate}%` }}
                 />
@@ -143,7 +145,7 @@ export default function TestCard({
           </div>
         )}
         <div>
-          <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Last Run</div>
+          <div className="mb-1 text-xs text-gray-500 dark:text-gray-400">Last Run</div>
           <div className="text-xs font-medium text-gray-700 dark:text-gray-300">
             {test.lastRun ? formatDistanceToNow(test.lastRun, { addSuffix: true }) : 'Never'}
           </div>

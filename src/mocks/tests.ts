@@ -212,7 +212,8 @@ export const mockHistoryExecutionDetail = {
 export const mockTestDetail = {
   id: '1',
   name: 'User Login Flow',
-  description: 'Tests the complete user authentication process including login form validation, API calls, and redirect behavior.',
+  description:
+    'Tests the complete user authentication process including login form validation, API calls, and redirect behavior.',
   type: 'ui',
   status: 'active',
   createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),

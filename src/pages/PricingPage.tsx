@@ -11,10 +11,10 @@ export const PricingPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-900 dark:to-gray-800">
+      <section className="bg-gradient-to-br from-primary-50 to-accent-50 py-20 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h1 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
               Simple, transparent pricing
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400">
@@ -23,7 +23,7 @@ export const PricingPage = () => {
           </div>
 
           {/* Billing Toggle */}
-          <div className="flex items-center justify-center gap-4 mb-16">
+          <div className="mb-16 flex items-center justify-center gap-4">
             <span
               className={`text-lg font-medium transition-colors ${
                 !isAnnual ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'
@@ -33,17 +33,11 @@ export const PricingPage = () => {
             </span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
-              className={`
-                relative w-16 h-8 rounded-full transition-colors
-                ${isAnnual ? 'bg-primary-600' : 'bg-gray-300 dark:bg-gray-600'}
-              `}
+              className={`relative h-8 w-16 rounded-full transition-colors ${isAnnual ? 'bg-primary-600' : 'bg-gray-300 dark:bg-gray-600'} `}
               aria-label="Toggle annual billing"
             >
               <span
-                className={`
-                  absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow-md transition-transform
-                  ${isAnnual ? 'transform translate-x-8' : ''}
-                `}
+                className={`absolute left-1 top-1 h-6 w-6 rounded-full bg-white shadow-md transition-transform ${isAnnual ? 'translate-x-8 transform' : ''} `}
               />
             </button>
             <span
@@ -54,14 +48,14 @@ export const PricingPage = () => {
               Annual
             </span>
             {isAnnual && (
-              <span className="ml-2 px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-sm font-semibold rounded-full">
+              <span className="ml-2 rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400">
                 Save 20%
               </span>
             )}
           </div>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {pricingTiers.map((tier) => (
               <PricingCard key={tier.name} tier={tier} isAnnual={isAnnual} />
             ))}
@@ -70,27 +64,27 @@ export const PricingPage = () => {
       </section>
 
       {/* Feature Comparison */}
-      <section className="py-20 bg-white dark:bg-gray-900">
+      <section className="bg-white py-20 dark:bg-gray-900">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
               Compare plans
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
               Detailed comparison of features across all plans
             </p>
           </div>
-          <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 md:p-8">
+          <div className="mx-auto max-w-6xl rounded-xl bg-white p-4 shadow-lg dark:bg-gray-800 md:p-8">
             <PricingComparison />
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-800/50">
+      <section className="bg-gray-50 py-20 dark:bg-gray-800/50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
               Frequently asked questions
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -102,17 +96,15 @@ export const PricingPage = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-br from-primary-600 to-accent-600 dark:from-primary-900 dark:to-accent-900">
+      <section className="bg-gradient-to-br from-primary-600 to-accent-600 py-20 dark:from-primary-900 dark:to-accent-900">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to get started?
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
+          <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">Ready to get started?</h2>
+          <p className="mb-8 text-xl text-white/90">
             Join thousands of teams already using QA AI to test smarter.
           </p>
           <a
             href={ROUTES.REGISTER}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-50 transform hover:scale-105 transition-all shadow-xl"
+            className="inline-flex transform items-center gap-2 rounded-lg bg-white px-8 py-4 font-semibold text-primary-600 shadow-xl transition-all hover:scale-105 hover:bg-gray-50"
           >
             Start your free trial
           </a>

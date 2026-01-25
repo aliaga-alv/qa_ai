@@ -13,14 +13,14 @@ export const ROUTES = {
   CHANGELOG: '/changelog',
   DOCS: '/docs',
   FEATURES: '/#features',
-  
+
   // Auth routes
   LOGIN: '/login',
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
   VERIFY_EMAIL: '/verify-email',
-  
+
   // Protected routes - Dashboard
   DASHBOARD: '/dashboard',
   DASHBOARD_TESTS: '/dashboard/tests',
@@ -33,7 +33,7 @@ export const ROUTES = {
   DASHBOARD_TEAM: '/dashboard/team',
   DASHBOARD_SETTINGS: '/dashboard/settings',
   DASHBOARD_PROFILE: '/dashboard/profile',
-  
+
   // Legal
   TERMS: '/terms',
   PRIVACY: '/privacy',

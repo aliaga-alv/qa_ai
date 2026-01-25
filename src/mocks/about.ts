@@ -8,7 +8,8 @@ export const companyValues: ValueData[] = [
   {
     icon: Target,
     title: 'Excellence',
-    description: 'We strive for excellence in everything we do, from our product to our customer service.',
+    description:
+      'We strive for excellence in everything we do, from our product to our customer service.',
   },
   {
     icon: Users,
@@ -18,12 +19,12 @@ export const companyValues: ValueData[] = [
   {
     icon: Lightbulb,
     title: 'Innovation',
-    description: 'We constantly push the boundaries of what\'s possible in software testing.',
+    description: "We constantly push the boundaries of what's possible in software testing.",
   },
   {
     icon: Heart,
     title: 'Customer Focus',
-    description: 'Our customers\' success is our success. We listen, adapt, and deliver value.',
+    description: "Our customers' success is our success. We listen, adapt, and deliver value.",
   },
 ];
 

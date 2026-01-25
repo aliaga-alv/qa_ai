@@ -91,10 +91,10 @@ export const useAuthStore = create<AuthStore>()(
           emailVerified: true,
           createdAt: new Date().toISOString(),
         };
-        
+
         // Mock tokens
         tokenStorage.setTokens('test-access-token', 'test-refresh-token');
-        
+
         set({
           user: testUser,
           isAuthenticated: true,

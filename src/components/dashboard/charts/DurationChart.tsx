@@ -1,4 +1,13 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+} from 'recharts';
 import { mockDurationChartData } from '@/mocks';
 
 const getColor = (status: string) => {
@@ -16,30 +25,28 @@ const getColor = (status: string) => {
 
 export default function DurationChart() {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+    <div className="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
           Average Test Duration
         </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          Performance by test suite
-        </p>
+        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Performance by test suite</p>
       </div>
 
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={mockDurationChartData} layout="vertical">
           <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-          <XAxis 
-            type="number" 
+          <XAxis
+            type="number"
             className="text-xs text-gray-700 dark:text-gray-300"
             stroke="currentColor"
             label={{ value: 'Seconds', position: 'insideBottom', offset: -5 }}
           />
-          <YAxis 
-            type="category" 
+          <YAxis
+            type="category"
             dataKey="name"
             width={120}
-            className="text-sm text-gray-900 dark:text-white font-medium"
+            className="text-sm font-medium text-gray-900 dark:text-white"
             stroke="currentColor"
           />
           <Tooltip
@@ -70,16 +77,22 @@ export default function DurationChart() {
 
       <div className="mt-4 flex items-center justify-center space-x-6">
         <div className="flex items-center">
-          <div className="w-3 h-3 rounded bg-green-500 mr-2" />
-          <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">Fast (&lt;3s)</span>
+          <div className="mr-2 h-3 w-3 rounded bg-green-500" />
+          <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+            Fast (&lt;3s)
+          </span>
         </div>
         <div className="flex items-center">
-          <div className="w-3 h-3 rounded bg-orange-500 mr-2" />
-          <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">Medium (3-5s)</span>
+          <div className="mr-2 h-3 w-3 rounded bg-orange-500" />
+          <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+            Medium (3-5s)
+          </span>
         </div>
         <div className="flex items-center">
-          <div className="w-3 h-3 rounded bg-rose-500 mr-2" />
-          <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">Slow (&gt;5s)</span>
+          <div className="mr-2 h-3 w-3 rounded bg-rose-500" />
+          <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+            Slow (&gt;5s)
+          </span>
         </div>
       </div>
     </div>

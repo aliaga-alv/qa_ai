@@ -10,7 +10,8 @@ export const quickActions: QuickAction[] = [
     icon: Play,
     label: 'Run All Tests',
     color: 'text-primary-600 dark:text-primary-400',
-    bgColor: 'bg-primary-100 dark:bg-primary-900/20 hover:bg-primary-200 dark:hover:bg-primary-900/30',
+    bgColor:
+      'bg-primary-100 dark:bg-primary-900/20 hover:bg-primary-200 dark:hover:bg-primary-900/30',
     onClick: () => console.log('Navigate to /dashboard/run'),
   },
   {

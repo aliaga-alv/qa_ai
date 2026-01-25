@@ -35,11 +35,11 @@ export const Testimonials = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section id="testimonials" className="py-24 bg-white dark:bg-gray-900 overflow-hidden">
+    <section id="testimonials" className="overflow-hidden bg-white py-24 dark:bg-gray-900">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
             Loved by teams worldwide
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -48,30 +48,26 @@ export const Testimonials = () => {
         </div>
 
         {/* Testimonial Card */}
-        <div className="max-w-4xl mx-auto">
-          <div className="relative bg-gradient-to-br from-primary-50 to-accent-50 dark:from-gray-800 dark:to-gray-800/50 rounded-2xl p-8 md:p-12 shadow-xl">
+        <div className="mx-auto max-w-4xl">
+          <div className="relative rounded-2xl bg-gradient-to-br from-primary-50 to-accent-50 p-8 shadow-xl dark:from-gray-800 dark:to-gray-800/50 md:p-12">
             {/* Quote Icon */}
-            <div className="absolute top-8 left-8 opacity-10 dark:opacity-5">
-              <Quote className="w-24 h-24 text-primary-600" />
+            <div className="absolute left-8 top-8 opacity-10 dark:opacity-5">
+              <Quote className="h-24 w-24 text-primary-600" />
             </div>
 
             {/* Content */}
             <div className="relative z-10">
               {/* Stars */}
-              <div className="flex gap-1 mb-6 justify-center md:justify-start">
+              <div className="mb-6 flex justify-center gap-1 md:justify-start">
                 {[...Array(currentTestimonial.rating)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className="w-5 h-5 text-yellow-400 fill-current"
-                    viewBox="0 0 20 20"
-                  >
+                  <svg key={i} className="h-5 w-5 fill-current text-yellow-400" viewBox="0 0 20 20">
                     <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
                   </svg>
                 ))}
               </div>
 
               {/* Testimonial Text */}
-              <p className="text-xl md:text-2xl text-gray-800 dark:text-gray-200 leading-relaxed mb-8 min-h-[120px] md:min-h-[100px]">
+              <p className="mb-8 min-h-[120px] text-xl leading-relaxed text-gray-800 dark:text-gray-200 md:min-h-[100px] md:text-2xl">
                 "{currentTestimonial.content}"
               </p>
 
@@ -80,10 +76,10 @@ export const Testimonials = () => {
                 <img
                   src={currentTestimonial.image}
                   alt={currentTestimonial.name}
-                  className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700"
+                  className="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-700"
                 />
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white text-lg">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
                     {currentTestimonial.name}
                   </h4>
                   <p className="text-gray-600 dark:text-gray-400">
@@ -99,10 +95,10 @@ export const Testimonials = () => {
             {/* Previous Button */}
             <button
               onClick={goToPrevious}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-colors"
+              className="rounded-full bg-gray-200 p-2 transition-colors hover:bg-primary-500 hover:text-white dark:bg-gray-800 dark:hover:bg-primary-500"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="h-6 w-6" />
             </button>
 
             {/* Dots Indicator */}
@@ -111,13 +107,11 @@ export const Testimonials = () => {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`
-                    h-2 rounded-full transition-all
-                    ${index === currentIndex 
-                      ? 'w-8 bg-primary-600' 
-                      : 'w-2 bg-gray-300 dark:bg-gray-700 hover:bg-primary-400'
-                    }
-                  `}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentIndex
+                      ? 'w-8 bg-primary-600'
+                      : 'w-2 bg-gray-300 hover:bg-primary-400 dark:bg-gray-700'
+                  } `}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
@@ -126,10 +120,10 @@ export const Testimonials = () => {
             {/* Next Button */}
             <button
               onClick={goToNext}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 transition-colors"
+              className="rounded-full bg-gray-200 p-2 transition-colors hover:bg-primary-500 hover:text-white dark:bg-gray-800 dark:hover:bg-primary-500"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="h-6 w-6" />
             </button>
           </div>
         </div>

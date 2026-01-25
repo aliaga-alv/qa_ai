@@ -54,4 +54,10 @@ export const integrations = [
   },
 ] as const;
 
-export const integrationCategories = ['All', 'CI/CD', 'Notifications', 'Issue Tracking', 'Custom'] as const;
+export const integrationCategories = [
+  'All',
+  'CI/CD',
+  'Notifications',
+  'Issue Tracking',
+  'Custom',
+] as const;

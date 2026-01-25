@@ -16,7 +16,18 @@ export class ApiErrorHandler {
   static normalize(error: unknown): ApiError {
     // Check if error is an object with response property
     if (error && typeof error === 'object' && 'response' in error) {
-      const axiosError = error as { response?: { data?: { code?: string; message?: string; field?: string; details?: Record<string, unknown> }; status?: number }; request?: unknown };
+      const axiosError = error as {
+        response?: {
+          data?: {
+            code?: string;
+            message?: string;
+            field?: string;
+            details?: Record<string, unknown>;
+          };
+          status?: number;
+        };
+        request?: unknown;
+      };
       if (axiosError.response) {
         return {
           code: axiosError.response.data?.code || 'API_ERROR',
@@ -37,9 +48,10 @@ export class ApiErrorHandler {
     }
 
     // Handle other error types
-    const message = error && typeof error === 'object' && 'message' in error && typeof error.message === 'string'
-      ? error.message
-      : 'An unexpected error occurred';
+    const message =
+      error && typeof error === 'object' && 'message' in error && typeof error.message === 'string'
+        ? error.message
+        : 'An unexpected error occurred';
     return {
       code: 'UNKNOWN_ERROR',
       message,

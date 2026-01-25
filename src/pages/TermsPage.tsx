@@ -5,13 +5,13 @@ export const TermsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+      <div className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900">
         <div className="container mx-auto px-4 py-6">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+            className="inline-flex items-center gap-2 font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="h-4 w-4" />
             Back to Home
           </Link>
         </div>
@@ -20,44 +20,44 @@ export const TermsPage = () => {
       {/* Content */}
       <div className="py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="mx-auto max-w-4xl">
+            <h1 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
               Terms of Service
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
-              Last updated: January 19, 2026
-            </p>
+            <p className="mb-8 text-gray-600 dark:text-gray-400">Last updated: January 19, 2026</p>
 
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   1. Acceptance of Terms
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  By accessing and using QA AI ("Service"), you accept and agree to be bound by the terms and 
-                  provision of this agreement. If you do not agree to these terms, please do not use our Service.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  By accessing and using QA AI ("Service"), you accept and agree to be bound by the
+                  terms and provision of this agreement. If you do not agree to these terms, please
+                  do not use our Service.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   2. Description of Service
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  QA AI provides an AI-powered automated testing platform that helps development teams test their 
-                  applications more efficiently. The Service includes test generation, execution, reporting, and 
-                  related features.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  QA AI provides an AI-powered automated testing platform that helps development
+                  teams test their applications more efficiently. The Service includes test
+                  generation, execution, reporting, and related features.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   3. User Accounts
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  You are responsible for maintaining the confidentiality of your account and password. You agree to:
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  You are responsible for maintaining the confidentiality of your account and
+                  password. You agree to:
                 </p>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mb-4">
+                <ul className="mb-4 list-inside list-disc space-y-2 text-gray-700 dark:text-gray-300">
                   <li>Provide accurate and complete information when creating your account</li>
                   <li>Keep your account credentials secure and confidential</li>
                   <li>Notify us immediately of any unauthorized use of your account</li>
@@ -66,13 +66,13 @@ export const TermsPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   4. Acceptable Use
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
                   You agree not to use the Service to:
                 </p>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mb-4">
+                <ul className="mb-4 list-inside list-disc space-y-2 text-gray-700 dark:text-gray-300">
                   <li>Violate any laws or regulations</li>
                   <li>Infringe on intellectual property rights</li>
                   <li>Upload malicious code or viruses</li>
@@ -83,103 +83,109 @@ export const TermsPage = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   5. Intellectual Property
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  The Service and its original content, features, and functionality are owned by QA AI and are 
-                  protected by international copyright, trademark, patent, trade secret, and other intellectual 
-                  property laws.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  The Service and its original content, features, and functionality are owned by QA
+                  AI and are protected by international copyright, trademark, patent, trade secret,
+                  and other intellectual property laws.
                 </p>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  You retain ownership of any test code, test data, and configurations you create using the Service. 
-                  You grant us a limited license to use this content solely to provide the Service to you.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  You retain ownership of any test code, test data, and configurations you create
+                  using the Service. You grant us a limited license to use this content solely to
+                  provide the Service to you.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   6. Payment and Billing
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  Paid subscriptions are billed in advance on a monthly or annual basis. You agree to provide current, 
-                  complete, and accurate billing information. We reserve the right to suspend or terminate your account 
-                  for non-payment.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  Paid subscriptions are billed in advance on a monthly or annual basis. You agree
+                  to provide current, complete, and accurate billing information. We reserve the
+                  right to suspend or terminate your account for non-payment.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   7. Cancellation and Refunds
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  You may cancel your subscription at any time. Cancellations take effect at the end of your current 
-                  billing period. We offer a 30-day money-back guarantee for new subscriptions. Refunds after 30 days 
-                  are at our discretion.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  You may cancel your subscription at any time. Cancellations take effect at the end
+                  of your current billing period. We offer a 30-day money-back guarantee for new
+                  subscriptions. Refunds after 30 days are at our discretion.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   8. Data and Privacy
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  Your use of the Service is also governed by our Privacy Policy. We take data security seriously and 
-                  implement industry-standard measures to protect your information.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  Your use of the Service is also governed by our Privacy Policy. We take data
+                  security seriously and implement industry-standard measures to protect your
+                  information.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   9. Limitation of Liability
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  To the maximum extent permitted by law, QA AI shall not be liable for any indirect, incidental, 
-                  special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred 
-                  directly or indirectly, or any loss of data, use, goodwill, or other intangible losses.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  To the maximum extent permitted by law, QA AI shall not be liable for any
+                  indirect, incidental, special, consequential, or punitive damages, or any loss of
+                  profits or revenues, whether incurred directly or indirectly, or any loss of data,
+                  use, goodwill, or other intangible losses.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   10. Service Availability
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  We strive to provide reliable service but cannot guarantee 100% uptime. We reserve the right to 
-                  modify, suspend, or discontinue the Service at any time with reasonable notice.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  We strive to provide reliable service but cannot guarantee 100% uptime. We reserve
+                  the right to modify, suspend, or discontinue the Service at any time with
+                  reasonable notice.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   11. Changes to Terms
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  We reserve the right to modify these terms at any time. We will notify users of significant changes 
-                  via email or through the Service. Continued use of the Service after changes constitutes acceptance 
-                  of the new terms.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  We reserve the right to modify these terms at any time. We will notify users of
+                  significant changes via email or through the Service. Continued use of the Service
+                  after changes constitutes acceptance of the new terms.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   12. Governing Law
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-                  These terms shall be governed by and construed in accordance with the laws of the State of California, 
-                  United States, without regard to its conflict of law provisions.
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
+                  These terms shall be governed by and construed in accordance with the laws of the
+                  State of California, United States, without regard to its conflict of law
+                  provisions.
                 </p>
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
                   13. Contact Information
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+                <p className="mb-4 leading-relaxed text-gray-700 dark:text-gray-300">
                   If you have any questions about these Terms, please contact us at:
                 </p>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  Email: legal@qaai.com<br />
+                <p className="leading-relaxed text-gray-700 dark:text-gray-300">
+                  Email: legal@qaai.com
+                  <br />
                   Address: 123 Tech Street, San Francisco, CA 94105
                 </p>
               </section>

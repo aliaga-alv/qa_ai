@@ -20,21 +20,19 @@ export const LoadingSpinner = ({
     <div className="flex flex-col items-center justify-center gap-3">
       <div
         className={cn(
-          'rounded-full animate-spin',
+          'animate-spin rounded-full',
           SPINNER_SIZE_CLASSES[size],
           SPINNER_VARIANT_CLASSES[variant],
           className
         )}
       />
-      {text && (
-        <p className="text-sm text-gray-600 dark:text-gray-400">{text}</p>
-      )}
+      {text && <p className="text-sm text-gray-600 dark:text-gray-400">{text}</p>}
     </div>
   );
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-dark-bg/80 backdrop-blur-sm z-50">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm dark:bg-dark-bg/80">
         {spinner}
       </div>
     );

@@ -95,7 +95,10 @@ apiClient.interceptors.response.use(
         const { accessToken, refreshToken: newRefreshToken } = response.data;
 
         // Update tokens
-        tokenStorage.setTokens(accessToken, newRefreshToken || tokenStorage.getRefreshToken() || '');
+        tokenStorage.setTokens(
+          accessToken,
+          newRefreshToken || tokenStorage.getRefreshToken() || ''
+        );
 
         // Process queued requests
         processQueue(null, accessToken);

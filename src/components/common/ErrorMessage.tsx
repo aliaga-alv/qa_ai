@@ -17,7 +17,7 @@ interface ErrorMessageProps {
 
 const defaultIcons = {
   error: (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -27,7 +27,7 @@ const defaultIcons = {
     </svg>
   ),
   warning: (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -37,7 +37,7 @@ const defaultIcons = {
     </svg>
   ),
   info: (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -61,26 +61,14 @@ export const ErrorMessage = ({
   const defaultIcon = defaultIcons[variant];
 
   return (
-    <div
-      className={cn(
-        'rounded-lg border p-4',
-        styles.container,
-        className
-      )}
-    >
+    <div className={cn('rounded-lg border p-4', styles.container, className)}>
       <div className="flex gap-3">
         {/* Icon */}
-        <div className={cn('shrink-0', styles.icon)}>
-          {icon || defaultIcon}
-        </div>
+        <div className={cn('shrink-0', styles.icon)}>{icon || defaultIcon}</div>
 
         {/* Content */}
-        <div className="flex-1 min-w-0">
-          {title && (
-            <h3 className={cn('text-sm font-semibold mb-1', styles.title)}>
-              {title}
-            </h3>
-          )}
+        <div className="min-w-0 flex-1">
+          {title && <h3 className={cn('mb-1 text-sm font-semibold', styles.title)}>{title}</h3>}
           <p className={cn('text-sm', styles.message)}>{message}</p>
 
           {/* Action button */}
@@ -101,12 +89,9 @@ export const ErrorMessage = ({
         {onDismiss && (
           <button
             onClick={onDismiss}
-            className={cn(
-              'shrink-0 hover:opacity-70 transition-opacity',
-              styles.icon
-            )}
+            className={cn('shrink-0 transition-opacity hover:opacity-70', styles.icon)}
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

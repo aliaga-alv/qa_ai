@@ -7,7 +7,14 @@ export type UserRole = 'owner' | 'admin' | 'member' | 'viewer';
 
 export type TestType = 'api' | 'ui' | 'integration' | 'unit';
 export type TestStatus = 'active' | 'inactive' | 'draft';
-export type ExecutionStatus = 'pending' | 'queued' | 'running' | 'passed' | 'failed' | 'cancelled' | 'stopped';
+export type ExecutionStatus =
+  | 'pending'
+  | 'queued'
+  | 'running'
+  | 'passed'
+  | 'failed'
+  | 'cancelled'
+  | 'stopped';
 export type TestRunStatus = 'passed' | 'failed' | 'running';
 
 // Test-related types
@@ -46,7 +53,7 @@ export interface ExecutingTest {
   name: string;
   status: ExecutionStatus;
   progress: number;
-  duration: number;  // Required, always has a value
+  duration: number; // Required, always has a value
   error?: string;
   startTime: number;
 }

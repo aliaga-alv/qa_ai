@@ -32,11 +32,11 @@ export const Features = () => {
   }, []);
 
   return (
-    <section id="features" className="py-24 bg-white dark:bg-gray-900">
+    <section id="features" className="bg-white py-24 dark:bg-gray-900">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
             Everything you need to test smarter
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400">
@@ -45,7 +45,7 @@ export const Features = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {homeFeatures.map((feature, index) => {
             const Icon = feature.icon;
             const isVisible = visibleCards.has(index);
@@ -56,30 +56,23 @@ export const Features = () => {
                 ref={(el) => {
                   featureRefs.current[index] = el;
                 }}
-                className={`
-                  group p-6 rounded-xl border border-gray-200 dark:border-gray-800 
-                  bg-gray-50 dark:bg-gray-800/50 
-                  hover:border-primary-500 dark:hover:border-primary-500 
-                  hover:shadow-lg hover:shadow-primary-500/10
-                  transition-all duration-300
-                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-                `}
+                className={`group rounded-xl border border-gray-200 bg-gray-50 p-6 transition-all duration-300 hover:border-primary-500 hover:shadow-lg hover:shadow-primary-500/10 dark:border-gray-800 dark:bg-gray-800/50 dark:hover:border-primary-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'} `}
                 style={{
                   transitionDelay: `${index * 100}ms`,
                 }}
               >
                 {/* Icon */}
-                <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 group-hover:scale-110 transition-transform">
-                  <Icon className="w-6 h-6 text-white" />
+                <div className="mb-4 inline-flex rounded-lg bg-gradient-to-br from-primary-500 to-accent-500 p-3 transition-transform group-hover:scale-110">
+                  <Icon className="h-6 w-6 text-white" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-white">
                   {feature.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="leading-relaxed text-gray-600 dark:text-gray-400">
                   {feature.description}
                 </p>
               </div>

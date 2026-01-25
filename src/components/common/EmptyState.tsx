@@ -14,12 +14,7 @@ interface EmptyStateProps {
 }
 
 const defaultIcon = (
-  <svg
-    className="w-16 h-16 text-gray-400"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
+  <svg className="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -29,33 +24,20 @@ const defaultIcon = (
   </svg>
 );
 
-export const EmptyState = ({
-  icon,
-  title,
-  description,
-  action,
-  className,
-}: EmptyStateProps) => {
+export const EmptyState = ({ icon, title, description, action, className }: EmptyStateProps) => {
   return (
     <div
-      className={cn(
-        'flex flex-col items-center justify-center py-12 px-4 text-center',
-        className
-      )}
+      className={cn('flex flex-col items-center justify-center px-4 py-12 text-center', className)}
     >
       {/* Icon */}
       <div className="mb-4">{icon || defaultIcon}</div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-        {title}
-      </h3>
+      <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>
 
       {/* Description */}
       {description && (
-        <p className="text-sm text-gray-600 dark:text-gray-400 max-w-sm mb-6">
-          {description}
-        </p>
+        <p className="mb-6 max-w-sm text-sm text-gray-600 dark:text-gray-400">{description}</p>
       )}
 
       {/* Action button */}
@@ -63,10 +45,10 @@ export const EmptyState = ({
         <button
           onClick={action.onClick}
           className={cn(
-            'px-4 py-2 rounded-lg font-medium transition-colors',
+            'rounded-lg px-4 py-2 font-medium transition-colors',
             action.variant === 'primary'
               ? 'bg-primary-500 text-white hover:bg-primary-600'
-              : 'bg-gray-200 dark:bg-dark-surface text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700'
+              : 'bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-dark-surface dark:text-white dark:hover:bg-gray-700'
           )}
         >
           {action.label}

@@ -8,12 +8,7 @@ interface TooltipProps {
   className?: string;
 }
 
-export default function Tooltip({ 
-  content, 
-  children, 
-  side = 'right',
-  className 
-}: TooltipProps) {
+export default function Tooltip({ content, children, side = 'right', className }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const [show, setShow] = useState(false);
@@ -25,7 +20,7 @@ export default function Tooltip({
     if (triggerRef.current && tooltipRef.current) {
       const triggerRect = triggerRef.current.getBoundingClientRect();
       const tooltipRect = tooltipRef.current.getBoundingClientRect();
-      
+
       let top = 0;
       let left = 0;
 
@@ -92,7 +87,7 @@ export default function Tooltip({
       {isVisible && (
         <div
           ref={tooltipRef}
-          className={`fixed z-[9999] px-2.5 py-1.5 bg-gray-900 dark:bg-gray-700 text-white text-xs font-medium rounded-md shadow-lg pointer-events-none whitespace-nowrap transition-opacity duration-200 ${
+          className={`pointer-events-none fixed z-[9999] whitespace-nowrap rounded-md bg-gray-900 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg transition-opacity duration-200 dark:bg-gray-700 ${
             show ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
@@ -102,14 +97,14 @@ export default function Tooltip({
         >
           {content}
           <div
-            className={`absolute w-2 h-2 bg-gray-900 dark:bg-gray-700 transform rotate-45 ${
+            className={`absolute h-2 w-2 rotate-45 transform bg-gray-900 dark:bg-gray-700 ${
               side === 'right'
                 ? '-left-1 top-1/2 -translate-y-1/2'
                 : side === 'left'
-                ? '-right-1 top-1/2 -translate-y-1/2'
-                : side === 'top'
-                ? 'left-1/2 -translate-x-1/2 -bottom-1'
-                : 'left-1/2 -translate-x-1/2 -top-1'
+                  ? '-right-1 top-1/2 -translate-y-1/2'
+                  : side === 'top'
+                    ? '-bottom-1 left-1/2 -translate-x-1/2'
+                    : '-top-1 left-1/2 -translate-x-1/2'
             }`}
           />
         </div>

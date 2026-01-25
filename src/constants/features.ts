@@ -1,4 +1,18 @@
-import { Shield, Users, CreditCard, Bell, Database, Key, Sparkles, Code, Upload, Settings as SettingsIcon, Save, GitBranch, Gauge } from 'lucide-react';
+import {
+  Shield,
+  Users,
+  CreditCard,
+  Bell,
+  Database,
+  Key,
+  Sparkles,
+  Code,
+  Upload,
+  Settings as SettingsIcon,
+  Save,
+  GitBranch,
+  Gauge,
+} from 'lucide-react';
 
 /**
  * Settings page features

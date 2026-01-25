@@ -11,20 +11,20 @@ export default function CreateTestPage() {
 
   const handleSubmit = async (data: TestFormData) => {
     setIsSubmitting(true);
-    
+
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // In a real app, you would make an API call here:
       // await api.tests.create(data);
-      
+
       console.log('Creating test with data:', data);
-      
+
       toast.success('Test created successfully!', {
         description: `"${data.name}" has been added to your test suite.`,
       });
-      
+
       // Navigate to tests list
       navigate('/dashboard/tests');
     } catch (error) {
@@ -45,22 +45,24 @@ export default function CreateTestPage() {
     <div className="space-y-4 sm:space-y-6">
       {/* Page header */}
       <div>
-        <div className="flex items-center space-x-2 sm:space-x-3 mb-1 sm:mb-2">
+        <div className="mb-1 flex items-center space-x-2 sm:mb-2 sm:space-x-3">
           <button
             onClick={() => navigate('/dashboard/tests')}
-            className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex-shrink-0"
+            className="flex-shrink-0 rounded-lg p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 sm:p-2"
           >
             <ArrowLeft className="h-5 w-5 text-gray-600 dark:text-gray-400" />
           </button>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Create New Test</h1>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl md:text-3xl">
+            Create New Test
+          </h1>
         </div>
-        <p className="ml-9 sm:ml-14 text-sm sm:text-base text-gray-600 dark:text-gray-400">
+        <p className="ml-9 text-sm text-gray-600 dark:text-gray-400 sm:ml-14 sm:text-base">
           Define your test configuration, write test code, and set execution parameters.
         </p>
       </div>
 
       {/* Test Form */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+      <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:p-6">
         <TestForm
           onSubmit={handleSubmit}
           onCancel={handleCancel}
