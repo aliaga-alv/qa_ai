@@ -2,7 +2,7 @@
  * Mock security data for security settings page
  * TODO: Replace with real API data
  */
-import type { ActiveSession, SecurityLog } from '../types/models';
+import type { ActiveSession, SecurityLog } from '@/types/models';
 
 export const mockSessions: ActiveSession[] = [
   {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CreditCard, Download, Check, Zap, TrendingUp, Calendar } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
-import type { PaymentMethod, Invoice } from '../../types/models';
+import type { PaymentMethod, Invoice } from '@/types/models';
 import { mockPaymentMethod, mockInvoices, billingPlans } from '@/mocks';
 
 // TODO: Replace with real API data

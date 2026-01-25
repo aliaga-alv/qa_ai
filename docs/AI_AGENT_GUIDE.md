@@ -33,11 +33,10 @@ npm run build  # Must pass with 0 errors
 1. [TypeScript Type Management](#typescript-type-management)
 2. [Constants & Mock Data Organization](#constants--mock-data-organization)
 3. [Tailwind CSS Best Practices](#tailwind-css-best-practices)
-4. [shadcn/ui Integration](#shadcnui-integration)
-5. [Common Tailwind Mistakes](#common-tailwind-mistakes)
-6. [Component Creation Patterns](#component-creation-patterns)
-7. [State Management](#state-management)
-8. [Quick Decision Trees](#quick-decision-trees)
+4. [Common Tailwind Mistakes](#common-tailwind-mistakes)
+5. [Component Creation Patterns](#component-creation-patterns)
+6. [State Management](#state-management)
+7. [Quick Decision Trees](#quick-decision-trees)
 
 ---
 
@@ -370,7 +369,7 @@ import type { UserRole } from '@/types/models';  // Import directly
 </div>
 ```
 
-#### Button Pattern (Before shadcn/ui)
+#### Button Pattern
 ```typescript
 // Primary Button
 <button className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-primary-500 rounded-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
@@ -383,7 +382,7 @@ import type { UserRole } from '@/types/models';  // Import directly
 </button>
 ```
 
-#### Input Pattern (Before shadcn/ui)
+#### Input Pattern
 ```typescript
 <input
   type="text"
@@ -425,119 +424,9 @@ import type { UserRole } from '@/types/models';  // Import directly
 
 ---
 
-## shadcn/ui Integration
+## Common Tailwind Mistakes
 
-### How shadcn/ui Works
-
-**Key Concept:** shadcn/ui is **NOT a package**. It copies components directly into your project.
-
-### ⚠️ CRITICAL: Avoid the @ Folder Issue
-
-**WRONG Setup (Creates literal @ folder):**
-```json
-// ❌ components.json with @/ aliases
-"aliases": {
-  "components": "@/components",  // BAD!
-  "utils": "@/lib/utils"         // BAD!
-}
-```
-
-**CORRECT Setup:**
-```json
-// ✅ components.json with relative paths
-"aliases": {
-  "components": "./src/components",  // GOOD!
-  "utils": "./src/lib/utils",        // GOOD!
-  "ui": "./src/components/ui"
-}
-```
-
-**Why:** The shadcn CLI doesn't resolve TypeScript path aliases (`@/`). It needs relative paths (`.\src/`) in components.json.
-
-**Your code can still use `@/` for imports:**
-```typescript
-// This works fine in your code
-import { Button } from '@/components/ui/button';
-```
-
-**Adding components:**
-```bash
-# This creates: src/components/ui/button.tsx (NOT @/components/ui/)
-npx shadcn@latest add button
-```
-
-**If you see an @ folder in your project root - DELETE IT:**
-```bash
-cp -r @/components/ui src/components/ && rm -rf @
-```
-
-### Using shadcn/ui Components
-
-#### Step 1: Add the component
-```bash
-npx shadcn@latest add button
-npx shadcn@latest add input
-npx shadcn@latest add card
-```
-
-#### Step 2: Import and use
-```typescript
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-
-export const MyComponent = () => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <Input placeholder="Email" type="email" />
-        <Input placeholder="Password" type="password" />
-        <Button className="w-full">Sign In</Button>
-      </CardContent>
-    </Card>
-  );
-};
-```
-
-#### Step 3: Customize the component (if needed)
-```typescript
-// You can modify src/components/ui/button.tsx directly
-// Or extend it with custom variants
-
-import { Button } from '@/components/ui/button';
-
-// Using className to extend
-<Button className="bg-linear-to-r from-purple-500 to-pink-500">
-  Gradient Button
-</Button>
-```
-
-### shadcn/ui + Tailwind Integration
-
-#### Composition Pattern
-```typescript
-// shadcn/ui provides the base
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-
-// Add Tailwind for layout and spacing
-export const PricingCard = ({ tier }) => {
-  return (
-    <Card className="flex flex-col h-full">
-      <CardContent className="flex-1 p-6 space-y-4">
-        <h3 className="text-2xl font-bold text-center">{tier.name}</h3>
-        <p className="text-4xl font-bold text-center text-primary-500">
-          ${tier.price}
-          <span className="text-sm font-normal text-gray-500">/month</span>
-        </p>
-        <ul className="space-y-2">
-          {tier.features.map(feature => (
-            <li key={feature} className="flex items-center gap-2">
-              <CheckIcon className="w-5 h-5 text-green-500" />
-              <span className="text-sm text-gray-700 dark:text-gray-300">
+### Mistake 1: Not Using Mobile-First
                 {feature}
               </span>
             </li>
@@ -742,8 +631,7 @@ export const Card: FC<CardProps> = ({
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email'),
@@ -764,11 +652,17 @@ export const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <Input
+        <input
           {...register('email')}
           type="email"
           placeholder="Email"
-          className={cn(errors.email && "border-red-500")}
+          className={cn(
+            "w-full px-3 py-2 border rounded-md",
+            "bg-white dark:bg-dark-surface",
+            "border-gray-300 dark:border-gray-700",
+            "focus:ring-2 focus:ring-primary-500",
+            errors.email && "border-red-500"
+          )}
         />
         {errors.email && (
           <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
@@ -776,20 +670,29 @@ export const LoginForm = () => {
       </div>
       
       <div>
-        <Input
+        <input
           {...register('password')}
           type="password"
           placeholder="Password"
-          className={cn(errors.password && "border-red-500")}
+          className={cn(
+            "w-full px-3 py-2 border rounded-md",
+            "bg-white dark:bg-dark-surface",
+            "border-gray-300 dark:border-gray-700",
+            "focus:ring-2 focus:ring-primary-500",
+            errors.password && "border-red-500"
+          )}
         />
         {errors.password && (
           <p className="mt-1 text-sm text-red-500">{errors.password.message}</p>
         )}
       </div>
       
-      <Button type="submit" className="w-full">
+      <button
+        type="submit"
+        className="w-full px-4 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-600"
+      >
         Sign In
-      </Button>
+      </button>
     </form>
   );
 };
@@ -800,8 +703,7 @@ export const LoginForm = () => {
 ```typescript
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 interface User {
   id: string;
@@ -941,7 +843,6 @@ const mutation = useMutation({
 ### Should I create a new component?
 - ✅ Create new if: Used in 2+ places, complex logic, needs testing
 - ❌ Don't create if: One-off usage, simple div wrapper
-- ➡️ Consider: Can shadcn/ui component work instead?
 
 ### How to handle dark mode?
 - Always add `dark:` variants for colors
@@ -964,6 +865,5 @@ const mutation = useMutation({
 - [ ] Loading states
 - [ ] Error states
 - [ ] TypeScript types defined
-- [ ] Proper imports from shadcn/ui
 - [ ] Uses cn() utility for className merging
 - [ ] Follows existing patterns in codebase

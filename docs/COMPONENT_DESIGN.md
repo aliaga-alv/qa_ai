@@ -270,14 +270,13 @@ export const animation = {
 
 ### Level 1: Base UI Components (Atoms)
 
-Located in `src/components/ui/` - These are from Shadcn/ui
+Located in `src/components/common/` - Custom reusable components
 
 ```
-- Button: Primary, secondary, outline, ghost variants
-- Input: Text, email, password with validation states
-- Textarea: Multiline text input
-- Select: Dropdown selection
-- Checkbox: Boolean selection
+- LoadingSpinner: Loading indicators with size variants
+- ErrorMessage: Error display with variant styles
+- ErrorBoundary: Error boundary wrapper
+- OptimizedImage: Optimized image loading
 - Radio: Single choice from multiple options
 - Switch: Toggle on/off
 - Card: Content container

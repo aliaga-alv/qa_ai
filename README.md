@@ -89,7 +89,6 @@ QA AI is a comprehensive test automation platform that leverages artificial inte
 ### UI Components & Icons
 - **Lucide React** - Modern icon library
 - **Sonner** - Toast notifications
-- **class-variance-authority** - Component variants
 
 ### Development Tools
 - **ESLint** - Code linting

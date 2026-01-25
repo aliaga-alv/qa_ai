@@ -15,7 +15,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['@radix-ui/react-slot'],
           'vendor-motion': ['framer-motion'],
           'vendor-state': ['zustand', '@tanstack/react-query', 'axios'],
           'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],

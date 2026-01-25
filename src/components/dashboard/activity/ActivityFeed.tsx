@@ -1,6 +1,6 @@
 import { CheckCircle, XCircle, Plus, Clock, User } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
-import type { Activity } from '../../../types/models';
+import type { Activity } from '@/types/models';
 import { mockActivities } from '@/mocks';
 
 // TODO: Replace with real API data

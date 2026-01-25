@@ -1,6 +1,6 @@
 import { Crown, Shield, User as UserIcon, MoreVertical } from 'lucide-react';
 import { useState } from 'react';
-import type { UserRole, TeamMember } from '../../../types/models';
+import type { UserRole, TeamMember } from '@/types/models';
 import { TEAM_MEMBER_ROLE_CONFIG } from '@/constants/ui';
 
 interface TeamMemberCardProps {

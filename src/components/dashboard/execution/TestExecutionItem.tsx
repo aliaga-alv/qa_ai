@@ -1,5 +1,5 @@
 import { Square, RotateCw } from 'lucide-react';
-import type { ExecutionStatus } from '../../../types/models';
+import type { ExecutionStatus } from '@/types/models';
 import { TEST_EXECUTION_STATUS_CONFIG } from '@/constants/ui';
 
 interface TestExecutionItemProps {

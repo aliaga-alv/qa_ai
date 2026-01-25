@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Shield, Lock, Smartphone, Eye, EyeOff, Save, Trash2, Monitor, AlertTriangle, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { formatDistanceToNow } from 'date-fns';
-import type { ActiveSession } from '../../types/models';
+import type { ActiveSession } from '@/types/models';
 import { mockSessions, mockSecurityLogs } from '@/mocks';
 
 // TODO: Replace with real API data

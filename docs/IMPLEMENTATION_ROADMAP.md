@@ -40,10 +40,6 @@ npm install framer-motion date-fns
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 
-# Install Shadcn/ui dependencies
-npm install class-variance-authority clsx tailwind-merge
-npm install @radix-ui/react-slot
-
 # Form & validation
 npm install react-hook-form @hookform/resolvers zod
 
@@ -100,7 +96,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
           'vendor-motion': ['framer-motion'],
           'vendor-state': ['zustand', '@tanstack/react-query', 'axios'],
         },
@@ -126,58 +121,7 @@ Create folder structure as defined in ARCHITECTURE.md:
 - `src/config`
 - `src/styles`
 
-### Step 1.4: Initialize Shadcn/ui
-
-**CRITICAL: Must create components.json manually BEFORE running shadcn commands**
-
-**Create `components.json`:**
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/styles/globals.css",
-    "baseColor": "slate",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "./src/components",
-    "utils": "./src/lib/utils",
-    "ui": "./src/components/ui",
-    "lib": "./src/lib",
-    "hooks": "./src/hooks"
-  }
-}
-```
-
-**⚠️ WARNING:** Use `"./src/"` paths, NOT `"@/"` in components.json to prevent literal `@/` folder creation!
-
-**Then install components:**
-```bash
-npx shadcn@latest add button
-npx shadcn@latest add input
-npx shadcn@latest add card
-npx shadcn@latest add badge
-npx shadcn@latest add avatar
-npx shadcn@latest add dialog
-npx shadcn@latest add dropdown-menu
-npx shadcn@latest add tabs
-npx shadcn@latest add tooltip
-npx shadcn@latest add select
-npx shadcn@latest add checkbox
-npx shadcn@latest add radio-group
-npx shadcn@latest add switch
-npx shadcn@latest add textarea
-npx shadcn@latest add accordion
-npx shadcn@latest add toast
-```
-
-**Verify components are in `src/components/ui/` NOT in `@/components/ui/`**
-
-### Step 1.5: Set Up Base Configuration
+### Step 1.4: Set Up Base Configuration
 
 **src/lib/utils.ts** - Helper functions
 **src/lib/api-error-handler.ts** - Centralized error handling
@@ -789,7 +733,6 @@ npm run dev
 - [React](https://react.dev)
 - [TypeScript](https://www.typescriptlang.org/docs)
 - [Tailwind CSS](https://tailwindcss.com/docs)
-- [Shadcn/ui](https://ui.shadcn.com)
 - [React Router](https://reactrouter.com)
 - [Zustand](https://github.com/pmndrs/zustand)
 - [TanStack Query](https://tanstack.com/query/latest)

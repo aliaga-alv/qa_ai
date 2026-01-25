@@ -45,53 +45,53 @@ export default function TestForm({
   const testType = useWatch({ control, name: 'type' });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
       {/* Tab Navigation */}
-      <div className="flex space-x-1 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex space-x-1 border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
         <button
           type="button"
           onClick={() => setActiveTab('basic')}
-          className={`flex items-center space-x-2 px-4 py-3 border-b-2 transition-colors ${
+          className={`flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-4 py-2.5 sm:py-3 border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'basic'
               ? 'border-primary-500 text-primary-600 dark:text-primary-400'
               : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
           }`}
         >
           <Info className="h-4 w-4" />
-          <span className="font-medium">Basic Info</span>
+          <span className="text-sm sm:text-base font-medium">Basic Info</span>
         </button>
         <button
           type="button"
           onClick={() => setActiveTab('code')}
-          className={`flex items-center space-x-2 px-4 py-3 border-b-2 transition-colors ${
+          className={`flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-4 py-2.5 sm:py-3 border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'code'
               ? 'border-primary-500 text-primary-600 dark:text-primary-400'
               : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
           }`}
         >
           <Code2 className="h-4 w-4" />
-          <span className="font-medium">Test Code</span>
+          <span className="text-sm sm:text-base font-medium">Test Code</span>
         </button>
         <button
           type="button"
           onClick={() => setActiveTab('config')}
-          className={`flex items-center space-x-2 px-4 py-3 border-b-2 transition-colors ${
+          className={`flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-4 py-2.5 sm:py-3 border-b-2 transition-colors whitespace-nowrap ${
             activeTab === 'config'
               ? 'border-primary-500 text-primary-600 dark:text-primary-400'
               : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
           }`}
         >
           <Settings className="h-4 w-4" />
-          <span className="font-medium">Configuration</span>
+          <span className="text-sm sm:text-base font-medium">Configuration</span>
         </button>
       </div>
 
       {/* Basic Info Tab */}
       {activeTab === 'basic' && (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Test Name */}
           <div>
-            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
               <FileText className="h-4 w-4" />
               <span>Test Name *</span>
             </label>
@@ -99,7 +99,7 @@ export default function TestForm({
               {...register('name')}
               type="text"
               placeholder="e.g., User Login Flow"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
             {errors.name && (
               <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name.message}</p>
@@ -108,7 +108,7 @@ export default function TestForm({
 
           {/* Description */}
           <div>
-            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
               <FileText className="h-4 w-4" />
               <span>Description *</span>
             </label>
@@ -116,7 +116,7 @@ export default function TestForm({
               {...register('description')}
               rows={4}
               placeholder="Describe what this test does and what it validates..."
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+              className="w-full px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
             />
             {errors.description && (
               <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.description.message}</p>
@@ -319,19 +319,19 @@ export default function TestForm({
       )}
 
       {/* Form Actions */}
-      <div className="flex items-center justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
+      <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-4 sm:pt-6 border-t border-gray-200 dark:border-gray-700">
         <button
           type="button"
           onClick={onCancel}
           disabled={isSubmitting}
-          className="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-4 sm:px-6 py-2 sm:py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         >
           Cancel
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-6 py-2 bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+          className="px-4 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2 text-sm sm:text-base"
         >
           {isSubmitting ? (
             <>

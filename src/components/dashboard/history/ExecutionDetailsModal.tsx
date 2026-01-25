@@ -1,6 +1,6 @@
 import { X, Terminal, Image, Video, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
-import type { ExecutionDetail } from '../../../types/models';
+import type { ExecutionDetail } from '@/types/models';
 import { LOG_LEVEL_COLORS } from '@/constants/ui';
 
 interface ExecutionDetailsModalProps {

@@ -42,27 +42,25 @@ export default function CreateTestPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Page header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center space-x-3 mb-2">
-            <button
-              onClick={() => navigate('/dashboard/tests')}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-            >
-              <ArrowLeft className="h-5 w-5 text-gray-600 dark:text-gray-400" />
-            </button>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Create New Test</h1>
-          </div>
-          <p className="ml-14 text-gray-600 dark:text-gray-400">
-            Define your test configuration, write test code, and set execution parameters.
-          </p>
+      <div>
+        <div className="flex items-center space-x-2 sm:space-x-3 mb-1 sm:mb-2">
+          <button
+            onClick={() => navigate('/dashboard/tests')}
+            className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex-shrink-0"
+          >
+            <ArrowLeft className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+          </button>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Create New Test</h1>
         </div>
+        <p className="ml-9 sm:ml-14 text-sm sm:text-base text-gray-600 dark:text-gray-400">
+          Define your test configuration, write test code, and set execution parameters.
+        </p>
       </div>
 
       {/* Test Form */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
         <TestForm
           onSubmit={handleSubmit}
           onCancel={handleCancel}

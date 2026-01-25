@@ -1,4 +1,4 @@
-import type { AuthorData } from '../../../types/models';
+import type { AuthorData } from '@/types/models';
 
 interface BlogAuthorProps {
   author: AuthorData;

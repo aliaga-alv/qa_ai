@@ -58,7 +58,6 @@ This directory contains comprehensive documentation for building a modern, futur
 **Contents**:
 - **Tailwind CSS best practices** (mobile-first, spacing, colors)
 - **Common Tailwind mistakes** and how to avoid them
-- **shadcn/ui integration patterns**
 - **The cn() utility** and when to use it
 - Component creation patterns
 - State management examples
@@ -108,7 +107,6 @@ This directory contains comprehensive documentation for building a modern, futur
 **⚠️ START HERE:** [AI_AGENT_GUIDE.md](./AI_AGENT_GUIDE.md) - Complete implementation guide with:
 - Tailwind CSS patterns that AI struggles with
 - Mobile-first responsive design rules
-- shadcn/ui integration examples
 - Common mistakes and how to avoid them
 
 **Quick Reference:**
@@ -120,7 +118,6 @@ This directory contains comprehensive documentation for building a modern, futur
 - ✅ Mobile-first: `text-xl lg:text-sm` (NOT `lg:text-sm text-xl`)
 - ✅ Dark mode: Always add `dark:` variants for colors
 - ✅ Use `cn()` utility for merging classes
-- ✅ Use shadcn/ui components, extend with Tailwind
 - ❌ Don't use arbitrary values like `w-[342px]` unless necessary
 - ❌ Don't forget responsive breakpoints (sm:, md:, lg:, xl:)
 
@@ -150,7 +147,6 @@ This directory contains comprehensive documentation for building a modern, futur
 ### Core
 - **React 18** + **TypeScript** + **Vite**
 - **Tailwind CSS** for styling
-- **Shadcn/ui** for components
 
 ### State & Data
 - **Zustand** (global state)
@@ -173,7 +169,6 @@ qa_ai/
 ├── docs/                    # 📚 You are here
 ├── src/
 │   ├── components/
-│   │   ├── ui/             # Shadcn base components
 │   │   ├── layout/         # Header, Footer, Layouts
 │   │   ├── features/       # Feature-specific components
 │   │   └── common/         # Reusable components
@@ -260,8 +255,6 @@ git commit -m "docs: update API documentation"
 - [React Docs](https://react.dev)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs)
 - [Tailwind CSS Docs](https://tailwindcss.com/docs)
-- [Shadcn/ui Components](https://ui.shadcn.com)
-
 ---
 
 ## 🔄 Document Update Log

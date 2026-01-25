@@ -1,6 +1,6 @@
 import { Terminal, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import type { LogEntry } from '../../../types/models';
+import type { LogEntry } from '@/types/models';
 import { LOG_LEVEL_COLORS } from '@/constants/ui';
 
 interface LiveLogsViewerProps {

@@ -1,6 +1,6 @@
 import { Calendar } from 'lucide-react';
 import { format } from 'date-fns';
-import type { DateRange } from '../../../types/models';
+import type { DateRange } from '@/types/models';
 
 interface HistoryDatePickerProps {
   value: DateRange;

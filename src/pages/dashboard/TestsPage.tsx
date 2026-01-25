@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import TestFilters from '../../components/dashboard/tests/TestFilters';
 import TestListItem from '../../components/dashboard/tests/TestListItem';
+import TestCard from '../../components/dashboard/tests/TestCard';
 import BulkActions from '../../components/dashboard/tests/BulkActions';
-import type { Test } from '../../types/models';
+import type { Test } from '@/types/models';
 import { mockTestsPageData } from '@/mocks';
 
 // TODO: Replace with real API data
@@ -97,18 +98,18 @@ export default function TestsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Tests</h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Tests</h1>
+          <p className="mt-1 sm:mt-2 text-sm sm:text-base text-gray-600 dark:text-gray-400">
             Manage and organize your test suites.
           </p>
         </div>
         <button
           onClick={() => navigate('/dashboard/tests/new')}
-          className="flex items-center space-x-2 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white rounded-lg font-medium transition-all"
+          className="flex items-center justify-center space-x-2 px-4 py-2.5 bg-gradient-to-r from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 text-white rounded-lg font-medium transition-all whitespace-nowrap"
         >
           <Plus className="h-5 w-5" />
           <span>New Test</span>
@@ -132,11 +133,27 @@ export default function TestsPage() {
           onClearSelection={() => setSelectedTests([])}
         />
 
-        <div className="overflow-x-auto">
+        {/* Mobile Card View */}
+        <div className="md:hidden">
+          {filteredTests.map((test) => (
+            <TestCard
+              key={test.id}
+              test={test}
+              isSelected={selectedTests.includes(test.id)}
+              onSelect={handleSelectTest}
+              onRun={handleRunTest}
+              onEdit={handleEditTest}
+              onDelete={handleDeleteTest}
+            />
+          ))}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
               <tr>
-                <th className="px-6 py-3 text-left">
+                <th className="w-12 px-4 py-3 text-left">
                   <input
                     type="checkbox"
                     checked={
@@ -146,22 +163,22 @@ export default function TestsPage() {
                     className="w-4 h-4 text-primary-600 bg-gray-100 border-gray-300 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Test Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="w-24 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Type
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="w-28 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="hidden lg:table-cell w-36 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Success Rate
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="hidden xl:table-cell w-32 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Last Run
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                <th className="w-32 px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -183,9 +200,9 @@ export default function TestsPage() {
         </div>
 
         {filteredTests.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 dark:text-gray-400">No tests found</p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+          <div className="text-center py-8 sm:py-12 px-4">
+            <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">No tests found</p>
+            <p className="text-xs sm:text-sm text-gray-400 dark:text-gray-500 mt-1">
               Try adjusting your filters or create a new test
             </p>
           </div>

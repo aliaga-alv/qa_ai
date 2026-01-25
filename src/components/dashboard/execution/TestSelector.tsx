@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { TestSimple } from '../../../types/models';
+import type { TestSimple } from '@/types/models';
 
 interface TestSelectorProps {
   tests: TestSimple[];

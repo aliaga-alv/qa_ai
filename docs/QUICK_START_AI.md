@@ -109,31 +109,6 @@ import { mockDashboardStats } from '@/mocks/stats';
 <div className="text-xl lg:text-sm">
 ```
 
-## 📦 shadcn/ui is NOT a Package
-
-```bash
-# This doesn't install a package - it copies code!
-npx shadcn@latest add button
-
-# Creates: src/components/ui/button.tsx
-```
-
-### ⚠️ CRITICAL: components.json Setup
-
-```json
-// ✅ CORRECT - Use relative paths
-"aliases": {
-  "components": "./src/components",
-  "utils": "./src/lib/utils"
-}
-
-// ❌ WRONG - Creates literal @ folder
-"aliases": {
-  "components": "@/components",
-  "utils": "@/lib/utils"
-}
-```
-
 ## 🎨 The cn() Utility is Your Best Friend
 
 ```typescript

@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import TestSelector from "../../components/dashboard/execution/TestSelector";
 import TestExecutionItem from '../../components/dashboard/execution/TestExecutionItem';
 import LiveLogsViewer from '../../components/dashboard/execution/LiveLogsViewer';
-import type { ExecutingTest, LogEntry, ExecutionStatus } from '../../types/models';
+import type { ExecutingTest, LogEntry, ExecutionStatus } from '@/types/models';
 import { mockTests } from '@/mocks';
 
 // TODO: Replace with real API data

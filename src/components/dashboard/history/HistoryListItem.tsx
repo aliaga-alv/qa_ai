@@ -1,6 +1,6 @@
 import { CheckCircle, XCircle, Clock, AlertTriangle, Image, Video } from 'lucide-react';
 import { format } from 'date-fns';
-import type { TestExecution } from '../../../types/models';
+import type { TestExecution } from '@/types/models';
 import { HISTORY_STATUS_CONFIG } from '@/constants/ui';
 
 interface HistoryListItemProps {

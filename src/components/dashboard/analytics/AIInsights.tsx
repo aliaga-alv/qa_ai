@@ -1,5 +1,5 @@
 import { Sparkles } from 'lucide-react';
-import type { Insight } from '../../../types/models';
+import type { Insight } from '@/types/models';
 import { AI_INSIGHTS_TYPE_CONFIG } from '@/constants/ui';
 
 interface AIInsightsProps {
@@ -8,24 +8,24 @@ interface AIInsightsProps {
 
 export default function AIInsights({ insights }: AIInsightsProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-      <div className="flex items-center space-x-2 mb-4">
+    <div className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+      <div className="flex items-center space-x-2 mb-3 sm:mb-4">
         <Sparkles className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">AI Insights</h3>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">AI Insights</h3>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         {insights.map((insight) => {
           const config = AI_INSIGHTS_TYPE_CONFIG[insight.type];
           return (
             <div
               key={insight.id}
-              className={`p-4 rounded-lg border ${config.bgColor} ${config.borderColor}`}
+              className={`p-3 sm:p-4 rounded-lg border ${config.bgColor} ${config.borderColor}`}
             >
-              <h4 className={`text-sm font-semibold ${config.textColor} mb-1`}>
+              <h4 className={`text-xs sm:text-sm font-semibold ${config.textColor} mb-1`}>
                 {insight.title}
               </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-2">
                 {insight.description}
               </p>
               {insight.action && (

@@ -3,7 +3,7 @@ import { UserPlus, Users, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import TeamMemberCard from '../../components/dashboard/team/TeamMemberCard';
 import InviteMemberModal from '../../components/dashboard/team/InviteMemberModal';
-import type { TeamMember, UserRole } from '../../types/models';
+import type { TeamMember, UserRole } from '@/types/models';
 import { mockTeamMembers } from '@/mocks';
 
 // TODO: Replace with real API data

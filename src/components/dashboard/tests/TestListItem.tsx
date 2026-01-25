@@ -1,7 +1,7 @@
 import { Play, Edit, Copy, Trash2, MoreVertical } from 'lucide-react';
 import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
-import type { Test } from '../../../types/models';
+import type { Test } from '@/types/models';
 import { TEST_LIST_STATUS_COLORS, TEST_LIST_TYPE_COLORS } from '@/constants/ui';
 
 interface TestListItemProps {
@@ -26,7 +26,7 @@ export default function TestListItem({
   return (
     <tr className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
       {/* Checkbox */}
-      <td className="px-6 py-4">
+      <td className="px-4 py-4">
         <input
           type="checkbox"
           checked={isSelected}
@@ -36,8 +36,8 @@ export default function TestListItem({
       </td>
 
       {/* Test Info */}
-      <td className="px-6 py-4">
-        <div className="flex items-start space-x-3">
+      <td className="px-4 py-4">
+        <div className="flex items-start">
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
               {test.name}
@@ -45,18 +45,18 @@ export default function TestListItem({
             <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
               {test.description}
             </p>
-            <div className="flex items-center space-x-2 mt-2">
-              {test.tags.slice(0, 3).map((tag) => (
+            <div className="flex items-center flex-wrap gap-1.5 mt-1.5">
+              {test.tags.slice(0, 2).map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
+                  className="px-1.5 py-0.5 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded"
                 >
                   {tag}
                 </span>
               ))}
-              {test.tags.length > 3 && (
+              {test.tags.length > 2 && (
                 <span className="text-xs text-gray-500 dark:text-gray-400">
-                  +{test.tags.length - 3} more
+                  +{test.tags.length - 2}
                 </span>
               )}
             </div>
@@ -65,21 +65,21 @@ export default function TestListItem({
       </td>
 
       {/* Type */}
-      <td className="px-6 py-4">
-        <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${TEST_LIST_TYPE_COLORS[test.type]}`}>
+      <td className="px-4 py-4">
+        <span className={`px-2.5 py-1 text-xs font-medium rounded-full whitespace-nowrap ${TEST_LIST_TYPE_COLORS[test.type]}`}>
           {test.type.toUpperCase()}
         </span>
       </td>
 
       {/* Status */}
-      <td className="px-6 py-4">
-        <span className={`px-2.5 py-1 text-xs font-medium rounded-full ${TEST_LIST_STATUS_COLORS[test.status]}`}>
+      <td className="px-4 py-4">
+        <span className={`px-2.5 py-1 text-xs font-medium rounded-full whitespace-nowrap ${TEST_LIST_STATUS_COLORS[test.status]}`}>
           {test.status.charAt(0).toUpperCase() + test.status.slice(1)}
         </span>
       </td>
 
-      {/* Success Rate */}
-      <td className="px-6 py-4">
+      {/* Success Rate - Hidden on smaller screens */}
+      <td className="hidden lg:table-cell px-4 py-4">
         {test.successRate !== undefined ? (
           <div className="flex items-center space-x-2">
             <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -94,7 +94,7 @@ export default function TestListItem({
                 style={{ width: `${test.successRate}%` }}
               />
             </div>
-            <span className="text-sm text-gray-700 dark:text-gray-300 w-12">
+            <span className="text-sm text-gray-700 dark:text-gray-300 w-12 whitespace-nowrap">
               {test.successRate}%
             </span>
           </div>
@@ -103,16 +103,16 @@ export default function TestListItem({
         )}
       </td>
 
-      {/* Last Run */}
-      <td className="px-6 py-4">
-        <span className="text-sm text-gray-700 dark:text-gray-300">
+      {/* Last Run - Hidden on smaller screens */}
+      <td className="hidden xl:table-cell px-4 py-4">
+        <span className="text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">
           {test.lastRun ? formatDistanceToNow(test.lastRun, { addSuffix: true }) : 'Never'}
         </span>
       </td>
 
       {/* Actions */}
-      <td className="px-6 py-4">
-        <div className="flex items-center space-x-2">
+      <td className="px-4 py-4">
+        <div className="flex items-center gap-1">
           <button
             onClick={() => onRun(test.id)}
             className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"

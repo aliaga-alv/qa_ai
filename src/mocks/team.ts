@@ -2,7 +2,7 @@
  * Mock team data for team management page
  * TODO: Replace with real API data
  */
-import type { TeamMember } from '../types/models';
+import type { TeamMember } from '@/types/models';
 
 export const mockTeamMembers: TeamMember[] = [
   {

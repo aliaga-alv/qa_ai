@@ -14,18 +14,7 @@
 
 ### UI & Styling
 - **Tailwind CSS**: Utility-first styling framework (AI-friendly, predictable class names)
-- **Shadcn/ui**: Component system that copies code into your project (NOT a package)
 - **Framer Motion**: Advanced animations and transitions
-- **Radix UI**: Headless UI primitives (foundation for shadcn/ui)
-
-**How they work together:**
-```
-Your Component (Layout & Composition)
-    ↓ Uses Tailwind classes
-Shadcn/ui Component (Structure & Behavior)
-    ↓ Built on top of
-Radix UI (Accessibility & Primitives)
-```
 
 ### Forms & Validation
 - **React Hook Form**: Performant form management
@@ -133,11 +122,6 @@ qa_ai/
 │   └── favicon.ico
 ├── src/
 │   ├── components/               # React components
-│   │   ├── ui/                   # Base UI components (shadcn)
-│   │   │   ├── button.tsx
-│   │   │   ├── input.tsx
-│   │   │   ├── card.tsx
-│   │   │   └── ...
 │   │   ├── layout/               # Layout components
 │   │   │   ├── Header.tsx
 │   │   │   ├── Footer.tsx
@@ -243,7 +227,7 @@ qa_ai/
 │   ├── unit/
 │   ├── integration/
 │   └── e2e/
-├──Styling Strategy: Tailwind + shadcn/ui
+├── Styling Strategy: Tailwind CSS + Framer Motion
 
 ### Understanding the Relationship
 
@@ -252,24 +236,15 @@ qa_ai/
 - Used for layout, spacing, colors, typography
 - Mobile-first responsive design
 
-**shadcn/ui:**
-- Provides pre-built React components (Button, Input, Card, etc.)
-- Components are **copied into your project** (not installed as a package)
-- Uses Tailwind classes internally
-- Built on Radix UI for accessibility
+**Framer Motion:**
+- Advanced animations and page transitions
+- Gesture-based interactions
+- Spring physics and keyframe animations
 
-### Integration Pattern
+### Component Pattern
 
 ```typescript
-// 1. Add shadcn/ui component
-// $ npx shadcn-ui@latest add button
-
-// 2. Import the component
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-
-// 3. Use with Tailwind for layout
-export const PricingCard = () => {
+import { cn } from '@/lib/utils';
   return (
     <Card className="flex flex-col h-full"> {/* Tailwind layout */}
       <CardContent className="p-6 space-y-4"> {/* Tailwind spacing */}
@@ -693,13 +668,6 @@ export default defineConfig({
           
           // UI library dependencies
           'vendor-ui': [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-tooltip',
-            '@radix-ui/react-select',
-          ],
-          
           // Animation library (heavy)
           'vendor-motion': ['framer-motion'],
           
