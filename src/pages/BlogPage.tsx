@@ -81,14 +81,20 @@ export default function BlogPage() {
             industry insights.
           </p>
           <form className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row">
+            <label htmlFor="newsletter-blog-email" className="sr-only">
+              Email address for newsletter
+            </label>
             <input
+              id="newsletter-blog-email"
               type="email"
               placeholder="your@email.com"
+              aria-label="Email address for newsletter subscription"
               className="flex-1 rounded-lg border-0 px-4 py-3 text-gray-900 focus:ring-2 focus:ring-white"
             />
             <button
               type="submit"
-              className="whitespace-nowrap rounded-lg bg-white px-6 py-3 font-semibold text-primary-600 shadow-lg transition-all hover:bg-gray-50"
+              aria-label="Subscribe to newsletter"
+              className="whitespace-nowrap rounded-lg bg-white px-6 py-3 font-semibold text-primary-700 shadow-lg transition-all hover:bg-gray-50"
             >
               Subscribe
             </button>

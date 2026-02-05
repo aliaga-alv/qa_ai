@@ -10,7 +10,13 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lighthouse": "lhci autorun",
+    "lighthouse:simple": "node scripts/lighthouse-test.js",
+    "lighthouse:report": "lhci autorun && open lighthouse-reports/*.html",
+    "test:seo": "npm run build && npm run lighthouse:simple",
+    "seo:check": "echo 'Run: npm run lighthouse:simple (requires preview server running)'",
+    "seo:validate": "echo 'Visit https://search.google.com/test/rich-results to validate structured data'"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -33,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@lhci/cli": "^0.15.1",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/dompurify": "^3.0.5",
     "@types/node": "^24.10.9",
@@ -40,12 +47,14 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.23",
+    "chrome-launcher": "^1.2.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "lighthouse": "^13.0.1",
     "postcss": "^8.5.6",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",

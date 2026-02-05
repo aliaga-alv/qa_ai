@@ -11,3 +11,4 @@ export * from './date';
 export * from './categories';
 export * from './documentation';
 export * from './features';
+export * from './seo';

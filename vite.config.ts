@@ -11,14 +11,46 @@ export default defineConfig({
     },
   },
   build: {
+    // Suppress warning for vendor-charts (515 KB) - it's lazy-loaded only for dashboard pages
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-          'vendor-motion': ['framer-motion'],
-          'vendor-state': ['zustand', '@tanstack/react-query', 'axios'],
-          'vendor-forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
-          'vendor-charts': ['recharts'],
+        manualChunks(id) {
+          // DON'T manually chunk recharts - let it be auto-split per route
+          // This prevents it from being modulepreloaded in index.html
+
+          // React core - used everywhere
+          if (id.includes('react/') || id.includes('react-dom/')) {
+            return 'vendor-react';
+          }
+
+          // Router - used everywhere
+          if (id.includes('react-router')) {
+            return 'vendor-react';
+          }
+
+          // State management
+          if (
+            id.includes('zustand') ||
+            id.includes('@tanstack/react-query') ||
+            id.includes('axios')
+          ) {
+            return 'vendor-state';
+          }
+
+          // Forms - only some pages
+          if (
+            id.includes('react-hook-form') ||
+            id.includes('@hookform/resolvers') ||
+            id.includes('zod')
+          ) {
+            return 'vendor-forms';
+          }
+
+          // Animation
+          if (id.includes('framer-motion')) {
+            return 'vendor-motion';
+          }
         },
       },
     },
@@ -26,5 +58,6 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],
+    exclude: ['recharts'], // Don't pre-bundle charts - lazy load them
   },
 });

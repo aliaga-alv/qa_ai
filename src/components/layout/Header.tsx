@@ -187,7 +187,7 @@ export const Header = ({ variant = 'default', sticky = true, className }: Header
                 </Link>
                 <Link
                   to="/register"
-                  className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-700"
+                  className="rounded-lg bg-primary-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-800"
                 >
                   Sign Up
                 </Link>

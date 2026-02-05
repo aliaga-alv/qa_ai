@@ -1,10 +1,17 @@
+import { lazy, Suspense } from 'react';
 import DashboardStats from '../../components/dashboard/metrics/DashboardStats';
 import ActivityFeed from '../../components/dashboard/activity/ActivityFeed';
 import QuickActions from '../../components/dashboard/actions/QuickActions';
-import TestTrendChart from '../../components/dashboard/charts/TestTrendChart';
-import TestDistributionChart from '../../components/dashboard/charts/TestDistributionChart';
-import DurationChart from '../../components/dashboard/charts/DurationChart';
-import TopTestsChart from '../../components/dashboard/charts/TopTestsChart';
+import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+
+// Lazy load chart components to reduce initial bundle size
+// Charts library (recharts) is 381 KB - only load when needed
+const TestTrendChart = lazy(() => import('../../components/dashboard/charts/TestTrendChart'));
+const TestDistributionChart = lazy(
+  () => import('../../components/dashboard/charts/TestDistributionChart')
+);
+const DurationChart = lazy(() => import('../../components/dashboard/charts/DurationChart'));
+const TopTestsChart = lazy(() => import('../../components/dashboard/charts/TopTestsChart'));
 
 export default function DashboardPage() {
   return (
@@ -34,19 +41,27 @@ export default function DashboardPage() {
       </div>
 
       {/* Charts Section */}
-      <div className="space-y-6">
-        {/* Test Trend Chart - Full width */}
-        <TestTrendChart />
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center py-12">
+            <LoadingSpinner size="lg" />
+          </div>
+        }
+      >
+        <div className="space-y-6">
+          {/* Test Trend Chart - Full width */}
+          <TestTrendChart />
 
-        {/* Two column charts */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <TestDistributionChart />
-          <DurationChart />
+          {/* Two column charts */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <TestDistributionChart />
+            <DurationChart />
+          </div>
+
+          {/* Top Tests Chart - Full width */}
+          <TopTestsChart />
         </div>
-
-        {/* Top Tests Chart - Full width */}
-        <TopTestsChart />
-      </div>
+      </Suspense>
     </div>
   );
 }

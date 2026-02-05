@@ -79,9 +79,9 @@ export const Testimonials = () => {
                   className="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-700"
                 />
                 <div>
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                     {currentTestimonial.name}
-                  </h4>
+                  </h3>
                   <p className="text-gray-600 dark:text-gray-400">
                     {currentTestimonial.role} at {currentTestimonial.company}
                   </p>
@@ -95,7 +95,7 @@ export const Testimonials = () => {
             {/* Previous Button */}
             <button
               onClick={goToPrevious}
-              className="rounded-full bg-gray-200 p-2 transition-colors hover:bg-primary-500 hover:text-white dark:bg-gray-800 dark:hover:bg-primary-500"
+              className="rounded-full bg-gray-400 p-2 text-gray-900 transition-colors hover:bg-primary-700 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-primary-700"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="h-6 w-6" />
@@ -109,7 +109,7 @@ export const Testimonials = () => {
                   onClick={() => goToSlide(index)}
                   className={`h-2 rounded-full transition-all ${
                     index === currentIndex
-                      ? 'w-8 bg-primary-600'
+                      ? 'w-8 bg-primary-700'
                       : 'w-2 bg-gray-300 hover:bg-primary-400 dark:bg-gray-700'
                   } `}
                   aria-label={`Go to testimonial ${index + 1}`}
@@ -120,7 +120,7 @@ export const Testimonials = () => {
             {/* Next Button */}
             <button
               onClick={goToNext}
-              className="rounded-full bg-gray-200 p-2 transition-colors hover:bg-primary-500 hover:text-white dark:bg-gray-800 dark:hover:bg-primary-500"
+              className="rounded-full bg-gray-400 p-2 text-gray-900 transition-colors hover:bg-primary-700 hover:text-white dark:bg-gray-600 dark:text-white dark:hover:bg-primary-700"
               aria-label="Next testimonial"
             >
               <ChevronRight className="h-6 w-6" />

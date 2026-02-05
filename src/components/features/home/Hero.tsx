@@ -53,7 +53,7 @@ export const Hero = () => {
           {/* Main Headline with Typing Effect */}
           <h1 className="mb-6 text-5xl font-bold sm:text-6xl lg:text-7xl">
             <span className="text-gray-900 dark:text-white">{displayText}</span>
-            <span className="ml-2 inline-block h-16 w-1 animate-pulse bg-primary-600 dark:bg-primary-400" />
+            <span className="ml-2 inline-block h-16 w-1 animate-pulse bg-primary-900 dark:bg-primary-700" />
           </h1>
 
           {/* Subheadline */}
@@ -66,7 +66,7 @@ export const Hero = () => {
           <div className="mb-12 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               to="/register"
-              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-primary-600 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:scale-105 hover:bg-primary-700 hover:shadow-xl"
+              className="group inline-flex items-center justify-center gap-2 rounded-lg bg-primary-800 px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all hover:scale-105 hover:bg-primary-900 hover:shadow-xl"
             >
               Start Free Trial
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

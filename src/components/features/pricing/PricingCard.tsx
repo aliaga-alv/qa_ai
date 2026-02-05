@@ -32,7 +32,7 @@ export const PricingCard = ({ tier, isAnnual }: PricingCardProps) => {
 
       {/* Header */}
       <div className="mb-6">
-        <h3 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">{tier.name}</h3>
+        <h2 className="mb-2 text-2xl font-bold text-gray-900 dark:text-white">{tier.name}</h2>
         <p className="text-gray-600 dark:text-gray-400">{tier.description}</p>
       </div>
 

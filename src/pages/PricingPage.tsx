@@ -1,15 +1,17 @@
 import { useState } from 'react';
+import SEO from '@/components/common/SEO';
 import { PricingCard } from '@/components/features/pricing/PricingCard';
 import { PricingComparison } from '@/components/features/pricing/PricingComparison';
 import { PricingFAQ } from '@/components/features/pricing/PricingFAQ';
 import { pricingTiers } from '@/mocks';
-import { ROUTES } from '@/constants';
+import { PAGE_SEO, ROUTES } from '@/constants';
 
 export const PricingPage = () => {
   const [isAnnual, setIsAnnual] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <SEO {...PAGE_SEO.pricing} />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary-50 to-accent-50 py-20 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4">
@@ -33,7 +35,7 @@ export const PricingPage = () => {
             </span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
-              className={`relative h-8 w-16 rounded-full transition-colors ${isAnnual ? 'bg-primary-600' : 'bg-gray-300 dark:bg-gray-600'} `}
+              className={`relative h-8 w-16 rounded-full transition-colors ${isAnnual ? 'bg-primary-600' : 'bg-gray-600 dark:bg-gray-600'} `}
               aria-label="Toggle annual billing"
             >
               <span
@@ -104,7 +106,7 @@ export const PricingPage = () => {
           </p>
           <a
             href={ROUTES.REGISTER}
-            className="inline-flex transform items-center gap-2 rounded-lg bg-white px-8 py-4 font-semibold text-primary-600 shadow-xl transition-all hover:scale-105 hover:bg-gray-50"
+            className="inline-flex transform items-center gap-2 rounded-lg bg-white px-8 py-4 font-semibold text-primary-700 shadow-xl transition-all hover:scale-105 hover:bg-gray-50"
           >
             Start your free trial
           </a>

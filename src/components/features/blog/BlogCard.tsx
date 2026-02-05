@@ -35,9 +35,9 @@ export const BlogCard = ({ post }: BlogCardProps) => {
 
         {/* Title */}
         <Link to={`/blog/${post.id}`}>
-          <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400">
+          <h2 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400">
             {post.title}
-          </h3>
+          </h2>
         </Link>
 
         {/* Excerpt */}

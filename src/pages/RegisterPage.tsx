@@ -4,9 +4,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import SEO from '@/components/common/SEO';
 import { useAuth } from '@/hooks/useAuth';
 import { registerSchema, type RegisterFormData } from '@/schemas/auth';
 import { ROUTES } from '@/constants/routes';
+import { PAGE_SEO } from '@/constants';
 
 export const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,8 +47,10 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900">
-      <div className="w-full max-w-md">
+    <>
+      <SEO {...PAGE_SEO.register} />
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900">
+        <div className="w-full max-w-md">
         {/* Logo */}
         <div className="mb-8 text-center">
           <Link to="/" className="mb-4 inline-flex items-center gap-2">
@@ -198,9 +202,10 @@ export const RegisterPage = () => {
 
             {/* Terms Checkbox */}
             <div>
-              <label className="flex items-start">
+              <label htmlFor="terms-checkbox" className="flex items-start">
                 <input
                   {...register('terms')}
+                  id="terms-checkbox"
                   type="checkbox"
                   className="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-900"
                 />
@@ -311,6 +316,7 @@ export const RegisterPage = () => {
           </Link>
         </p>
       </div>
-    </div>
+      </div>
+    </>
   );
 };

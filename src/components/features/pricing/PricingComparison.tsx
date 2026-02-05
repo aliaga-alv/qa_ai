@@ -45,7 +45,7 @@ export const PricingComparison = () => {
               <td className="px-4 py-4 text-gray-700 dark:text-gray-300">{feature.name}</td>
               <td className="px-4 py-4 text-center">{renderValue(feature.free)}</td>
               <td className="px-4 py-4 text-center">{renderValue(feature.starter)}</td>
-              <td className="bg-primary-50/50 px-4 py-4 text-center dark:bg-primary-900/10">
+              <td className="bg-primary-900/20 px-4 py-4 text-center dark:bg-primary-900/10">
                 {renderValue(feature.professional)}
               </td>
               <td className="px-4 py-4 text-center">{renderValue(feature.enterprise)}</td>

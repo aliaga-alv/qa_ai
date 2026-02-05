@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow dashboard and auth pages from search engines
+Disallow: /dashboard/
+Disallow: /login
+Disallow: /register
+
+# Sitemap location
+Sitemap: https://qa-ai.netlify.app/sitemap.xml

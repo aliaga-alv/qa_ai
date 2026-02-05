@@ -150,13 +150,19 @@ export default function BlogDetailPage() {
               Subscribe to get the latest posts delivered to your inbox.
             </p>
             <form className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row">
+              <label htmlFor="blog-detail-email" className="sr-only">
+                Email address for newsletter
+              </label>
               <input
+                id="blog-detail-email"
                 type="email"
                 placeholder="your@email.com"
+                aria-label="Email address for newsletter subscription"
                 className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
               />
               <button
                 type="submit"
+                aria-label="Subscribe to newsletter"
                 className="whitespace-nowrap rounded-lg bg-gradient-to-r from-primary-600 to-accent-600 px-6 py-3 font-semibold text-white transition-all hover:from-primary-700 hover:to-accent-700"
               >
                 Subscribe

@@ -16,7 +16,7 @@ export const BlogAuthor = ({ author }: BlogAuthorProps) => {
         </div>
       </div>
       <div className="flex-1">
-        <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">{author.name}</h3>
+        <h2 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">{author.name}</h2>
         <p className="mb-2 text-sm text-primary-600 dark:text-primary-400">{author.role}</p>
         <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">{author.bio}</p>
         {(author.linkedin || author.x) && (

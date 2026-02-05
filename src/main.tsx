@@ -6,6 +6,13 @@ import { router } from './router';
 import { useThemeStore } from './stores/themeStore';
 import './styles/globals.css';
 
+// Enable accessibility monitoring in development
+if (import.meta.env.DEV) {
+  import('./lib/a11y-checker').then(({ enableA11yMonitoring }) => {
+    enableA11yMonitoring();
+  });
+}
+
 // Initialize theme before rendering
 const theme = useThemeStore.getState().theme;
 const resolvedTheme =

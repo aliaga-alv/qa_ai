@@ -48,7 +48,7 @@ export const CTA = () => {
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               to="/register"
-              className="group inline-flex transform items-center gap-2 rounded-lg bg-white px-8 py-4 font-semibold text-primary-600 shadow-xl transition-all hover:scale-105 hover:bg-gray-50 hover:shadow-2xl"
+              className="group inline-flex transform items-center gap-2 rounded-lg bg-white px-8 py-4 font-semibold text-primary-700 shadow-xl transition-all hover:scale-105 hover:bg-gray-50 hover:shadow-2xl"
             >
               Start Free Trial
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -56,7 +56,7 @@ export const CTA = () => {
 
             <Link
               to="/pricing"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 bg-white/10 px-8 py-4 font-semibold text-white backdrop-blur-sm transition-all hover:border-white/50 hover:bg-white/20"
+              className="inline-flex items-center gap-2 rounded-lg border-2 border-white bg-white/25 px-8 py-4 font-semibold text-gray-900 backdrop-blur-sm transition-all hover:border-white hover:bg-white/35"
             >
               View Pricing
             </Link>

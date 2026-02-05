@@ -24,9 +24,14 @@ export const DocumentationPage = () => {
             {/* Search bar */}
             <div className="mx-auto max-w-2xl">
               <div className="relative">
+                <label htmlFor="doc-search" className="sr-only">
+                  Search documentation
+                </label>
                 <input
+                  id="doc-search"
                   type="text"
                   placeholder="Search documentation..."
+                  aria-label="Search documentation"
                   className="w-full rounded-lg border border-gray-300 bg-white px-6 py-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                 />
                 <button className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-gradient-to-r from-primary-600 to-accent-600 px-4 py-2 text-white transition-all hover:from-primary-700 hover:to-accent-700">
@@ -47,7 +52,7 @@ export const DocumentationPage = () => {
                 <div key={section.title}>
                   <div className="mb-3 flex items-center gap-2">
                     <section.icon className="h-5 w-5 text-primary-600 dark:text-primary-400" />
-                    <h3 className="font-semibold text-gray-900 dark:text-white">{section.title}</h3>
+                    <h2 className="font-semibold text-gray-900 dark:text-white">{section.title}</h2>
                   </div>
                   <ul className="ml-7 space-y-2">
                     {section.items.map((item) => (

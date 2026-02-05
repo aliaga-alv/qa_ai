@@ -194,7 +194,7 @@ export default function AnalyticsPage() {
                   border: '1px solid rgb(75 85 99)',
                   borderRadius: '0.5rem',
                 }}
-                formatter={(value: number | undefined) => [`${value ?? 0}%`, 'Reliability']}
+                formatter={(value) => [`${value ?? 0}%`, 'Reliability']}
               />
               <Bar dataKey="reliability" fill="#8b5cf6" radius={[0, 8, 8, 0]} />
             </BarChart>

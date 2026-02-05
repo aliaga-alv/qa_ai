@@ -4,9 +4,11 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
+import SEO from '@/components/common/SEO';
 import { useAuth } from '@/hooks/useAuth';
 import { loginSchema, type LoginFormData } from '@/schemas/auth';
 import { ROUTES } from '@/constants/routes';
+import { PAGE_SEO } from '@/constants';
 import { useAuthStore } from '@/stores/authStore';
 
 export const LoginPage = () => {
@@ -51,8 +53,10 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900">
-      <div className="w-full max-w-md">
+    <>
+      <SEO {...PAGE_SEO.login} />
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-900">
+        <div className="w-full max-w-md">
         {/* Logo */}
         <div className="mb-8 text-center">
           <Link to="/" className="mb-4 inline-flex items-center gap-2">
@@ -134,9 +138,10 @@ export const LoginPage = () => {
 
             {/* Remember Me & Forgot Password */}
             <div className="flex items-center justify-between">
-              <label className="flex items-center">
+              <label htmlFor="remember-me-checkbox" className="flex items-center">
                 <input
                   {...register('rememberMe')}
+                  id="remember-me-checkbox"
                   type="checkbox"
                   className="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-900"
                 />
@@ -251,6 +256,7 @@ export const LoginPage = () => {
         </div>
         {/* )} */}
       </div>
-    </div>
+      </div>
+    </>
   );
 };
