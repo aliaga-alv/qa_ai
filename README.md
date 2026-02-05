@@ -177,12 +177,32 @@ qa_ai/
 
 ## 📚 Documentation
 
-Comprehensive documentation is available in the `/docs` directory:
+Comprehensive documentation is available in the `/docs` directory, organized by category:
 
-- **[Architecture Guide](docs/ARCHITECTURE.md)** - System design and architecture
-- **[Component Design](docs/COMPONENT_DESIGN.md)** - Component structure and patterns
-- **[Implementation Roadmap](docs/IMPLEMENTATION_ROADMAP.md)** - Development phases
-- **[AI Agent Guide](docs/AI_AGENT_GUIDE.md)** - AI integration guidelines
+**📖 [Full Documentation Index](docs/README.md)** - Start here for complete documentation guide
+
+### Quick Links by Category
+
+**Development & Architecture**
+- **[Architecture Guide](docs/development/ARCHITECTURE.md)** - System design and tech stack
+- **[Component Design](docs/development/COMPONENT_DESIGN.md)** - Component structure and patterns
+- **[AI Agent Guide](docs/development/AI_AGENT_GUIDE.md)** - AI integration guidelines
+- **[Quick Start AI](docs/development/QUICK_START_AI.md)** - Fast reference for AI code generation
+
+**API Integration**
+- **[API Architecture](docs/api/API_ARCHITECTURE.md)** - API structure and service layer
+- **[Auth Implementation](docs/api/AUTH_IMPLEMENTATION.md)** - Authentication guide
+- **[Error Handling](docs/api/ERROR_HANDLING.md)** - Error handling patterns
+
+**Project Planning**
+- **[Project Overview](docs/planning/PROJECT_OVERVIEW.md)** - Product vision and goals
+- **[Implementation Roadmap](docs/planning/IMPLEMENTATION_ROADMAP.md)** - Development phases
+- **[Dashboard Plan](docs/planning/DASHBOARD_IMPLEMENTATION_PLAN.md)** - Dashboard features
+
+**Testing & Deployment**
+- **[Quick Test Guide](docs/testing/QUICK_TEST_GUIDE.md)** - Testing workflows
+- **[Lighthouse Testing](docs/testing/LIGHTHOUSE_TESTING.md)** - Performance testing
+- **[Deployment Guide](docs/deployment/DEPLOYMENT.md)** - Deployment process
 
 ---
 

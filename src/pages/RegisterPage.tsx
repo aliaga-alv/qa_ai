@@ -32,6 +32,7 @@ export const RegisterPage = () => {
       name: data.name,
       email: data.email,
       password: data.password,
+      password_confirmation: data.password_confirmation,
     });
 
     if (result.success) {
@@ -152,9 +153,13 @@ export const RegisterPage = () => {
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
               </div>
-              {errors.password && (
+              {errors.password ? (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-400">
                   {errors.password.message}
+                </p>
+              ) : (
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  Minimum 12 characters with uppercase, lowercase, number, and special character
                 </p>
               )}
             </div>
@@ -162,19 +167,19 @@ export const RegisterPage = () => {
             {/* Confirm Password Field */}
             <div>
               <label
-                htmlFor="confirmPassword"
+                htmlFor="password_confirmation"
                 className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
               >
                 Confirm password
               </label>
               <div className="relative">
                 <input
-                  {...register('confirmPassword')}
-                  id="confirmPassword"
+                  {...register('password_confirmation')}
+                  id="password_confirmation"
                   type={showConfirmPassword ? 'text' : 'password'}
                   autoComplete="new-password"
                   className={`w-full rounded-lg border bg-white px-4 py-3 pr-12 text-gray-900 placeholder-gray-400 transition-colors focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 ${
-                    errors.confirmPassword
+                    errors.password_confirmation
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-gray-300 dark:border-gray-600'
                   } `}
@@ -193,9 +198,9 @@ export const RegisterPage = () => {
                   )}
                 </button>
               </div>
-              {errors.confirmPassword && (
+              {errors.password_confirmation && (
                 <p className="mt-2 text-sm text-red-600 dark:text-red-400">
-                  {errors.confirmPassword.message}
+                  {errors.password_confirmation.message}
                 </p>
               )}
             </div>

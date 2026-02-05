@@ -57,7 +57,6 @@ export default defineConfig({
     target: 'es2020',
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
-    exclude: ['recharts'], // Don't pre-bundle charts - lazy load them
+    include: ['react', 'react-dom', 'react-router-dom', 'recharts', 'es-toolkit'],
   },
 });

@@ -30,7 +30,7 @@ This guide will help you deploy the QA AI application to Netlify.
 4. **Environment Variables**
    Add these in Site settings → Build & deploy → Environment:
    ```
-   VITE_API_URL=your-api-url
+   VITE_API_BASE_URL=your-api-url
    VITE_APP_NAME=QA AI
    VITE_APP_VERSION=1.0.0
    ```
@@ -93,7 +93,7 @@ This guide will help you deploy the QA AI application to Netlify.
 In Netlify Dashboard → Site settings → Build & deploy → Environment:
 
 ```
-VITE_API_URL=https://your-api-domain.com/api
+VITE_API_BASE_URL=https://your-api-domain.com/api
 VITE_APP_NAME=QA AI
 VITE_APP_VERSION=1.0.0
 ```

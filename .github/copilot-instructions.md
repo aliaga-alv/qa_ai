@@ -240,9 +240,26 @@ export default function MyComponent({ test, className }: MyComponentProps) {
 
 ## Documentation References
 
-- `docs/ARCHITECTURE.md` - Full tech stack details
-- `docs/COMPONENT_DESIGN.md` - Component patterns & atomic design
-- `docs/QUICK_START_AI.md` - AI-specific rules & checklists
+### Development & Architecture
+- `docs/development/ARCHITECTURE.md` - Full tech stack details
+- `docs/development/COMPONENT_DESIGN.md` - Component patterns & atomic design
+- `docs/development/QUICK_START_AI.md` - AI-specific rules & checklists
+- `docs/development/AI_AGENT_GUIDE.md` - Comprehensive AI implementation guide
+
+### API Integration
+- `docs/api/API_ARCHITECTURE.md` - API architecture and service layer
+- `docs/api/AUTH_IMPLEMENTATION.md` - Complete auth implementation guide
+- `docs/api/ERROR_HANDLING.md` - Error handling patterns
+
+### Project Planning
+- `docs/planning/PROJECT_OVERVIEW.md` - Product vision and goals
+- `docs/planning/IMPLEMENTATION_ROADMAP.md` - Development phases
+- `docs/planning/DASHBOARD_IMPLEMENTATION_PLAN.md` - Dashboard features
+
+### Code References
 - `src/types/README.md` - Type system guide
 - `src/constants/README.md` - Constants usage
 - `src/mocks/README.md` - Mock data patterns
+
+### Other
+- `docs/README.md` - Documentation index (start here)

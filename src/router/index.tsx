@@ -15,6 +15,12 @@ const LoginPage = lazy(() => import('@/pages/LoginPage').then((m) => ({ default:
 const RegisterPage = lazy(() =>
   import('@/pages/RegisterPage').then((m) => ({ default: m.RegisterPage }))
 );
+const ForgotPasswordPage = lazy(() =>
+  import('@/pages/ForgotPasswordPage').then((m) => ({ default: m.ForgotPasswordPage }))
+);
+const ResetPasswordPage = lazy(() =>
+  import('@/pages/ResetPasswordPage').then((m) => ({ default: m.ResetPasswordPage }))
+);
 const PricingPage = lazy(() =>
   import('@/pages/PricingPage').then((m) => ({ default: m.PricingPage }))
 );
@@ -240,6 +246,22 @@ export const router = createBrowserRouter([
             element: (
               <Suspense fallback={<PageLoader />}>
                 <RegisterPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'forgot-password',
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <ForgotPasswordPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'reset-password',
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <ResetPasswordPage />
               </Suspense>
             ),
           },

@@ -30,3 +30,5 @@ dist-ssr
 lighthouse-reports
 .lighthouseci
 lhci-reports
+
+.env

@@ -552,7 +552,7 @@ const processQueue = (error: any, token: string | null = null) => {
 };
 
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -599,7 +599,7 @@ apiClient.interceptors.response.use(
         
         // Call refresh endpoint
         const { data } = await axios.post(
-          `${import.meta.env.VITE_API_URL}/auth/refresh`,
+          `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
           { refreshToken }
         );
         

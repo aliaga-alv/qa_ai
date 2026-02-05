@@ -1,6 +1,11 @@
 import { useCallback } from 'react';
 import { useAuthStore } from '@/stores/authStore';
-import { authService, type LoginCredentials, type RegisterData } from '@/services/api/auth.service';
+import {
+  authService,
+  type LoginCredentials,
+  type RegisterData,
+  type ResetPasswordRequest,
+} from '@/services/api/auth.service';
 import { ApiErrorHandler } from '@/lib/api-error-handler';
 
 export const useAuth = () => {
@@ -9,7 +14,6 @@ export const useAuth = () => {
     isAuthenticated,
     isLoading,
     error,
-    setUser,
     setLoading,
     setError,
     login: storeLogin,
@@ -27,7 +31,8 @@ export const useAuth = () => {
 
       try {
         const response = await authService.login(credentials);
-        storeLogin(response.user, response.accessToken, response.refreshToken);
+        // Backend returns: { token, user }
+        storeLogin(response.user, response.token, response.token); // Using token for both access and refresh
         return { success: true };
       } catch (error) {
         const apiError = ApiErrorHandler.normalize(error);
@@ -50,7 +55,8 @@ export const useAuth = () => {
 
       try {
         const response = await authService.register(data);
-        storeLogin(response.user, response.accessToken, response.refreshToken);
+        // Backend returns: { token, user }
+        storeLogin(response.user, response.token, response.token);
         return { success: true };
       } catch (error) {
         const apiError = ApiErrorHandler.normalize(error);
@@ -64,36 +70,55 @@ export const useAuth = () => {
   );
 
   /**
-   * Logout user
+   * Logout user (client-side only, no backend endpoint)
    */
-  const logout = useCallback(async () => {
-    setLoading(true);
-
-    try {
-      await authService.logout();
-    } catch (error) {
-      // Ignore errors during logout
-      console.error('Logout error:', error);
-    } finally {
-      storeLogout();
-      setLoading(false);
-    }
-  }, [setLoading, storeLogout]);
+  const logout = useCallback(() => {
+    storeLogout();
+  }, [storeLogout]);
 
   /**
-   * Refresh user profile
+   * Request password reset (sends 6-digit OTP to email)
    */
-  const refreshProfile = useCallback(async () => {
-    if (!isAuthenticated) return;
+  const forgotPassword = useCallback(
+    async (email: string) => {
+      setLoading(true);
+      setError(null);
 
-    try {
-      const user = await authService.getProfile();
-      setUser(user);
-    } catch (error) {
-      const apiError = ApiErrorHandler.normalize(error);
-      console.error('Failed to refresh profile:', apiError);
-    }
-  }, [isAuthenticated, setUser]);
+      try {
+        const response = await authService.forgotPassword(email);
+        return { success: true, message: response.message };
+      } catch (error) {
+        const apiError = ApiErrorHandler.normalize(error);
+        setError(apiError.message);
+        return { success: false, error: apiError.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, setError]
+  );
+
+  /**
+   * Reset password using OTP
+   */
+  const resetPassword = useCallback(
+    async (data: ResetPasswordRequest) => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await authService.resetPassword(data);
+        return { success: true, message: response.message };
+      } catch (error) {
+        const apiError = ApiErrorHandler.normalize(error);
+        setError(apiError.message);
+        return { success: false, error: apiError.message };
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLoading, setError]
+  );
 
   return {
     // State
@@ -106,7 +131,8 @@ export const useAuth = () => {
     login,
     register,
     logout,
-    refreshProfile,
+    forgotPassword,
+    resetPassword,
     clearError,
   };
 };
