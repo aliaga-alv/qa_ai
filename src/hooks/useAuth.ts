@@ -31,8 +31,15 @@ export const useAuth = () => {
 
       try {
         const response = await authService.login(credentials);
-        // Backend returns: { token, user }
-        storeLogin(response.user, response.token, response.token); // Using token for both access and refresh
+        // Backend returns: { access_token, name, email, subscription, ... }
+        const user = {
+          name: response.name,
+          email: response.email,
+          subscription: response.subscription,
+          subscription_required: response.subscription_required,
+          teams: response.teams,
+        };
+        storeLogin(user, response.access_token, response.access_token); // Using access_token for both access and refresh
         return { success: true };
       } catch (error) {
         const apiError = ApiErrorHandler.normalize(error);
@@ -55,8 +62,15 @@ export const useAuth = () => {
 
       try {
         const response = await authService.register(data);
-        // Backend returns: { token, user }
-        storeLogin(response.user, response.token, response.token);
+        // Backend returns: { access_token, name, email, subscription, ... }
+        const user = {
+          name: response.name,
+          email: response.email,
+          subscription: response.subscription,
+          subscription_required: response.subscription_required,
+          teams: response.teams,
+        };
+        storeLogin(user, response.access_token, response.access_token);
         return { success: true };
       } catch (error) {
         const apiError = ApiErrorHandler.normalize(error);

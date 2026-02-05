@@ -1,74 +1,63 @@
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import TestForm from '@/components/dashboard/tests/TestForm';
 import type { TestFormData } from '@/schemas/test';
-import { mockTestDetail } from '@/mocks/tests';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { useProjectStore } from '@/stores/projectStore';
+import { useTest, useUpdateTest } from '@/hooks/api/useTests';
 
 export default function EditTestPage() {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [testData, setTestData] = useState<Partial<TestFormData> | null>(null);
+  const { selectedProject } = useProjectStore();
 
-  useEffect(() => {
-    // Simulate loading test data from API
-    const loadTest = async () => {
-      setIsLoading(true);
-      try {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 500));
+  // Fetch test data
+  const {
+    data: test,
+    isLoading,
+    isError,
+  } = useTest(selectedProject?.id || '', id || '');
 
-        // In a real app, you would fetch from API:
-        // const test = await api.tests.getById(id);
+  // Update mutation
+  const updateTestMutation = useUpdateTest();
 
-        // Convert mock test detail to form data
-        const formData: Partial<TestFormData> = {
-          name: mockTestDetail.name,
-          description: mockTestDetail.description,
-          type: mockTestDetail.type as 'api' | 'ui' | 'integration' | 'unit',
-          status: mockTestDetail.status as 'active' | 'inactive' | 'draft',
-          tags: mockTestDetail.tags.join(', '),
-          code: mockTestDetail.code,
-          timeout: mockTestDetail.config.timeout,
-          retries: mockTestDetail.config.retries,
-          environment: mockTestDetail.config.environment as
-            | 'development'
-            | 'staging'
-            | 'production',
-          baseUrl: mockTestDetail.config.baseUrl,
-          browser: mockTestDetail.config.browser as 'chrome' | 'firefox' | 'safari' | 'edge',
-        };
+  // Convert API test data to form data
+  const testData = useMemo(() => {
+    if (!test) return null;
 
-        setTestData(formData);
-      } catch (error) {
-        toast.error('Failed to load test', {
-          description: 'Could not retrieve test details. Please try again.',
-        });
-        console.error('Error loading test:', error);
-        navigate('/dashboard/tests');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadTest();
-  }, [id, navigate]);
+    return {
+      name: test.name || '',
+      description: test.description || '',
+      specification: test.specification || '',
+      priority: test.priority || 'medium',
+      tags: test.tags?.join(', ') || '',
+      is_active: test.is_active ?? true,
+      status: test.status || 'draft',
+    } as Partial<TestFormData>;
+  }, [test]);
 
   const handleSubmit = async (data: TestFormData) => {
-    setIsSubmitting(true);
+    if (!selectedProject?.id || !id) {
+      toast.error('Missing project or test ID');
+      return;
+    }
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // In a real app, you would make an API call here:
-      // await api.tests.update(id, data);
-
-      console.log('Updating test with data:', data);
+      await updateTestMutation.mutateAsync({
+        projectId: selectedProject.id,
+        testId: id,
+        data: {
+          name: data.name,
+          description: data.description,
+          specification: data.specification,
+          priority: data.priority,
+          tags: data.tags?.split(',').map((tag) => tag.trim()).filter(Boolean),
+          is_active: data.is_active,
+          status: data.status,
+        },
+      });
 
       toast.success('Test updated successfully!', {
         description: `"${data.name}" has been updated.`,
@@ -77,18 +66,30 @@ export default function EditTestPage() {
       // Navigate back to test details
       navigate(`/dashboard/tests/${id}`);
     } catch (error) {
-      toast.error('Failed to update test', {
-        description: 'Please try again or contact support if the problem persists.',
-      });
+      // Error toast is handled by the mutation
       console.error('Error updating test:', error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   const handleCancel = () => {
     navigate(`/dashboard/tests/${id}`);
   };
+
+  if (!selectedProject) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600 dark:text-gray-400">Please select a project first</p>
+          <button
+            onClick={() => navigate('/dashboard/tests')}
+            className="mt-4 text-primary-600 hover:underline dark:text-primary-400"
+          >
+            Go back to tests
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -98,7 +99,7 @@ export default function EditTestPage() {
     );
   }
 
-  if (!testData) {
+  if (isError || !testData) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
@@ -140,7 +141,7 @@ export default function EditTestPage() {
           initialValues={testData}
           onSubmit={handleSubmit}
           onCancel={handleCancel}
-          isSubmitting={isSubmitting}
+          isSubmitting={updateTestMutation.isPending}
           submitLabel="Save Changes"
         />
       </div>

@@ -64,6 +64,7 @@ const UnauthorizedPage = lazy(() =>
 
 // Lazy load dashboard pages
 const DashboardPage = lazy(() => import('@/pages/dashboard/DashboardPage'));
+const ProjectsPage = lazy(() => import('@/pages/dashboard/ProjectsPage'));
 const TestsPage = lazy(() => import('@/pages/dashboard/TestsPage'));
 const CreateTestPage = lazy(() => import('@/pages/dashboard/CreateTestPage'));
 const TestDetailsPage = lazy(() => import('@/pages/dashboard/TestDetailsPage'));
@@ -298,6 +299,14 @@ export const router = createBrowserRouter([
             element: (
               <Suspense fallback={<PageLoader />}>
                 <DashboardPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'projects',
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <ProjectsPage />
               </Suspense>
             ),
           },

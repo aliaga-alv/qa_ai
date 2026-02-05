@@ -30,28 +30,35 @@ src/
 │       ├── common.ts        # Shared API types
 │       ├── auth.ts          # Auth request/response types
 │       ├── tests.ts         # Tests request/response types
+│       ├── test-runs.ts     # Test runs request/response types
 │       ├── projects.ts      # Projects request/response types
 │       ├── analytics.ts     # Analytics request/response types
 │       ├── team.ts          # Team request/response types
 │       ├── billing.ts       # Billing request/response types
+│       ├── subscription.ts  # Subscription request/response types
 │       └── index.ts         # Centralized export
 ├── services/
 │   └── api/
 │       ├── client.ts        # Axios client with interceptors
+│       ├── health.service.ts # Health check endpoints
 │       ├── auth.service.ts  # Auth API methods
 │       ├── tests.service.ts # Tests API methods
+│       ├── test-runs.service.ts # Test execution & run management
 │       ├── projects.service.ts
-│       ├── analytics.service.ts
+│       ├── analytics.service.ts # Statistics API methods
 │       ├── team.service.ts
 │       ├── billing.service.ts
+│       ├── subscription.service.ts # Subscription plans & user subscriptions
 │       └── index.ts         # Centralized export
 └── hooks/
     └── api/
         ├── useTests.ts      # Tests TanStack Query hooks
+        ├── useTestRuns.ts   # Test runs TanStack Query hooks
         ├── useProjects.ts   # Projects TanStack Query hooks
         ├── useAnalytics.ts  # Analytics TanStack Query hooks
         ├── useTeam.ts       # Team TanStack Query hooks
         ├── useBilling.ts    # Billing TanStack Query hooks
+        ├── useSubscriptions.ts # Subscription management hooks
         └── index.ts         # Centralized export
 ```
 
@@ -66,10 +73,10 @@ VITE_API_BASE_URL=http://localhost:8000/api
 
 ### TanStack Query Setup
 
-Configured in [src/main.tsx](../main.tsx):
+Configured in [src/main.tsx](../../src/main.tsx):
 
 ```typescript
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000,      // 5 minutes
@@ -84,6 +91,8 @@ const queryClient = new QueryClient({
   },
 });
 ```
+
+**Important:** The `queryClient` is exported so it can be used for cache management (e.g., clearing on logout).
 
 ### Axios Client
 
@@ -211,30 +220,85 @@ function TestsPage() {
 
 ## 📚 Available APIs
 
+### Health
+- `healthService` - System health and readiness checks
+- Methods:
+  - `check()` - Application health status
+  - `ready()` - Readiness check with dependency status
+- No hooks (typically used for monitoring/infrastructure)
+
 ### Auth
 - `authService` - Login, register, forgot password (sends OTP), reset password (with OTP)
 - No hooks (uses `useAuth` from hooks/useAuth.ts)
 - **Note:** Backend uses OTP-based password reset (no logout or token refresh endpoints)
 
 ### Tests
-- `testsService` - CRUD operations, run tests, get results
-- Hooks: `useTests`, `useTest`, `useTestResults`, `useCreateTest`, `useUpdateTest`, `useDeleteTest`, `useRunTest`
+- `testsService` - CRUD operations for test definitions
+- Hooks: `useTests`, `useTest`, `useCreateTest`, `useUpdateTest`, `useDeleteTest`
+
+### Test Runs
+- `testRunsService` - Test execution and run management
+- Methods:
+  - `triggerRun(testId, request?)` - Start a test run
+  - `listRuns(testId, params?)` - List runs with pagination
+  - `getRun(runId)` - Get run details with step results
+  - `cancelRun(runId)` - Cancel a running test
+  - `getStatistics(testId)` - Get run statistics for a test
+- Query Hooks:
+  - `useTestRuns(testId, params?)` - List test runs with pagination
+  - `useTestRun(runId)` - Get single run details with step results
+  - `useTestRunStatistics(testId)` - Get run statistics
+- Mutation Hooks:
+  - `useTriggerTestRun()` - Trigger a single test run
+  - `useCancelTestRun()` - Cancel a running test
+  - `useBulkRunTests()` - Run multiple tests at once
+  - `useRunAllTests()` - Run all tests in a project
 
 ### Projects
 - `projectsService` - CRUD operations, get project tests
 - Hooks: `useProjects`, `useProject`, `useProjectTests`, `useCreateProject`, `useUpdateProject`, `useDeleteProject`
 
 ### Analytics
-- `analyticsService` - Dashboard stats, trends, performance metrics
-- Hooks: `useDashboardStats`, `useTestTrends`, `usePerformanceMetrics`, `useTestExecutionAnalytics`
+- `statisticsService` - Overall dashboard statistics with trends and breakdowns
+- Hooks: `useOverallStatistics`
+- **Implementation:** Returns comprehensive stats including:
+  - Total projects, tests, active/passing/failing counts
+  - Status breakdown (draft, planned, generated, passing, failing, error)
+  - Validation & execution metrics
+  - Weekly comparison with change percentages
+  - Daily trends (7 days)
+  - Top executed tests
+  - Test durations
 
 ### Team
 - `teamService` - List members, invite, remove, update roles
 - Hooks: `useTeamMembers`, `useTeamMember`, `useTeamInvitations`, `useInviteMember`, `useRemoveMember`, `useUpdateMemberRole`
 
-### Billing
-- `billingService` - Subscriptions, invoices, usage, plans
-- Hooks: `useSubscription`, `useInvoices`, `useUsage`, `useBillingPlans`, `useSubscribe`, `useCancelSubscription`, `useUpdatePaymentMethod`
+### Billing (Legacy)
+- **Note:** `billing.service.ts` and `useBilling.ts` exist but are **not actively used**
+- These were superseded by the `subscription.service.ts` implementation
+- If you need subscription functionality, use the Subscriptions API below
+
+### Subscriptions
+- `subscriptionService` - Plan management and user subscriptions
+- **Service Methods:**
+  - `listPlans()` - Get all subscription plans
+  - `getPlan(id)` - Get single plan details
+  - `createPlan(payload)` - Create new plan (admin)
+  - `updatePlan(id, payload)` - Update plan (admin)
+  - `deletePlan(id)` - Delete plan (admin)
+  - `getUserSubscriptions()` - Get user's active subscriptions
+  - `subscribe(payload)` - Subscribe to a plan
+- **Query Hooks:**
+  - `useSubscriptionPlans()` - List all available plans
+  - `useSubscriptionPlan(id)` - Get single plan details
+  - `useUserSubscriptions()` - Get current user's subscriptions
+- **Mutation Hooks:**
+  - `useCreatePlan()` - Create new subscription plan (admin)
+  - `useUpdatePlan()` - Update existing plan (admin)
+  - `useDeletePlan()` - Delete a plan (admin)
+  - `useSubscribeToPlan()` - Subscribe to a plan
+- **Note:** Backend does not support subscription cancellation endpoint
 
 ## 🎯 Best Practices
 
@@ -292,6 +356,34 @@ Component re-renders with new data
 7. On refresh failure → logout + redirect to login
 ```
 
+### Cache Management on Logout
+
+To prevent data leakage between users, the application clears all TanStack Query cache when users log out:
+
+**In [authStore.ts](../../src/stores/authStore.ts):**
+```typescript
+import { queryClient } from '@/main';
+
+logout: () => {
+  tokenStorage.clearTokens();
+  queryClient.clear(); // Clear all cached data
+  set({ user: null, isAuthenticated: false, error: null });
+}
+```
+
+**In [client.ts](../../src/services/api/client.ts) interceptor:**
+```typescript
+// When token refresh fails
+tokenStorage.clearTokens();
+queryClient.clear(); // Clear cache on forced logout
+window.location.href = '/login';
+```
+
+This ensures:
+- ✅ No stale data from previous user
+- ✅ Clean state for new user login
+- ✅ Security: prevents unauthorized access to cached data
+
 ## 🚀 Adding New APIs
 
 ### Step 1: Add Endpoint Constants
@@ -336,9 +428,25 @@ export const QUERY_KEYS = {
 
 ```typescript
 // services/api/new-feature.service.ts
+import { apiClient } from './client';
+import { API_NEW_FEATURE } from '@/constants/api';
+import type { NewFeatureRequest, NewFeatureResponse } from '@/types/api/new-feature';
+
 export const newFeatureService = {
-  async list() { /* ... */ },
-  async get(id: string) { /* ... */ },
+  async list(): Promise<NewFeatureResponse[]> {
+    const response = await apiClient.get<{ data: NewFeatureResponse[] }>(
+      API_NEW_FEATURE.LIST
+    );
+    return response.data.data;
+  },
+  
+  async get(id: string): Promise<NewFeatureResponse> {
+    const response = await apiClient.get<{ data: NewFeatureResponse }>(
+      API_NEW_FEATURE.GET(id)
+    );
+    return response.data.data;
+  },
+  
   // ... more methods
 };
 ```

@@ -17,9 +17,14 @@ export default function ProfileSettingsPage() {
   const { user } = useAuthStore();
   const timezones = TIMEZONES;
 
+  // Split name into first and last name for the form
+  const nameParts = user?.name?.split(' ') || ['John', 'Doe'];
+  const firstName = nameParts[0] || 'John';
+  const lastName = nameParts.slice(1).join(' ') || 'Doe';
+
   const [formData, setFormData] = useState({
-    firstName: user?.firstName || 'John',
-    lastName: user?.lastName || 'Doe',
+    firstName: firstName,
+    lastName: lastName,
     email: user?.email || 'john.doe@example.com',
     bio: 'Senior QA Engineer passionate about automated testing and quality assurance.',
     jobTitle: 'Senior QA Engineer',

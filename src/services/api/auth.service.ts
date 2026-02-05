@@ -1,5 +1,4 @@
 import apiClient from './client';
-import type { User } from '@/stores/authStore';
 import { API_AUTH } from '@/constants/api';
 
 // ============================================
@@ -34,8 +33,17 @@ export interface ResetPasswordRequest {
 // ============================================
 
 export interface AuthData {
-  token: string;
-  user: User;
+  access_token: string;
+  name: string;
+  email: string;
+  subscription: string | null;
+  subscription_required: boolean;
+  teams?: Array<{
+    id: number;
+    name: string;
+    role: string;
+    is_default: boolean;
+  }>;
 }
 
 export interface AuthResponse {

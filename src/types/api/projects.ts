@@ -6,10 +6,25 @@ import type { PaginatedResponse, PaginationParams, FilterParams } from './common
 
 // ============== Types ==============
 
+// Backend API response type (snake_case)
+export interface ProjectApiResponse {
+  id: number;
+  name: string;
+  description: string;
+  url: string;
+  owner_id: number;
+  team_id: number | null;
+  status: 'active' | 'archived';
+  created_at: string;
+  updated_at: string;
+}
+
+// Frontend domain model (camelCase)
 export interface Project {
   id: string;
   name: string;
   description: string;
+  url: string;
   status: 'active' | 'archived';
   testsCount: number;
   lastTestRun?: Date;
@@ -22,11 +37,13 @@ export interface Project {
 export interface CreateProjectRequest {
   name: string;
   description: string;
+  url: string;
 }
 
 export interface UpdateProjectRequest {
   name?: string;
   description?: string;
+  url?: string;
   status?: 'active' | 'archived';
 }
 

@@ -13,15 +13,57 @@ import type {
   ProjectListResponse,
   ProjectTestsResponse,
   Project,
+  ProjectApiResponse,
 } from '@/types/api/projects';
+
+/**
+ * Transform backend project response to frontend project model
+ */
+function transformProject(apiProject: ProjectApiResponse): Project {
+  return {
+    id: String(apiProject.id),
+    name: apiProject.name,
+    description: apiProject.description,
+    url: apiProject.url,
+    status: apiProject.status,
+    testsCount: 0, // Will be updated when we have the test count endpoint
+    createdAt: new Date(apiProject.created_at),
+    updatedAt: new Date(apiProject.updated_at),
+  };
+}
 
 export const projectsService = {
   /**
    * Get list of projects with optional filters
    */
   async list(params?: ProjectListParams): Promise<ProjectListResponse> {
-    const response = await apiClient.get<ProjectListResponse>(API_PROJECTS.LIST, { params });
-    return response.data;
+    const response = await apiClient.get<{
+      success: number;
+      data: Array<{
+        projects: ProjectApiResponse[];
+        pagination: {
+          page: number;
+          per_page: number;
+          total: number;
+          total_pages: number;
+        };
+      }>;
+    }>(API_PROJECTS.LIST, { params });
+    
+    // Backend returns nested structure: { success: 1, data: [{ projects: [], pagination: {} }] }
+    const result = response.data.data[0];
+    
+    return {
+      data: result.projects.map(transformProject),
+      pagination: {
+        page: result.pagination.page,
+        limit: result.pagination.per_page,
+        totalPages: result.pagination.total_pages,
+        totalItems: result.pagination.total,
+        hasNext: result.pagination.page < result.pagination.total_pages,
+        hasPrevious: result.pagination.page > 1,
+      },
+    };
   },
 
   /**
@@ -36,8 +78,12 @@ export const projectsService = {
    * Create a new project
    */
   async create(data: CreateProjectRequest): Promise<Project> {
-    const response = await apiClient.post<ProjectResponse>(API_PROJECTS.CREATE, data);
-    return response.data.project;
+    const response = await apiClient.post<{
+      success: number;
+      data: ProjectApiResponse[];
+    }>(API_PROJECTS.CREATE, data);
+    // Backend returns: { success: 1, data: [{...}] }
+    return transformProject(response.data.data[0]);
   },
 
   /**

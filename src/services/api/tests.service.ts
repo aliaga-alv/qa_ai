@@ -11,35 +11,60 @@ import type {
   CreateTestRequest,
   UpdateTestRequest,
   TestListParams,
-  TestResponse,
   TestListResponse,
   TestStatsResponse,
 } from '@/types/api/tests';
 import type { Test } from '@/types/models/dashboard';
+import type { BulkRunResponse } from '@/types/api/test-runs';
 
 export const testsService = {
   /**
    * Get list of tests for a project with optional filters
    */
   async list(projectId: string | number, params?: TestListParams): Promise<TestListResponse> {
-    const response = await apiClient.get<TestListResponse>(API_TESTS.LIST(projectId), { params });
-    return response.data;
+    const response = await apiClient.get<{
+      success: number;
+      data:
+        | Array<{ tests: Test[]; pagination: TestListResponse['pagination'] }>
+        | { tests: Test[]; pagination: TestListResponse['pagination'] };
+    }>(API_TESTS.LIST(projectId), { params });
+
+    // Backend returns: {success: 1, data: [{tests: [...], pagination: {...}}]} or {success: 1, data: {tests: [...], pagination: {...}}}
+    // Handle both array and object formats
+    const dataObject = Array.isArray(response.data.data)
+      ? response.data.data[0]
+      : response.data.data;
+
+    return {
+      data: dataObject.tests,
+      pagination: dataObject.pagination,
+    };
   },
 
   /**
    * Get a single test by ID
    */
   async get(projectId: string | number, testId: string | number): Promise<Test> {
-    const response = await apiClient.get<TestResponse>(API_TESTS.GET(projectId, testId));
-    return response.data.data;
+    const response = await apiClient.get<{ success: number; data: Test | Test[] }>(
+      API_TESTS.GET(projectId, testId)
+    );
+
+    // Backend may return: {success: 1, data: {...}} or {success: 1, data: [{...}]}
+    // Handle both formats
+    const test = Array.isArray(response.data.data) ? response.data.data[0] : response.data.data;
+    return test;
   },
 
   /**
    * Create a new test
    */
   async create(projectId: string | number, data: CreateTestRequest): Promise<Test> {
-    const response = await apiClient.post<TestResponse>(API_TESTS.CREATE(projectId), data);
-    return response.data.data;
+    const response = await apiClient.post<{ success: number; data: Test | Test[] }>(
+      API_TESTS.CREATE(projectId),
+      data
+    );
+    const test = Array.isArray(response.data.data) ? response.data.data[0] : response.data.data;
+    return test;
   },
 
   /**
@@ -50,8 +75,12 @@ export const testsService = {
     testId: string | number,
     data: UpdateTestRequest
   ): Promise<Test> {
-    const response = await apiClient.patch<TestResponse>(API_TESTS.UPDATE(projectId, testId), data);
-    return response.data.data;
+    const response = await apiClient.patch<{ success: number; data: Test | Test[] }>(
+      API_TESTS.UPDATE(projectId, testId),
+      data
+    );
+    const test = Array.isArray(response.data.data) ? response.data.data[0] : response.data.data;
+    return test;
   },
 
   /**
@@ -69,12 +98,13 @@ export const testsService = {
     testId: string | number,
     newName?: string
   ): Promise<Test> {
-    const response = await apiClient.post<TestResponse>(
+    const response = await apiClient.post<{ success: number; data: Test | Test[] }>(
       API_TESTS.DUPLICATE(projectId, testId),
       null,
       { params: { name: newName } }
     );
-    return response.data.data;
+    const test = Array.isArray(response.data.data) ? response.data.data[0] : response.data.data;
+    return test;
   },
 
   /**
@@ -89,8 +119,11 @@ export const testsService = {
    * Generate test plan from specification
    */
   async generatePlan(projectId: string | number, testId: string | number): Promise<Test> {
-    const response = await apiClient.post<TestResponse>(API_TESTS.GENERATE_PLAN(projectId, testId));
-    return response.data.data;
+    const response = await apiClient.post<{ success: number; data: Test | Test[] }>(
+      API_TESTS.GENERATE_PLAN(projectId, testId)
+    );
+    const test = Array.isArray(response.data.data) ? response.data.data[0] : response.data.data;
+    return test;
   },
 
   /**
@@ -101,20 +134,24 @@ export const testsService = {
     testId: string | number,
     force = false
   ): Promise<Test> {
-    const response = await apiClient.post<TestResponse>(
+    const response = await apiClient.post<{ success: number; data: Test | Test[] }>(
       API_TESTS.GENERATE_CODE(projectId, testId),
       null,
       { params: { force: force ? 1 : 0 } }
     );
-    return response.data.data;
+    const test = Array.isArray(response.data.data) ? response.data.data[0] : response.data.data;
+    return test;
   },
 
   /**
    * Validate test code
    */
   async validateCode(projectId: string | number, testId: string | number): Promise<Test> {
-    const response = await apiClient.post<TestResponse>(API_TESTS.VALIDATE_CODE(projectId, testId));
-    return response.data.data;
+    const response = await apiClient.post<{ success: number; data: Test | Test[] }>(
+      API_TESTS.VALIDATE_CODE(projectId, testId)
+    );
+    const test = Array.isArray(response.data.data) ? response.data.data[0] : response.data.data;
+    return test;
   },
 
   /**
@@ -141,18 +178,41 @@ export const testsService = {
   /**
    * Run multiple tests
    */
-  async bulkRun(projectId: string | number, testIds: number[], parallel = false): Promise<void> {
-    await apiClient.post(API_TESTS.BULK_RUN(projectId), null, {
-      params: { test_ids: testIds, parallel },
-    });
+  async bulkRun(
+    projectId: string | number,
+    testIds: number[],
+    parallel: boolean = false
+  ): Promise<unknown> {
+    const response = await apiClient.post<BulkRunResponse>(
+      API_TESTS.BULK_RUN(projectId),
+      JSON.stringify({
+        test_ids: testIds,
+        parallel: parallel,
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data.data;
   },
 
   /**
    * Run all active tests in project
    */
-  async runAll(projectId: string | number, parallel = false): Promise<void> {
-    await apiClient.post(API_TESTS.RUN_ALL(projectId), null, {
-      params: { parallel },
-    });
+  async runAll(projectId: string | number, parallel: boolean = false): Promise<unknown> {
+    const response = await apiClient.post<BulkRunResponse>(
+      API_TESTS.RUN_ALL(projectId),
+      JSON.stringify({ parallel }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data.data;
   },
 };

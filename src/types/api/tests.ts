@@ -10,17 +10,22 @@ import type { PaginatedResponse, PaginationParams, FilterParams } from './common
 export interface CreateTestRequest {
   name: string;
   description: string;
-  type: TestType;
-  projectId?: string;
+  specification?: string | null;
+  priority?: 'low' | 'medium' | 'high';
+  status?: TestStatus;
+  is_active?: boolean;
   tags?: string[];
-  config?: Record<string, unknown>;
-  steps?: TestStepRequest[];
 }
 
 export interface UpdateTestRequest {
   name?: string;
   description?: string;
+  specification?: string;
+  plan_json?: string;
+  test_code?: string;
   status?: TestStatus;
+  is_active?: boolean;
+  priority?: 'low' | 'medium' | 'high';
   tags?: string[];
   config?: Record<string, unknown>;
   steps?: TestStepRequest[];

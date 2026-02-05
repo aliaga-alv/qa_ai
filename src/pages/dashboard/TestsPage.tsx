@@ -1,46 +1,102 @@
-import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Plus, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import TestFilters from '../../components/dashboard/tests/TestFilters';
 import TestListItem from '../../components/dashboard/tests/TestListItem';
 import TestCard from '../../components/dashboard/tests/TestCard';
 import BulkActions from '../../components/dashboard/tests/BulkActions';
+import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { useProjectStore } from '@/stores/projectStore';
+import { useTests, useDeleteTest } from '@/hooks/api/useTests';
 import type { Test } from '@/types/models';
 import { mockTestsPageData } from '@/mocks';
 
-// TODO: Replace with real API data
-
 export default function TestsPage() {
   const navigate = useNavigate();
-  const [tests, setTests] = useState<Test[]>(mockTestsPageData);
+  const { selectedProject } = useProjectStore();
   const [selectedTests, setSelectedTests] = useState<string[]>([]);
-  const [filteredTests, setFilteredTests] = useState<Test[]>(mockTestsPageData);
+  const [filteredTests, setFilteredTests] = useState<Test[]>([]);
+  
+  // Filter states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [priorityFilter, setPriorityFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('name');
+
+  // Fetch tests for selected project (or use mock if no project selected)
+  const {
+    data: testsData,
+    isLoading,
+    isError,
+  } = useTests(selectedProject?.id || '', undefined);
+
+  const deleteTestMutation = useDeleteTest();
+
+  // Use real data if available (even if empty), otherwise fall back to mock
+  const tests = selectedProject?.id && testsData?.data !== undefined ? testsData.data : mockTestsPageData;
+
+  // Apply all filters whenever tests or any filter changes
+  useEffect(() => {
+    let result = [...tests];
+
+    // Apply search filter
+    if (searchTerm) {
+      result = result.filter(
+        (test) =>
+          (test.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (test.description || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (test.tags && test.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+      );
+    }
+
+    // Apply status filter
+    if (statusFilter !== 'all') {
+      result = result.filter((test) => test.status === statusFilter);
+    }
+
+    // Apply priority filter
+    if (priorityFilter !== 'all') {
+      result = result.filter((test) => test.priority === priorityFilter);
+    }
+
+    // Apply sorting
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return (a.name || '').localeCompare(b.name || '');
+        case 'created':
+          return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+        case 'updated':
+          return new Date(b.updated_at || 0).getTime() - new Date(a.updated_at || 0).getTime();
+        case 'lastRun':
+          return new Date(b.last_run_at || 0).getTime() - new Date(a.last_run_at || 0).getTime();
+        case 'priority': {
+          const priorityOrder = { high: 0, medium: 1, low: 2 };
+          return (priorityOrder[a.priority || 'medium'] || 1) - (priorityOrder[b.priority || 'medium'] || 1);
+        }
+        default:
+          return 0;
+      }
+    });
+
+    setFilteredTests(result);
+  }, [tests, searchTerm, statusFilter, priorityFilter, sortBy]);
 
   const handleSearchChange = (search: string) => {
-    const filtered = tests.filter(
-      (test) =>
-        test.name.toLowerCase().includes(search.toLowerCase()) ||
-        test.description.toLowerCase().includes(search.toLowerCase()) ||
-        test.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
-    );
-    setFilteredTests(filtered);
+    setSearchTerm(search);
   };
 
   const handleStatusChange = (status: string) => {
-    if (status === 'all') {
-      setFilteredTests(tests);
-    } else {
-      setFilteredTests(tests.filter((test) => test.status === status));
-    }
+    setStatusFilter(status);
   };
 
-  const handleTypeChange = (type: string) => {
-    if (type === 'all') {
-      setFilteredTests(tests);
-    } else {
-      setFilteredTests(tests.filter((test) => test.type === type));
-    }
+  const handlePriorityChange = (priority: string) => {
+    setPriorityFilter(priority);
+  };
+
+  const handleSortChange = (sort: string) => {
+    setSortBy(sort);
   };
 
   const handleSelectTest = (id: string) => {
@@ -68,11 +124,24 @@ export default function TestsPage() {
   };
 
   const handleDeleteTest = (id: string) => {
-    toast.success('Test deleted', {
-      description: 'The test has been removed from your test suite.',
-    });
-    setTests((prev) => prev.filter((test) => test.id !== id));
-    setFilteredTests((prev) => prev.filter((test) => test.id !== id));
+    if (!selectedProject?.id) {
+      toast.error('No project selected');
+      return;
+    }
+
+    deleteTestMutation.mutate(
+      { projectId: selectedProject.id, testId: id },
+      {
+        onSuccess: () => {
+          toast.success('Test deleted', {
+            description: 'The test has been removed from your test suite.',
+          });
+        },
+        onError: () => {
+          toast.error('Failed to delete test');
+        },
+      }
+    );
   };
 
   const handleRunSelected = () => {
@@ -83,11 +152,15 @@ export default function TestsPage() {
   };
 
   const handleDeleteSelected = () => {
-    toast.success(`Deleted ${selectedTests.length} tests`, {
-      description: 'The selected tests have been removed.',
+    if (!selectedProject?.id) {
+      toast.error('No project selected');
+      return;
+    }
+
+    // TODO: Implement bulk delete API
+    toast.info('Bulk delete feature coming soon', {
+      description: 'For now, please delete tests individually.',
     });
-    setTests((prev) => prev.filter((test) => !selectedTests.includes(test.id)));
-    setFilteredTests((prev) => prev.filter((test) => !selectedTests.includes(test.id)));
     setSelectedTests([]);
   };
 
@@ -120,11 +193,45 @@ export default function TestsPage() {
       <TestFilters
         onSearchChange={handleSearchChange}
         onStatusChange={handleStatusChange}
-        onTypeChange={handleTypeChange}
+        onPriorityChange={handlePriorityChange}
+        onSortChange={handleSortChange}
       />
 
+      {/* Loading State */}
+      {isLoading && (
+        <div className="flex justify-center py-12">
+          <LoadingSpinner size="lg" />
+        </div>
+      )}
+
+      {/* Error State */}
+      {isError && selectedProject && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-6 dark:border-red-800 dark:bg-red-900/20">
+          <div className="flex items-center gap-3">
+            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+            <p className="text-sm font-medium text-red-800 dark:text-red-200">
+              Failed to load tests. Please try again.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* No Project Selected State */}
+      {!selectedProject && !isLoading && (
+        <div className="rounded-lg border border-gray-200 bg-white p-12 text-center dark:border-gray-700 dark:bg-gray-800">
+          <AlertCircle className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+            No Project Selected
+          </h3>
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            Please select a project from the dropdown above to view your tests.
+          </p>
+        </div>
+      )}
+
       {/* Test List */}
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+      {!isLoading && !isError && (selectedProject || filteredTests.length > 0) && (
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <BulkActions
           selectedCount={selectedTests.length}
           onRunSelected={handleRunSelected}
@@ -167,12 +274,15 @@ export default function TestsPage() {
                   Test Name
                 </th>
                 <th className="w-24 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  Type
+                  Priority
                 </th>
                 <th className="w-28 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
                   Status
                 </th>
-                <th className="hidden w-36 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 lg:table-cell">
+                <th className="hidden w-32 px-4 py-3 text-center text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 lg:table-cell">
+                  Runs
+                </th>
+                <th className="hidden w-40 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 lg:table-cell">
                   Success Rate
                 </th>
                 <th className="hidden w-32 px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400 xl:table-cell">
@@ -207,7 +317,8 @@ export default function TestsPage() {
             </p>
           </div>
         )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

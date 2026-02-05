@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 /**
  * Schema for test creation and editing
+ * Matches backend database schema
  */
 export const testSchema = z.object({
   name: z
@@ -14,43 +15,27 @@ export const testSchema = z.object({
     .min(10, 'Description must be at least 10 characters')
     .max(500, 'Description must not exceed 500 characters'),
 
-  type: z.enum(['api', 'ui', 'integration', 'unit'], {
-    message: 'Please select a valid test type',
+  specification: z
+    .string()
+    .min(10, 'Specification must be at least 10 characters')
+    .max(2000, 'Specification must not exceed 2000 characters')
+    .optional()
+    .or(z.literal('')),
+
+  priority: z.enum(['low', 'medium', 'high'], {
+    message: 'Please select a valid priority',
   }),
 
-  status: z.enum(['active', 'inactive', 'draft'], {
+  status: z.enum(['draft', 'active', 'inactive'], {
     message: 'Please select a valid status',
   }),
+
+  is_active: z.boolean(),
 
   tags: z.string().refine((val) => {
     if (!val.trim()) return true;
     return val.split(',').every((tag) => tag.trim().length > 0);
   }, 'Tags must be comma-separated and non-empty'),
-
-  code: z
-    .string()
-    .min(10, 'Test code must be at least 10 characters')
-    .max(10000, 'Test code must not exceed 10,000 characters'),
-
-  // Configuration
-  timeout: z
-    .number()
-    .min(1000, 'Timeout must be at least 1 second')
-    .max(300000, 'Timeout must not exceed 5 minutes'),
-
-  retries: z.number().min(0, 'Retries cannot be negative').max(5, 'Maximum 5 retries allowed'),
-
-  environment: z.enum(['development', 'staging', 'production'], {
-    message: 'Please select a valid environment',
-  }),
-
-  baseUrl: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
-
-  browser: z
-    .enum(['chrome', 'firefox', 'safari', 'edge'], {
-      message: 'Please select a valid browser',
-    })
-    .optional(),
 });
 
 export type TestFormData = z.infer<typeof testSchema>;
@@ -61,17 +46,9 @@ export type TestFormData = z.infer<typeof testSchema>;
 export const defaultTestValues: TestFormData = {
   name: '',
   description: '',
-  type: 'ui',
+  specification: '',
+  priority: 'medium',
   status: 'draft',
+  is_active: true,
   tags: '',
-  code: `describe('My Test', () => {
-  it('should pass', () => {
-    // Add your test code here
-  });
-});`,
-  timeout: 30000,
-  retries: 2,
-  environment: 'staging',
-  baseUrl: '',
-  browser: 'chrome',
 };

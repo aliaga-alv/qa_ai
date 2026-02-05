@@ -3,7 +3,12 @@
 ## 📚 Documentation Overview
 
 This directory contains comprehensive documentation for building a modern, futuristic web application for QA engineers using AI automation tools.
+## 🔄 Recent Changes
 
+**⚠️ NEW:** [RECENT_CHANGES.md](RECENT_CHANGES.md) - Latest API integrations and architectural updates (Feb 2026)
+- ✅ Subscriptions Management API (full CRUD)
+- ✅ Analytics Dashboard with real statistics
+- ✅ Cache clearing on logout for security
 ## � Directory Structure
 
 ```

@@ -4,13 +4,15 @@ import { useState } from 'react';
 interface TestFiltersProps {
   onSearchChange: (search: string) => void;
   onStatusChange: (status: string) => void;
-  onTypeChange: (type: string) => void;
+  onPriorityChange: (priority: string) => void;
+  onSortChange: (sort: string) => void;
 }
 
 export default function TestFilters({
   onSearchChange,
   onStatusChange,
-  onTypeChange,
+  onPriorityChange,
+  onSortChange,
 }: TestFiltersProps) {
   const [showFilters, setShowFilters] = useState(false);
 
@@ -60,17 +62,16 @@ export default function TestFilters({
 
           <div>
             <label className="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300 sm:mb-2 sm:text-sm">
-              Type
+              Priority
             </label>
             <select
-              onChange={(e) => onTypeChange(e.target.value)}
+              onChange={(e) => onPriorityChange(e.target.value)}
               className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
             >
-              <option value="all">All Types</option>
-              <option value="api">API</option>
-              <option value="ui">UI</option>
-              <option value="integration">Integration</option>
-              <option value="unit">Unit</option>
+              <option value="all">All Priorities</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
             </select>
           </div>
 
@@ -78,11 +79,15 @@ export default function TestFilters({
             <label className="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300 sm:mb-2 sm:text-sm">
               Sort By
             </label>
-            <select className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white">
-              <option value="name">Name</option>
-              <option value="created">Created Date</option>
-              <option value="updated">Last Updated</option>
-              <option value="lastRun">Last Run</option>
+            <select
+              onChange={(e) => onSortChange(e.target.value)}
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+            >
+              <option value="name">Name (A-Z)</option>
+              <option value="priority">Priority (High-Low)</option>
+              <option value="created">Newest First</option>
+              <option value="updated">Recently Updated</option>
+              <option value="lastRun">Recently Run</option>
             </select>
           </div>
         </div>

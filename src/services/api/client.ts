@@ -1,6 +1,7 @@
 import axios, { AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import { tokenStorage } from '@/lib/token-storage';
 import { ApiErrorHandler } from '@/lib/api-error-handler';
+import { queryClient } from '@/main';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
 
@@ -89,8 +90,9 @@ apiClient.interceptors.response.use(
 
       const refreshToken = tokenStorage.getRefreshToken();
       if (!refreshToken) {
-        // No refresh token, logout
+        // No refresh token, logout and clear cache
         tokenStorage.clearTokens();
+        queryClient.clear();
         window.location.href = '/login';
         return Promise.reject(error);
       }
@@ -120,9 +122,10 @@ apiClient.interceptors.response.use(
         }
         return apiClient(originalRequest);
       } catch (refreshError) {
-        // Refresh failed, logout
+        // Refresh failed, logout and clear cache
         processQueue(refreshError, null);
         tokenStorage.clearTokens();
+        queryClient.clear();
         window.location.href = '/login';
         return Promise.reject(refreshError);
       } finally {

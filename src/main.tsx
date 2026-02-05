@@ -8,7 +8,7 @@ import { useThemeStore } from './stores/themeStore';
 import './styles/globals.css';
 
 // TanStack Query client configuration
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes - data stays fresh

@@ -1,15 +1,20 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { tokenStorage } from '@/lib/token-storage';
+import { queryClient } from '@/main';
 
 export interface User {
-  id: string;
+  id?: string;
+  name: string;
   email: string;
-  firstName: string;
-  lastName: string;
-  role: 'user' | 'admin';
-  emailVerified: boolean;
-  createdAt: string;
+  subscription: string | null;
+  subscription_required: boolean;
+  teams?: Array<{
+    id: number;
+    name: string;
+    role: string;
+    is_default: boolean;
+  }>;
 }
 
 interface AuthState {
@@ -26,7 +31,6 @@ interface AuthActions {
   login: (user: User, accessToken: string, refreshToken: string) => void;
   logout: () => void;
   clearError: () => void;
-  loginTestUser: () => void; // Development only
 }
 
 type AuthStore = AuthState & AuthActions;
@@ -68,6 +72,8 @@ export const useAuthStore = create<AuthStore>()(
 
       logout: () => {
         tokenStorage.clearTokens();
+        // Clear all TanStack Query cache to prevent data leakage between users
+        queryClient.clear();
         set({
           user: null,
           isAuthenticated: false,
@@ -79,28 +85,6 @@ export const useAuthStore = create<AuthStore>()(
         set({
           error: null,
         }),
-
-      // Development: Login test user without API
-      loginTestUser: () => {
-        const testUser: User = {
-          id: 'test-user-123',
-          email: 'test@qaai.com',
-          firstName: 'Test',
-          lastName: 'User',
-          role: 'admin',
-          emailVerified: true,
-          createdAt: new Date().toISOString(),
-        };
-
-        // Mock tokens
-        tokenStorage.setTokens('test-access-token', 'test-refresh-token');
-
-        set({
-          user: testUser,
-          isAuthenticated: true,
-          error: null,
-        });
-      },
     }),
     {
       name: 'auth-storage',

@@ -135,12 +135,11 @@ export const Header = ({ variant = 'default', sticky = true, className }: Header
                 >
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-500">
                     <span className="text-sm font-medium text-white">
-                      {user.firstName.charAt(0)}
-                      {user.lastName.charAt(0)}
+                      {user.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">
-                    {user.firstName}
+                    {user.name}
                   </span>
                 </button>
 

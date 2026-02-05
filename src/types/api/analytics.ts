@@ -24,21 +24,72 @@ export interface TestTrendsParams extends AnalyticsRangeParams {
 // ============== Responses ==============
 
 export interface DashboardStatsResponse {
-  stats: {
-    totalTests: number;
-    activeTests: number;
-    totalRuns: number;
-    successRate: number;
-    averageDuration: number;
-    testsThisMonth: number;
-    runsThisMonth: number;
+  total_projects: number;
+  total_tests: number;
+  active_tests: number;
+  passing_tests: number;
+  failing_tests: number;
+  status_breakdown: {
+    draft: number;
+    planned: number;
+    generated: number;
+    passing: number;
+    failing: number;
+    error: number;
   };
-  recentActivity: Array<{
-    id: string;
-    type: 'test_created' | 'test_run' | 'test_failed' | 'test_passed';
-    message: string;
-    timestamp: Date;
+  validation: {
+    total: number;
+    passed: number;
+    failed: number;
+    success_rate: number;
+    failure_rate: number;
+  };
+  execution: {
+    total_runs: number;
+    passed_runs: number;
+    failed_runs: number;
+    success_rate: number;
+  };
+  weekly_comparison: {
+    tests_created: {
+      this_week: number;
+      last_week: number;
+      change_percent: number;
+    };
+    validations: {
+      this_week: number;
+      last_week: number;
+      change_percent: number;
+    };
+    passed_validations: {
+      this_week: number;
+      last_week: number;
+      change_percent: number;
+    };
+  };
+  daily_trends: Array<{
+    date: string;
+    day: string;
+    total: number;
+    passed: number;
+    failed: number;
   }>;
+  top_executed_tests: Array<{
+    id: number;
+    name: string;
+    full_name: string;
+    run_count: number;
+    validation_count: number;
+    total_executions: number;
+    pass_rate: number;
+    status: string;
+  }>;
+  test_durations: Array<{
+    date: string;
+    avg_duration: number;
+    p95_duration: number;
+  }>;
+  generated_at: string;
 }
 
 export interface TestTrendsResponse {

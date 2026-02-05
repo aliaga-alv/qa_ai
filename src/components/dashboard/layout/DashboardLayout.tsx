@@ -17,6 +17,7 @@ import {
 import { useAuthStore } from '@/stores/authStore';
 import { useTheme } from '@/hooks/useTheme';
 import NotificationsWidget from '../NotificationsWidget';
+import ProjectSelector from '../ProjectSelector';
 import Tooltip from '@/components/common/Tooltip';
 import { DASHBOARD_NAVIGATION } from '@/constants';
 
@@ -170,7 +171,7 @@ export default function DashboardLayout() {
       >
         {/* Top header */}
         <header className="sticky top-0 z-30 border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-          <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
             {/* Mobile menu button */}
             <button
               onClick={() => setSidebarOpen(true)}
@@ -179,8 +180,13 @@ export default function DashboardLayout() {
               <Menu className="h-6 w-6" />
             </button>
 
+            {/* Project Selector - visible on larger screens */}
+            <div className="hidden lg:block">
+              <ProjectSelector />
+            </div>
+
             {/* Search bar */}
-            <div className="mx-4 max-w-2xl flex-1">
+            <div className="max-w-2xl flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                 <input
@@ -212,11 +218,11 @@ export default function DashboardLayout() {
                   className="flex items-center space-x-3 rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-accent-500 text-sm font-semibold text-white">
-                    {user?.firstName?.charAt(0) || user?.email?.charAt(0) || 'U'}
+                    {user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'}
                   </div>
                   <div className="hidden text-left sm:block">
                     <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                      {user ? `${user.firstName} ${user.lastName}` : 'User'}
+                      {user?.name || 'User'}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
                       {user?.email || 'user@example.com'}

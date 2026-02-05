@@ -66,11 +66,20 @@ export const API_TESTS = {
 
 // Test runs endpoints
 export const API_TEST_RUNS = {
+  // Trigger a test run (POST)
+  TRIGGER: (testId: string | number) => `${API_BASE}/tests/${testId}/runs`,
+
+  // List runs for a specific test (GET)
   LIST: (testId: string | number) => `${API_BASE}/tests/${testId}/runs`,
-  CREATE: (testId: string | number) => `${API_BASE}/tests/${testId}/runs`,
-  GET: (runId: string | number) => `${API_BASE}/runs/${runId}`,
-  CANCEL: (runId: string | number) => `${API_BASE}/runs/${runId}/cancel`,
+
+  // Get run statistics for a test (GET)
   STATISTICS: (testId: string | number) => `${API_BASE}/tests/${testId}/runs/statistics`,
+
+  // Get single run details - includes step_results and execution_trace (GET)
+  GET: (runId: string | number) => `${API_BASE}/runs/${runId}`,
+
+  // Cancel a running test (POST)
+  CANCEL: (runId: string | number) => `${API_BASE}/runs/${runId}/cancel`,
 } as const;
 
 // Statistics/Analytics endpoints

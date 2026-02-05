@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Download, Filter } from 'lucide-react';
 import { toast } from 'sonner';
 import {
@@ -18,6 +18,9 @@ import {
 import DateRangePicker from '../../components/dashboard/analytics/DateRangePicker';
 import FlakyTestsList from '../../components/dashboard/analytics/FlakyTestsList';
 import AIInsights from '../../components/dashboard/analytics/AIInsights';
+import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { ErrorMessage } from '@/components/common/ErrorMessage';
+import { useOverallStatistics } from '@/hooks/api/useAnalytics';
 import {
   mockReliabilityChartData,
   mockCoverageChartData,
@@ -26,10 +29,8 @@ import {
   mockAnalyticsTrendData,
   mockPerformanceData,
 } from '@/mocks';
-import { mockAnalyticsStats } from '@/mocks/stats';
 
-// TODO: Replace with real API data
-const mockTrendData = mockAnalyticsTrendData;
+// TODO: Replace additional charts with real API data when endpoints available
 const mockReliabilityData = mockReliabilityChartData;
 const mockCoverageData = mockCoverageChartData;
 const mockFlakyTests = mockFlakyTestsData;
@@ -44,11 +45,119 @@ export default function AnalyticsPage() {
   const [dateRange, setDateRange] = useState(getInitialDateRange);
   const [selectedType, setSelectedType] = useState('all');
 
+  // Fetch statistics from API
+  const { data: statsData, isLoading, error } = useOverallStatistics();
+
+  // Transform API data to stats cards format
+  const analyticsStats = useMemo(() => {
+    if (!statsData) return [];
+
+    return [
+      {
+        label: 'Total Test Runs',
+        value: statsData.execution.total_runs.toString(),
+        change: `${statsData.weekly_comparison.validations.change_percent >= 0 ? '+' : ''}${statsData.weekly_comparison.validations.change_percent.toFixed(1)}%`,
+        positive: statsData.weekly_comparison.validations.change_percent >= 0,
+      },
+      {
+        label: 'Avg Success Rate',
+        value: `${statsData.execution.success_rate.toFixed(1)}%`,
+        change: `${statsData.weekly_comparison.passed_validations.change_percent >= 0 ? '+' : ''}${statsData.weekly_comparison.passed_validations.change_percent.toFixed(1)}%`,
+        positive: statsData.weekly_comparison.passed_validations.change_percent >= 0,
+      },
+      {
+        label: 'Active Tests',
+        value: statsData.active_tests.toString(),
+        change: `${statsData.weekly_comparison.tests_created.change_percent >= 0 ? '+' : ''}${statsData.weekly_comparison.tests_created.change_percent.toFixed(1)}%`,
+        positive: statsData.weekly_comparison.tests_created.change_percent >= 0,
+      },
+      {
+        label: 'Failing Tests',
+        value: statsData.failing_tests.toString(),
+        change: `${statsData.status_breakdown.failing} failing`,
+        positive: false,
+      },
+    ];
+  }, [statsData]);
+
+  // Transform daily trends data for chart
+  const trendData = useMemo(() => {
+    if (!statsData?.daily_trends) return mockAnalyticsTrendData;
+
+    return statsData.daily_trends.map((trend) => ({
+      date: trend.day,
+      passed: trend.passed,
+      failed: trend.failed,
+      total: trend.total,
+    }));
+  }, [statsData]);
+
+  // Transform status breakdown for reliability chart
+  const reliabilityData = useMemo(() => {
+    if (!statsData?.status_breakdown) return mockReliabilityData;
+
+    return [
+      { name: 'Passing', reliability: statsData.status_breakdown.passing },
+      { name: 'Failing', reliability: statsData.status_breakdown.failing },
+      { name: 'Error', reliability: statsData.status_breakdown.error },
+      { name: 'Draft', reliability: statsData.status_breakdown.draft },
+      { name: 'Generated', reliability: statsData.status_breakdown.generated },
+    ].filter((item) => item.reliability > 0); // Only show non-zero statuses
+  }, [statsData]);
+
+  // Transform top executed tests to flaky tests format
+  const topTests = useMemo(() => {
+    if (!statsData?.top_executed_tests) return mockFlakyTests;
+
+    return statsData.top_executed_tests.map((test) => ({
+      id: test.id.toString(),
+      name: test.name,
+      flakinessRate: test.pass_rate < 100 ? 100 - test.pass_rate : 0,
+      totalRuns: test.total_executions,
+      failures: Math.round(test.total_executions * (1 - test.pass_rate / 100)),
+      trend: 'stable' as const,
+    }));
+  }, [statsData]);
+
+  // Performance data from test durations
+  const performanceData = useMemo(() => {
+    if (!statsData?.test_durations || statsData.test_durations.length === 0) {
+      return mockPerformanceData;
+    }
+    // Transform test_durations when available
+    return statsData.test_durations.map((duration) => ({
+      date: duration.date,
+      avgDuration: duration.avg_duration,
+      p95Duration: duration.p95_duration,
+    }));
+  }, [statsData]);
+
   const handleExport = () => {
     toast.success('Exporting analytics report', {
       description: 'Your report will download shortly',
     });
   };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <LoadingSpinner size="lg" />
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    const apiError = error as { message?: string };
+    return (
+      <div className="flex min-h-[400px] items-center justify-center">
+        <ErrorMessage
+          message={apiError.message || 'Failed to load analytics data. Please try again later.'}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -96,7 +205,7 @@ export default function AnalyticsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
-        {mockAnalyticsStats.map((stat) => (
+        {analyticsStats.map((stat) => (
           <div
             key={stat.label}
             className="rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800 sm:p-4"
@@ -128,7 +237,7 @@ export default function AnalyticsPage() {
           Test Execution Trends
         </h3>
         <ResponsiveContainer width="100%" height={250}>
-          <AreaChart data={mockTrendData}>
+          <AreaChart data={trendData}>
             <CartesianGrid
               strokeDasharray="3 3"
               stroke="currentColor"
@@ -168,13 +277,13 @@ export default function AnalyticsPage() {
 
       {/* Two column layout */}
       <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
-        {/* Test Reliability */}
+        {/* Test Status Breakdown */}
         <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:rounded-xl sm:p-6">
           <h3 className="mb-3 text-base font-semibold text-gray-900 dark:text-white sm:mb-4 sm:text-lg">
-            Test Reliability
+            Test Status Distribution
           </h3>
           <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={mockReliabilityData} layout="vertical">
+            <BarChart data={reliabilityData} layout="vertical">
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke="currentColor"
@@ -194,7 +303,7 @@ export default function AnalyticsPage() {
                   border: '1px solid rgb(75 85 99)',
                   borderRadius: '0.5rem',
                 }}
-                formatter={(value) => [`${value ?? 0}%`, 'Reliability']}
+                formatter={(value) => [`${value ?? 0}`, 'Count']}
               />
               <Bar dataKey="reliability" fill="#8b5cf6" radius={[0, 8, 8, 0]} />
             </BarChart>
@@ -207,7 +316,7 @@ export default function AnalyticsPage() {
             Performance Trends
           </h3>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={mockPerformanceData}>
+            <LineChart data={performanceData}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke="currentColor"
@@ -277,7 +386,7 @@ export default function AnalyticsPage() {
 
       {/* Bottom row */}
       <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
-        <FlakyTestsList tests={mockFlakyTests} />
+        <FlakyTestsList tests={topTests} />
         <AIInsights insights={mockInsights} />
       </div>
     </div>

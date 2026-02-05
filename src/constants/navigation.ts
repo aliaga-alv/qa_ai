@@ -7,6 +7,7 @@ import {
   Settings,
   Users,
   Plug,
+  FolderOpen,
 } from 'lucide-react';
 
 /**
@@ -14,6 +15,7 @@ import {
  */
 export const DASHBOARD_NAVIGATION = [
   { name: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Projects', href: '/dashboard/projects', icon: FolderOpen },
   { name: 'Tests', href: '/dashboard/tests', icon: TestTube2 },
   { name: 'Run Tests', href: '/dashboard/run', icon: Play },
   { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
