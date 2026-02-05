@@ -14,5 +14,5 @@ export * from './useAnalytics';
 // Team hooks
 export * from './useTeam';
 
-// Billing hooks
-export * from './useBilling';
+// Subscription hooks
+export * from './useSubscriptions';

@@ -12,4 +12,3 @@ export * from './test-runs';
 export * from './projects';
 export * from './analytics';
 export * from './team';
-export * from './billing';

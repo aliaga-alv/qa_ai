@@ -34,7 +34,6 @@ src/
 │       ├── projects.ts      # Projects request/response types
 │       ├── analytics.ts     # Analytics request/response types
 │       ├── team.ts          # Team request/response types
-│       ├── billing.ts       # Billing request/response types
 │       ├── subscription.ts  # Subscription request/response types
 │       └── index.ts         # Centralized export
 ├── services/
@@ -47,7 +46,6 @@ src/
 │       ├── projects.service.ts
 │       ├── analytics.service.ts # Statistics API methods
 │       ├── team.service.ts
-│       ├── billing.service.ts
 │       ├── subscription.service.ts # Subscription plans & user subscriptions
 │       └── index.ts         # Centralized export
 └── hooks/
@@ -57,7 +55,6 @@ src/
         ├── useProjects.ts   # Projects TanStack Query hooks
         ├── useAnalytics.ts  # Analytics TanStack Query hooks
         ├── useTeam.ts       # Team TanStack Query hooks
-        ├── useBilling.ts    # Billing TanStack Query hooks
         ├── useSubscriptions.ts # Subscription management hooks
         └── index.ts         # Centralized export
 ```
@@ -273,11 +270,6 @@ function TestsPage() {
 ### Team
 - `teamService` - List members, invite, remove, update roles
 - Hooks: `useTeamMembers`, `useTeamMember`, `useTeamInvitations`, `useInviteMember`, `useRemoveMember`, `useUpdateMemberRole`
-
-### Billing (Legacy)
-- **Note:** `billing.service.ts` and `useBilling.ts` exist but are **not actively used**
-- These were superseded by the `subscription.service.ts` implementation
-- If you need subscription functionality, use the Subscriptions API below
 
 ### Subscriptions
 - `subscriptionService` - Plan management and user subscriptions

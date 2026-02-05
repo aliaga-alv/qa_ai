@@ -8,6 +8,6 @@ export { testRunsService } from './test-runs.service';
 export { projectsService } from './projects.service';
 export { statisticsService } from './analytics.service'; // Renamed to statistics
 export { teamService } from './team.service';
-export { subscriptionsService } from './billing.service'; // Renamed to subscriptions
+export { subscriptionService } from './subscription.service';
 
 export { default as apiClient } from './client';
